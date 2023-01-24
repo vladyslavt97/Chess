@@ -1,8 +1,11 @@
 import "./Chessboard.css"
 import Chess from 'chess.js';
+import { useRef, useState } from "react";
 
 export default function ChessBoard() {
     console.log('chess: ', Chess);
+    const [fen, setFen] = useState(FEN);
+    const { current: chess } = useRef(new Chess(fen));
     
     let rows = [];
     for (let i = 0; i < 8; i++) {
