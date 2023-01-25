@@ -26,14 +26,13 @@ export default function ChessBoard() {
         });
     }, [])
     
-    // console.log('board: ', typeof board);
-    const columnLetter = () => {
-        let i = 64;
-        while (i++ <= 71){
-            return String.fromCharCode(i); 
-        }
+
+    let result = [];
+    let i = 64;
+    while (i++ <= 71){
+        result.push(String.fromCharCode(i)); 
     }
-    console.log('cl: ', columnLetter());
+    console.log('result: ', result);
     
   return <div>
             <h1>ChessBorad component</h1>
@@ -44,7 +43,14 @@ export default function ChessBoard() {
                             <Row row={row} ind={index}/>
                         </div>
                     )
+                    )}
+            <div id="columns-letters-divs">{result.map((r, y)=>(
+                        <div key={y} id="columns-letters-div">
+                            <h5 id="columns-letters">{r}</h5>
+                        </div>
+                    )
                 )}
+            </div>
             </div>
   </div>
 }

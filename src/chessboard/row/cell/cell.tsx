@@ -33,9 +33,23 @@ export default function Cell(props: CellProps) {
     //         }); 
     // }, [])
 
+    //functions
+    const handleDragStart = () => {
 
-    // console.log('what is here?', props.cell);
+    }
+    const handleDragEnd = () => {
+        
+    }
+
     return <div>
-            <div id='cell'>{props.cell && <img src={`${props.cell?.type}${props.cell?.color}.png`} alt="some" id="piece"/>}</div>
+            <div id='cell'>{props.cell && 
+            <img 
+                src={`${props.cell?.type}${props.cell?.color}.png`} 
+                alt="some" 
+                id="piece"
+                onDragStart={handleDragStart}
+                onDragEnd={handleDragEnd}
+            />}
+            </div>
         </div>
 }
