@@ -32,7 +32,6 @@ export default function ChessBoard() {
     while (i++ <= 71){
         result.push(String.fromCharCode(i)); 
     }
-    console.log('result: ', result);
     
   return <div>
             <h1>ChessBorad component</h1>
