@@ -26,26 +26,13 @@ export default function ChessBoard() {
         });
     }, [])
     
-    console.log('board: ', typeof board);
-    
-    // const gettingRows = () =>{
-        
-    // }
-    // console.log('#: ', chess); 
+    // console.log('board: ', typeof board);
 
-    // let rows = [];
-    // for (let i = 0; i < 8; i++) {
-    //     let row = [];
-    //     for (let j = 0; j < 8; j++) {
-    //     row.push(<div key={i + '-' + j} className={i % 2 === j % 2 ? 'white' : 'black'}></div>);
-    //     }
-    //     rows.push(<div key={i} className="row">{row}</div>);
-    // }
 
   return <div>
             <h1>ChessBorad component</h1>
             <div className="chess-board">
-                {/* map */}
+                {/* one color here */}
                 {board.map((row, index) => (
                         <div key={index} >
                             <div id="rows-numbers">{index + 1}</div>
@@ -53,8 +40,6 @@ export default function ChessBoard() {
                         </div>
                     )
                 )}
-                {/* <div id="all-cells">{rows}</div> */}
-                {/* <div id="fen">{fen}</div> */}
             </div>
   </div>
 }

@@ -9,15 +9,11 @@ interface RowProps{
 
 export default function Row(props: RowProps) {
     //gets arrays and maps through them to pass to cell
-    // let row;
-    // for (let i = 1; i <= 8; i++) {
-    //     row.push(<div>{i}</div>);
-    // }
+
     return <div id='rows'>
-         {/* <div>{row}</div> */}
-            {/* map */}
+        {/* one color here */}
             {props.row.map((cell, index) => (
-                        <div key={index} >
+                        <div key={index} className={index % 2 ? 'cell-white' : 'cell-black'}>
                             <Cell cell={cell}/>
                         </div>
                     )
