@@ -1,9 +1,15 @@
 import "./Chessboard.css"
 import { Chess } from "chess.js";
 import { useEffect, useRef, useState } from "react";
+import Row from "./row/row";
+
+// interface ChessBoardState{
+//     board: array[],
+// }
 
 export default function ChessBoard() {
-    const [fen, setFen] = useState('');
+    //gets the data from server and passes to the components
+    const [board, setBoard] = useState([]);
     // const { current: chess } = useRef(new Chess(fen));
     
 
@@ -13,18 +19,18 @@ export default function ChessBoard() {
         )
         .then((data) => {
             console.log('GET Gamestate: ', data.st);
-            setFen(data.st);
+            setBoard(data.st);
         })
         .catch((error) => {
             console.error('Error caught:', error);
         });
     }, [])
     
-    console.log('fen: ', fen);
+    console.log('board: ', typeof board);
     
-    const gettingRows = () =>{
+    // const gettingRows = () =>{
         
-    }
+    // }
     // console.log('#: ', chess); 
 
     // let rows = [];
@@ -39,6 +45,13 @@ export default function ChessBoard() {
   return <div>
             <h1>ChessBorad component</h1>
             <div className="chess-board">
+                {/* map */}
+                {board.map((row, index) => (
+                        <div key={index} >
+                            <Row row={row}/>
+                        </div>
+                    )
+                )}
                 {/* <div id="all-cells">{rows}</div> */}
                 {/* <div id="fen">{fen}</div> */}
             </div>
