@@ -45,7 +45,7 @@ export default function Cell(props: CellProps) {
     }
     const handleDragOver = (e: any)=>{
         (e: any) => e.preventDefault();
-        console.log('event: ', e.dataTransfer);
+        // console.log('event: ', e.dataTransfer);
         
         
     }
