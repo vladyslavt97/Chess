@@ -41,7 +41,7 @@ function getState(){
 // console.log('fenWithoutSpace: ', fenWithoutSpace);
 app.get('/api/gamestate', (req, res) => {
   console.log('+');
-  const state = chess.board();
+  const state = chess.board().reverse();
   console.log('stateee: ', state);
   res.json({st: state});
 

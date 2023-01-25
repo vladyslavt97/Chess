@@ -17,20 +17,23 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    width: 72vw;
     border: 3px solid rgb(0, 0, 0);
+        rotate: -90deg;
+        margin: auto
 }
 #all-cells{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     max-width: 640px;
+        /* rotate: 90deg; */
+}
+#rows-numbers{
+    rotate: 90deg;
 }
 
-.row{
-    
-}
 
-.white{
+/* .white{
     width: var(--main-cell-size);
     height: var(--main-cell-size);
     background-color: #b5915f;
@@ -40,7 +43,7 @@ body{
     width: var(--main-cell-size);
     height: var(--main-cell-size);
     background-color: #441a03;
-}
+} */
 
 .possible-move {
     background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);

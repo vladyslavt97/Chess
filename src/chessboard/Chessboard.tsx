@@ -48,6 +48,7 @@ export default function ChessBoard() {
                 {/* map */}
                 {board.map((row, index) => (
                         <div key={index} >
+                            <div id="rows-numbers">{index + 1}</div>
                             <Row row={row}/>
                         </div>
                     )

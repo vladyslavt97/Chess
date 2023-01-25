@@ -1,0 +1,31 @@
+#cell{
+    width: var(--main-cell-size);
+        height: var(--main-cell-size);
+        border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        rotate: 90deg;
+}
+
+/* .cell-white {
+    width: var(--main-cell-size);
+    height: var(--main-cell-size);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    rotate: 90deg;
+    background-color: #b5915f;
+}
+
+.cell-black {
+    width: var(--main-cell-size);
+    height: var(--main-cell-size);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    rotate: 90deg;
+    background-color: #441a03;
+} */
