@@ -14,7 +14,7 @@ export default function Cell(props: CellProps) {
     // convert object into figures
 
     // whenever there is a change in state, makes a post request and dispatches
-    //post request will do the chess.move with the parameter which is the square where it was moved to
+    //post request will do the chess.move({from: to:}) with the parameter which is the square where it was moved to
     //and therefore make changes to FEN 
     // useEffect(()=>{
     //     fetch('/api/movepiece', {
@@ -38,17 +38,12 @@ export default function Cell(props: CellProps) {
     const value = useRef(props.cell?.square);
     const handleDragStart = () => {
         console.log('handleDragStart');
-        console.log('value: ', value);
+        console.log('valu1e: ', value);
         console.log('value: ', value.current);
         // setNewPos(value.current);
         
     }
-    const handleDragOver = (e: any)=>{
-        (e: any) => e.preventDefault();
-        // console.log('event: ', e.dataTransfer);
-        
-        
-    }
+    
     const handleDragEnd = () => {
         console.log('handleDragEnd');
     }
@@ -56,15 +51,14 @@ export default function Cell(props: CellProps) {
     
     return <div>
             <div id='cell'>{props.cell && 
-            <img 
-                src={`${props.cell?.type}${props.cell?.color}.png`} 
-                alt="some" 
-                id="piece"
-                draggable={true}
-                onDragStart={handleDragStart}
-                onDragEnd={handleDragEnd}
-                onDragOver={handleDragOver}
-            />}
+                    <img 
+                        src={`${props.cell?.type}${props.cell?.color}.png`} 
+                        alt="some" 
+                        id="piece"
+                        draggable={true}
+                        onDragStart={handleDragStart}
+                        onDragEnd={handleDragEnd}
+                    />}
             </div>
         </div>
 }
