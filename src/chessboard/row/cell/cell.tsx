@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import './cell.css'
 interface C{
     square: string,
@@ -34,11 +34,16 @@ export default function Cell(props: CellProps) {
     // }, [])
 
     //functions
+    const value = useRef(props.cell?.square);
     const handleDragStart = () => {
-
+        console.log('handleDragStart');
+        console.log('value: ', value);
+        console.log('value: ', value.current);
+        
+        
     }
     const handleDragEnd = () => {
-        
+        console.log('handleDragEnd');
     }
 
     return <div>
@@ -47,8 +52,10 @@ export default function Cell(props: CellProps) {
                 src={`${props.cell?.type}${props.cell?.color}.png`} 
                 alt="some" 
                 id="piece"
+                draggable={true}
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
+                onDragOver={(e) => e.preventDefault()}
             />}
             </div>
         </div>
