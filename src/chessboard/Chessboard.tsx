@@ -27,8 +27,14 @@ export default function ChessBoard() {
     }, [])
     
     // console.log('board: ', typeof board);
-
-
+    const columnLetter = () => {
+        let i = 64;
+        while (i++ <= 71){
+            return String.fromCharCode(i); 
+        }
+    }
+    console.log('cl: ', columnLetter());
+    
   return <div>
             <h1>ChessBorad component</h1>
             <div className="chess-board">
