@@ -32,11 +32,10 @@ export default function ChessBoard() {
   return <div>
             <h1>ChessBorad component</h1>
             <div className="chess-board">
-                {/* one color here */}
                 {board.map((row, index) => (
                         <div key={index} >
-                            <div id="rows-numbers">{index + 1}</div>
-                            <Row row={row}/>
+                            <h5 id="rows-numbers" >{index + 1}</h5>
+                            <Row row={row} ind={index}/>
                         </div>
                     )
                 )}

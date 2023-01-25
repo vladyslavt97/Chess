@@ -7,7 +7,12 @@
         align-items: center;
         rotate: 90deg;
 } */
-
+.row-white{
+    background-color: white;
+}
+.row-black{
+    background-color: rgb(0, 0, 0);
+}
 .cell-white {
     width: var(--main-cell-size);
     height: var(--main-cell-size);
@@ -28,4 +33,8 @@
     align-items: center;
     rotate: 90deg;
     background-color: #441a03;
+}
+
+#piece {
+    z-index: 3;
 }

@@ -5,15 +5,15 @@ import './row.css'
 
 interface RowProps{
     row: []
+    ind: number
 }
 
 export default function Row(props: RowProps) {
     //gets arrays and maps through them to pass to cell
 
     return <div id='rows'>
-        {/* one color here */}
             {props.row.map((cell, index) => (
-                        <div key={index} className={index % 2 ? 'cell-white' : 'cell-black'}>
+                        <div key={index} className={index % 2 === props.ind % 2 ? 'cell-white' : 'cell-black'}>
                             <Cell cell={cell}/>
                         </div>
                     )
