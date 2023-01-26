@@ -38,8 +38,6 @@ app.get('/api/gamestate', (req, res) => {
 app.post('/api/legalmoves', (req, res) => {
   console.log('3131');
   console.log('req.body: ', req.body.possibleMoves);
-  // console.log('c: ', chess);
-  console.log('chess: ', chess.ascii());
   const movesLegal = chess.moves({ square: req.body.possibleMoves});
   console.log('moves: ', movesLegal);
   res.json({legalmoves: movesLegal});

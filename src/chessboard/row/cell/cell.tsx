@@ -10,6 +10,7 @@ interface CellProps{
     cell: C,
     rowIndex: number,
     columnLetter: string,
+    legalmoves: string[]
 }
 
 export default function Cell(props: CellProps) {
@@ -39,22 +40,44 @@ export default function Cell(props: CellProps) {
 
 
     //make on click of the image, not the cell    
-    // const getImagePosition = (event: any)=>{
-    //     let data = event.currentTarget.getAttribute("data-col");
-    //     console.log('the image is at', data);
-    // }        
+    const getImagePosition = (event: any)=>{
+        let data = event.currentTarget.getAttribute("data-col");
+        console.log('the image is at', data);
+    }        
+
+    // const ref = useRef<any>(null);
+    // console.log('legalmoves::: ', legalmoves);
+    // if(props.legalmoves.length !== 0){
+    //         for (const l of props.legalmoves) {
+    //         console.log('l: ', l);
+    //         console.log('l23: ', ref.current.getAttribute("data-col"));
+    //             if(ref.current.getAttribute("data-col") === l){
+    //                 console.log('match');
+                    
+    //             }else{
+    //                 console.log('no match');
+                    
+    //             }
+    //         }
+    // }
 
     return <div >
-            <div id='cell'
-            data-col={`${props.columnLetter}${props.rowIndex + 1}`}
-            >{props.cell && 
-                    <img 
-                        src={`${props.cell?.type}${props.cell?.color}.png`} 
-                        alt="some" 
-                        id="piece"
-                        draggable={true}
-                        // onClick={getImagePosition}
-                    />}
-            </div>
+            {/* {props.legalmoves.length !== 0 && <div>
+                {props.legalmoves.map(l => ( */}
+                    <div 
+                    // id={l === `${props.columnLetter}${props.rowIndex + 1}` ? 'cell' : undefined}
+                    // ref={ref}
+                    onClick={getImagePosition}
+                    data-col={`${props.columnLetter}${props.rowIndex + 1}`}
+                    >{props.cell && 
+                            <img 
+                                src={`${props.cell?.type}${props.cell?.color}.png`} 
+                                alt="some" 
+                                id="piece"
+                                // onClick={getImagePosition}
+                            />}
+                    </div>
+                {/* ))} */}
+                {/* </div>} */}
         </div>
 }
