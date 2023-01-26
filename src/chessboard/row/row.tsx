@@ -13,6 +13,7 @@ export default function Row(props: RowProps) {
     const handleDragOver = (e: any)=>{
         e.preventDefault();
         e.stopPropagation();
+        //settimeout to check every 500ms is the move is legal??
     }
 
     const handleDrop = (event: any)=>{
@@ -25,11 +26,11 @@ export default function Row(props: RowProps) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            // body: JSON.stringify({textarea: bio }),
+            body: JSON.stringify({data: data }),
         })
         .then(response => response.json())
         .then(data => {
-            console.log('data: ', data);
+            console.log('data handledrop movepiece row.tsx: ', data);
         })
         .catch(err => {
                 console.log('er: ', err);

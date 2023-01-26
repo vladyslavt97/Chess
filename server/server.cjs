@@ -46,6 +46,12 @@ app.get('/api/gamestate', (req, res) => {
   res.json({st: state});
 
 });
+app.post('/api/movepiece', (req, res) => {
+  const state = chess.move();
+  console.log('stateee: ', state);
+  res.json({st: state});
+
+});
 
 app.listen(PORT, function () {
     console.log(`Express server listening on port ${PORT}`);
