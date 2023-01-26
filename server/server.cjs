@@ -15,31 +15,19 @@ const chess = new Chess(FEN)
 //   chess.move(move)
 // }
 // console.log('chess', chess.board());
-console.log('ascii', chess.ascii());
+// console.log('ascii', chess.ascii());
 // console.log('clear', chess.clear());//clears the board
-console.log('fen', chess.fen());
-console.log('get', chess.get('a7')); //get(square) = returns the piece on the square
+// console.log('fen', chess.fen());
+// console.log('get', chess.get('a7')); //get(square) = returns the piece on the square
 // console.log(chess.put({ type: chess.PAWN, color: chess.BLACK }, 'a5')); // put a black pawn on a5; ?????
-console.log('h: ', chess.history()); // returns the history of the current game
-console.log('in check: ', chess.inCheck());//boolean
-console.log('mate?: ', chess.isCheckmate());
-console.log('is attacked: ', chess.isAttacked('e5'));//true if the square is attacked by any piece of the given color.???
-console.log('undo: ', chess.undo());//undo a move!
+// console.log('h: ', chess.history()); // returns the history of the current game
+// console.log('in check: ', chess.inCheck());//boolean
+// console.log('mate?: ', chess.isCheckmate());
+// console.log('is attacked: ', chess.isAttacked('e5'));//true if the square is attacked by any piece of the given color.???
+// console.log('undo: ', chess.undo());//undo a move!
 // console.log('move: ', chess.move(''));
-function getState(){
-  return chess.ascii();
-}
-// app.use(express.json());
 
-// function convertToBoard(){
-//   let board = chess.board();
-//   let loopOverRows = board.map(el => el);
-//   console.log('loopOverRows', loopOverRows);
-// };
 
-// const state = getState();
-// const fenWithoutSpace = state.split('.').join('').split(' ').join('').split('|').join('');
-// console.log('fenWithoutSpace: ', fenWithoutSpace);
 app.get('/api/gamestate', (req, res) => {
   console.log('+');
   const state = chess.board().reverse();
@@ -47,8 +35,13 @@ app.get('/api/gamestate', (req, res) => {
   res.json({st: state});
 
 });
-app.post('/api/movepiece', (req, res) => {
-  console.log('req.body: ', req.body);
+app.post('/api/legalmoves', (req, res) => {
+  console.log('req.body: ', req.body.possibleMoves);
+  console.log('c: ', chess);
+  console.log('chess: ', chess.ascii());
+  const movesLegal = chess.moves({ square: req.body.possibleMoves});
+  console.log('moves: ', movesLegal);
+  res.json({legalmoves: movesLegal});
   // const state = chess.move({ from: 'e5', to: 'f4' })
   // console.log('stateee: ', state);
   // res.json({st: state});

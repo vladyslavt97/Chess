@@ -3,14 +3,10 @@ import { Chess } from "chess.js";
 import { useEffect, useRef, useState } from "react";
 import Row from "./row/row";
 
-// interface ChessBoardState{
-//     board: array[],
-// }
 
 export default function ChessBoard() {
     //gets the data from server and passes to the components
     const [board, setBoard] = useState([]);
-    // const { current: chess } = useRef(new Chess(fen));
     
 
     useEffect(()=>{
