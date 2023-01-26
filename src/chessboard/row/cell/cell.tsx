@@ -53,15 +53,20 @@ export default function Cell(props: CellProps) {
     // }
 
     const handleDragEnd = (event: DragEvent<HTMLDivElement>) => {
-        console.log('handleDragEnd', event.currentTarget);
+        console.log('handleDragEnd');
+        //move switch
+        
+        // console.log('handleDragEnd', event.currentTarget.dataset);
+        // console.log('target', event.target);
+        
     }
 
-    // console.log('pcl', props.columnLetter);
             
-    
-    return <div data-col={`${props.columnLetter}${props.rowIndex + 1}`}>
+    return <div >
             <div id='cell'
             // onDragOver={handleDragOver}
+            data-col={`${props.columnLetter}${props.rowIndex + 1}`}
+
             onDragEnd={handleDragEnd}
             onDragStart={handleDragStart}
             >{props.cell && 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { DragEvent, useEffect } from 'react'
 import Cell from './cell/cell'
 import './row.css'
 
@@ -13,18 +13,31 @@ export default function Row(props: RowProps) {
     const handleDragOver = (e: any)=>{
         e.preventDefault();
         e.stopPropagation();
-        console.log('on drag over');
     }
-    // const handleDrop = (event: any)=>{
-    //     console.log('handleDrop');
-    //     //the fen should get updated here?
-    //     //post to update DB? and dispatch
-    //     event.dataTransfer.getData("drag-item") 
-    // }
-    // console.log('prop: ', props);
+
+    const handleDrop = (event: any)=>{
+        let data = event.currentTarget.getAttribute("data-col");
+        console.log('handleDrop', data);
+        //the fen should get updated here?
+        //post to update DB? and dispatch
+        fetch('/api/movepiece', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            // body: JSON.stringify({textarea: bio }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('data: ', data);
+        })
+        .catch(err => {
+                console.log('er: ', err);
+            }); 
+    }
 
     const getLetterFromIndex = (index: number): string => {
-        return String.fromCharCode(65 + index);
+        return String.fromCharCode(65 + index).toLowerCase();
     }
 
     return <div id='rows'>
@@ -32,7 +45,9 @@ export default function Row(props: RowProps) {
                 //ondragover and ondrop 
                         <div key={columnIndex} 
                             className={columnIndex % 2 === props.rowIndex % 2 ? 'cell-white' : 'cell-black'}
-                            // onDrop={handleDrop}
+                            onDrop={handleDrop}
+                            data-col={`${getLetterFromIndex(columnIndex)}${props.rowIndex + 1}`}
+
                             onDragOver={handleDragOver}
                             >
                             <Cell cell={cell} columnLetter={getLetterFromIndex(columnIndex)} rowIndex={props.rowIndex}/>
