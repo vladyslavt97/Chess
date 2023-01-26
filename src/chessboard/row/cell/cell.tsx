@@ -10,73 +10,65 @@ interface CellProps{
     cell: C,
     rowIndex: number,
     columnLetter: string,
-    theMoveIsFrom: Function,
-    handleDrop: (e: DragEvent<HTMLDivElement>) => void
+    moveTo: string
 }
 
 export default function Cell(props: CellProps) {
+    const [moveFrom, setMoveFrom] = useState('');
+    // const [moveTo, setMoveTo] = useState('');
     // convert object into figures
 
     // whenever there is a change in state, makes a post request and dispatches
     //post request will do the chess.move({from: to:}) with the parameter which is the square where it was moved to
     //and therefore make changes to FEN 
-    // useEffect(()=>{
-    //     fetch('/api/movepiece', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         // body: JSON.stringify({textarea: bio }),
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log('data: ', data);
-    //     })
-    //     .catch(err => {
-    //             console.log('er: ', err);
-    //         }); 
-    // }, [])
 
-    //functions
-    // const [newPos, setNewPos] = useState({});
     const value = props.cell?.square;
-    //const value = useRef(props.cell?.square);
     const handleDragStart = () => {
         console.log('handleDragStart');
-        console.log('handleDragStart valu1e: ', value);
-        console.log('handleDragStart value: ', value/*.current*/);
-        // setNewPos(value.current);
-        props.theMoveIsFrom(value/*.current*/)
+        console.log('handleDragStart value: ', value);
+        // props.theMoveIsFrom(value)
+        setMoveFrom(value);
     }
 
-    
-    // const handleDragOver = (e: any)=>{
-    //     e.preventDefault();
-    //     e.stopPropagation();
-    //     console.log('on drag over: ');
-    // }
+    console.log('11: ', moveFrom);
+    console.log('22: ', props.moveTo);
+    // setMoveTo(props.moveTo);
 
     const handleDragEnd = (event: DragEvent<HTMLDivElement>) => {
         console.log('handleDragEnd');
-        props.handleDrop(event);
-        //move switch
-
-        // console.log('handleDragEnd', event.currentTarget.dataset);
-        // console.log('target', event.target);
+        // setMoveTo(props.moveTo)
+        console.log('1: ', moveFrom);
+        console.log('2: ', props.moveTo);
         
+        fetch('/api/movepiece', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({to: props.moveTo, from: moveFrom}),
+        })
+        .then(response => {
+            console.log('log the response: ', moveFrom);
+            
+            response.json()
+        })
+        .then(data => {
+            console.log('data handledrop movepiece row.tsx: ', data);
+        })
+        .catch(err => {
+                console.log('er: ', err);
+            });
     }
 
             
     return <div >
             <div id='cell'
-            // onDragOver={handleDragOver}
             data-col={`${props.columnLetter}${props.rowIndex + 1}`}
-
-            onDragEnd={handleDragEnd}
-            onDragStart={handleDragStart}
             >{props.cell && 
                     <img 
                         src={`${props.cell?.type}${props.cell?.color}.png`} 
+                        onDragStart={handleDragStart}
+                        onDragEnd={handleDragEnd}
                         alt="some" 
                         id="piece"
                         draggable={true}
