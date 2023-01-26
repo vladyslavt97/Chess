@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 // const path = require("path");
 const { PORT } = process.env;
+app.use(express.json());
 
 const {Chess} = require('chess.js')
 const FEN = 'rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq - 0 2';
@@ -47,9 +48,10 @@ app.get('/api/gamestate', (req, res) => {
 
 });
 app.post('/api/movepiece', (req, res) => {
-  const state = chess.move();
-  console.log('stateee: ', state);
-  res.json({st: state});
+  console.log('req.body: ', req.body);
+  // const state = chess.move({ from: 'e5', to: 'f4' })
+  // console.log('stateee: ', state);
+  // res.json({st: state});
 
 });
 

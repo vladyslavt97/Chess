@@ -9,7 +9,8 @@ interface C{
 interface CellProps{
     cell: C,
     rowIndex: number,
-    columnLetter: string
+    columnLetter: string,
+    theMoveIsFrom: Function
 }
 
 export default function Cell(props: CellProps) {
@@ -43,8 +44,9 @@ export default function Cell(props: CellProps) {
         console.log('handleDragStart valu1e: ', value);
         console.log('handleDragStart value: ', value.current);
         // setNewPos(value.current);
-        
+        props.theMoveIsFrom(value.current)
     }
+
     
     // const handleDragOver = (e: any)=>{
     //     e.preventDefault();
@@ -55,7 +57,7 @@ export default function Cell(props: CellProps) {
     const handleDragEnd = (event: DragEvent<HTMLDivElement>) => {
         console.log('handleDragEnd');
         //move switch
-        
+
         // console.log('handleDragEnd', event.currentTarget.dataset);
         // console.log('target', event.target);
         
