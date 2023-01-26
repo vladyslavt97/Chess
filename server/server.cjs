@@ -31,13 +31,14 @@ const chess = new Chess(FEN)
 app.get('/api/gamestate', (req, res) => {
   console.log('+');
   const state = chess.board().reverse();
-  console.log('stateee: ', state);
+  // console.log('stateee: ', state);
   res.json({st: state});
 
 });
 app.post('/api/legalmoves', (req, res) => {
+  console.log('3131');
   console.log('req.body: ', req.body.possibleMoves);
-  console.log('c: ', chess);
+  // console.log('c: ', chess);
   console.log('chess: ', chess.ascii());
   const movesLegal = chess.moves({ square: req.body.possibleMoves});
   console.log('moves: ', movesLegal);
