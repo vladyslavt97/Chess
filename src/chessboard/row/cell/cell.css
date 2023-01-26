@@ -1,12 +1,12 @@
-/* #cell{
-    width: var(--main-cell-size);
-        height: var(--main-cell-size);
-        border: 1px solid black;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        rotate: 90deg;
-} */
+#cell{
+    /* width: var(--main-cell-size);
+    height: var(--main-cell-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%; */
+}
 .row-white{
     background-color: white;
 }

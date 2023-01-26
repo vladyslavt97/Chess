@@ -27,10 +27,10 @@ export default function ChessBoard() {
     }, [])
     
 
-    let result = [];
+    let letters = [];
     let i = 64;
     while (i++ <= 71){
-        result.push(String.fromCharCode(i)); 
+        letters.push(String.fromCharCode(i)); 
     }
     
   return <div>
@@ -39,11 +39,11 @@ export default function ChessBoard() {
                 {board.map((row, index) => (
                         <div key={index} >
                             <h5 id="rows-numbers" >{index + 1}</h5>
-                            <Row row={row} ind={index}/>
+                            <Row row={row} rowIndex={index}/>
                         </div>
                     )
                     )}
-            <div id="columns-letters-divs">{result.map((r, y)=>(
+            <div id="columns-letters-divs">{letters.map((r, y)=>(
                         <div key={y} id="columns-letters-div">
                             <h5 id="columns-letters">{r}</h5>
                         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { DragEventHandler, DragEvent, useEffect, useRef, useState } from 'react'
 import './cell.css'
 interface C{
     square: string,
@@ -7,7 +7,9 @@ interface C{
 }
 
 interface CellProps{
-    cell: C
+    cell: C,
+    rowIndex: number,
+    columnLetter: string
 }
 
 export default function Cell(props: CellProps) {
@@ -38,26 +40,36 @@ export default function Cell(props: CellProps) {
     const value = useRef(props.cell?.square);
     const handleDragStart = () => {
         console.log('handleDragStart');
-        console.log('valu1e: ', value);
-        console.log('value: ', value.current);
+        console.log('handleDragStart valu1e: ', value);
+        console.log('handleDragStart value: ', value.current);
         // setNewPos(value.current);
         
     }
     
-    const handleDragEnd = () => {
-        console.log('handleDragEnd');
+    // const handleDragOver = (e: any)=>{
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     console.log('on drag over: ');
+    // }
+
+    const handleDragEnd = (event: DragEvent<HTMLDivElement>) => {
+        console.log('handleDragEnd', event.currentTarget);
     }
-    // console.log('newPos: ', newPos);
+
+    // console.log('pcl', props.columnLetter);
+            
     
-    return <div>
-            <div id='cell'>{props.cell && 
+    return <div data-col={`${props.columnLetter}${props.rowIndex + 1}`}>
+            <div id='cell'
+            // onDragOver={handleDragOver}
+            onDragEnd={handleDragEnd}
+            onDragStart={handleDragStart}
+            >{props.cell && 
                     <img 
                         src={`${props.cell?.type}${props.cell?.color}.png`} 
                         alt="some" 
                         id="piece"
                         draggable={true}
-                        onDragStart={handleDragStart}
-                        onDragEnd={handleDragEnd}
                     />}
             </div>
         </div>
