@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { boardState } from "../redux/messagesSlice";
+import { originalBoardState } from "../redux/boardSlice";
 
 export let socket;
 export const initSocket = (store) => {//needs to update teh store
@@ -14,7 +14,7 @@ export const initSocket = (store) => {//needs to update teh store
         console.log('the board data in socket.js', data);
         console.log('here we get the board from the server to socket.js', data.rows);
 
-        const action = boardState(data.rows);//board starting position
+        const action = originalBoardState(data.rows);//board starting position
         store.dispatch(action);
     });
 

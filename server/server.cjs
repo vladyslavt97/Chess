@@ -1,10 +1,8 @@
 require('dotenv').config();
 const express = require("express");
 const app = express();
-// const path = require("path");
 const { PORT } = process.env;
 app.use(express.json());
-
 const {Chess} = require('chess.js')
 const FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 const chess = new Chess(FEN)
@@ -67,6 +65,38 @@ app.post('/api/movepiece', (req, res) => {
   
 });
 
-app.listen(PORT, function () {
+
+
+// ------------------------------------ SOCKET  ------------------------------------ //
+const server = require('http').Server(app);
+const io = require('socket.io')(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith(WEB_URL))
+});
+
+io.use((socket, next) => {
+    cookieSession(socket.request, socket.request.res, next);
+});
+let usersConnectedInfo = [];
+io.on("connection", async (socket) => {
+  console.log("[social:socket] incoming socket connection", socket.id);
+    
+  //check if the user is signed in.
+  const { userId } = socket.request.session;
+  if (!userId) { // I am not going to send data if a user is not signed in
+    return socket.disconnect(true);
+  }
+
+  // emit the board to dispatch the action (maybe get it from DB if its for a logged in user)
+  // send the board to the client who has just connected
+  let board = chess.board().reverse();
+  socket.emit('theBoard', board);
+
+  socket.on("disconnect", () => {
+    console.log(socket.id, '= should disappear from the list on onlinne users');
+  });
+});
+// ------------------------------------ end of socket setup  ------------------------------------ //
+server.listen(PORT, function () {
     console.log(`Express server listening on port ${PORT}`);
 });
