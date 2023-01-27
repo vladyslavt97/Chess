@@ -20,7 +20,7 @@ interface CellProps{
 }
 
 export default function Cell(props: CellProps) {
-
+    const movefromState = useSelector((state: RootState) =>state.moveFrom.value);
     
     // const [moveFrom, setMoveFrom] = useState('');
     const [legalmoves, setLegalMoves] = useState([]);
@@ -101,6 +101,12 @@ export default function Cell(props: CellProps) {
     //         }
     // }
 
+    const capturePiece = () => {
+        console.log('capture!!!');
+    }
+    console.log('movefromState123123123: ', movefromState);
+    console.log("legalmoves ex: ", legalmoves);
+    
     return <div >
             {/* {props.legalmoves.length !== 0 && <div>
                 {props.legalmoves.map(l => ( */}
@@ -109,12 +115,13 @@ export default function Cell(props: CellProps) {
                     // ref={ref}
                     // onClick={getImagePosition}
                     data-col={`${props.columnLetter}${props.rowIndex + 1}`}
-                    >{props.cell && 
+                    >{props.cell &&
                             <img 
                                 src={`${props.cell?.type}${props.cell?.color}.png`} 
-                                alt="some" 
+                                alt={props.cell.square}
                                 id="piece"
-                                onClick={getImagePositionFROM}
+                                onClick={legalmoves.length === 0 ? capturePiece : getImagePositionFROM}//moveFrom === sqaure (means that the state was set, therefore the move was madeFrom was clicked and it euqal to the square )
+                                // onClick={movefromState && props.cell.square === movefromState && legalmoves.length === 0 ? handleNothing : getImagePositionFROM}//moveFrom === sqaure (means that the state was set, therefore the move was madeFrom was clicked and it euqal to the square )
                             />}
                     </div>
                 {/* ))} */}

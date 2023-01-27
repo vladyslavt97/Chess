@@ -101,8 +101,7 @@ export default function Row(props: RowProps) {
         console.log('there is a figure there! Do not execute this log');
     }
     return <div id='rows' >
-            {props.row.map((cell, columnIndex) => (console.log('cell: ', cell),
-            
+            {props.row.map((cell, columnIndex) => (
                         <div key={columnIndex} 
                             className={columnIndex % 2 === props.rowIndex % 2 ? 'cell-white' : 'cell-black'}
                             // ref={ref}
