@@ -16,7 +16,6 @@ interface RowProps{
 export default function Row(props: RowProps) {
     // const movefromState = useSelector((state: RootState) =>state.moveFrom.value);
     const isPieceSelectedState = useSelector((state: RootState) =>state.moveFrom.valueSelected);
-    console.log('isPieceSelectedState: ', isPieceSelectedState);
     
     const [wrongMove, setWrongMove] = useState('');
 
@@ -61,7 +60,6 @@ export default function Row(props: RowProps) {
                     console.log('its not your turn :(');
                     
                 } else {
-                    // dispatch(legalMovesState(data.legalmoves))
                     setLegalMove(data.legalmoves);
                 }
             })
@@ -78,9 +76,7 @@ export default function Row(props: RowProps) {
     const getTheCellTOMove = (event: any)=>{
         let data = event.currentTarget.getAttribute("data-col");
         console.log('eventually, moveFrom: ', state, 'moveTo: ', data);
-        // setMoveTo(data)
         dispatch(isPieceSelected(false))
-
         fetch('/api/movepiece', {
             method: 'POST',
             headers: {
@@ -115,22 +111,29 @@ export default function Row(props: RowProps) {
         if(isPieceSelectedState){
             getTheCellTOMove(event);
             console.log('getTheCellTOMove');
-            
         } else {
             getImagePositionFROM(cell);
             console.log('getImagePositionFROM');
-            
         }
         
     }
 
-
+    //loop through legal moves to setAttribute
     for (let l of legalMove){
-        let matches = l.match(/\w[0-9]/);//match method on a string
+        let matches = l.match(/\w[0-9]/);
         if (matches){
-            let div = document.querySelectorAll(`[data-col=${matches[0]}]`);
-            (div[0] as HTMLElement).setAttribute('id', 'possible-move');
-        }
+            let dataAt = document.querySelectorAll(`[data-col=${matches[0]}]`);
+            (dataAt[0] as HTMLElement).setAttribute('id', 'possible-move');
+        } 
+    }
+
+    //loop through legal moves to removeAttribute
+    for (let l of legalMove){
+        let matches = l.match(/\w[0-9]/);
+        if (matches && !isPieceSelectedState){
+            let dataAt = document.querySelectorAll(`[data-col=${matches[0]}]`);
+            (dataAt[0] as HTMLElement).removeAttribute('id');
+        } 
     }
 
     return <div id='rows' >
