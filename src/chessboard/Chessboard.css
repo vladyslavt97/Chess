@@ -41,24 +41,5 @@ body{
 #columns-letters{
     rotate: 90deg;
 }
-/* .white{
-    width: var(--main-cell-size);
-    height: var(--main-cell-size);
-    background-color: #b5915f;
-}
 
-.black{
-    width: var(--main-cell-size);
-    height: var(--main-cell-size);
-    background-color: #441a03;
-} */
-
-#possible-move {
-    background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
-    opacity: 0.85;
-}
-
-#fen{
-    width: 100px;
-}
 

@@ -1,7 +1,6 @@
-import React, { DragEvent, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTheBoardState } from '../../redux/boardSlice';
-// import { legalMovesState } from '../../redux/legalmovesSlice';
 import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../../redux/moveFromSlice';
 import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
@@ -14,28 +13,16 @@ interface RowProps{
 }
 
 export default function Row(props: RowProps) {
-    // const movefromState = useSelector((state: RootState) =>state.moveFrom.value);
     const isPieceSelectedState = useSelector((state: RootState) =>state.moveFrom.valueSelected);
-    
-    const [wrongMove, setWrongMove] = useState('');
-
+    const [wrongMove, setWrongMove] = useState('');// generate the error!
     const [legalMove, setLegalMove] = useState<string[]>([]);
-
-    const [moveTo, setMoveTo] = useState('');
-    console.log('moveTo: ', moveTo);
-    
-    const state = useSelector((state: RootState) =>state.moveFrom.value);
-    console.log('state moveFrom: ', state);
-    
+    const [moveTo, setMoveTo] = useState('');//not used??
+    const stateMoveFrom = useSelector((state: RootState) =>state.moveFrom.value);
     const dispatch = useDispatch();
 
-    const getLetterFromIndex = (index: number): string => {
-        return String.fromCharCode(65 + index).toLowerCase();
-    }
-
+    //set legal moves, moveFrom and isPieceSelected
     const getImagePositionFROM = (cell: any)=>{
         if(cell){
-            // if the black is selected
             const value = cell.square;
             console.log('image clicked log', value);
             dispatch(moveFromState(value!))
@@ -72,17 +59,16 @@ export default function Row(props: RowProps) {
         }
     } 
 
-
     const getTheCellTOMove = (event: any)=>{
         let data = event.currentTarget.getAttribute("data-col");
-        console.log('eventually, moveFrom: ', state, 'moveTo: ', data);
+        console.log('eventually, moveFrom: ', stateMoveFrom, 'moveTo: ', data);
         dispatch(isPieceSelected(false))
         fetch('/api/movepiece', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({from: state, to: data}),
+            body: JSON.stringify({from: stateMoveFrom, to: data}),
         })
         .then(response => {
             if(response.status === 200){
@@ -119,13 +105,15 @@ export default function Row(props: RowProps) {
     }
 
     //loop through legal moves to setAttribute
-    for (let l of legalMove){
-        let matches = l.match(/\w[0-9]/);
-        if (matches){
-            let dataAt = document.querySelectorAll(`[data-col=${matches[0]}]`);
-            (dataAt[0] as HTMLElement).setAttribute('id', 'possible-move');
-        } 
-    }
+    useEffect(()=>{
+        for (let l of legalMove){
+            let matches = l.match(/\w[0-9]/);
+            if (matches){
+                let dataAt = document.querySelectorAll(`[data-col=${matches[0]}]`);
+                (dataAt[0] as HTMLElement).setAttribute('id', 'possible-move');
+            } 
+        }
+    }, [legalMove]);
 
     //loop through legal moves to removeAttribute
     for (let l of legalMove){
@@ -134,6 +122,10 @@ export default function Row(props: RowProps) {
             let dataAt = document.querySelectorAll(`[data-col=${matches[0]}]`);
             (dataAt[0] as HTMLElement).removeAttribute('id');
         } 
+    }
+
+    const getLetterFromIndex = (index: number): string => {
+        return String.fromCharCode(65 + index).toLowerCase();
     }
 
     return <div id='rows' >

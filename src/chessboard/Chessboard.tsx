@@ -17,7 +17,7 @@ export default function ChessBoard() {
         .then((response) => response.json()
         )
         .then((data) => {
-            console.log('GET Gamestate: ', data.st);
+            // console.log('GET Gamestate: ', data.st);
             dispatch(originalBoardState(data.st));
         })
         .catch((error) => {
