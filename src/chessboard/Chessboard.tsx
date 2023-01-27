@@ -31,8 +31,7 @@ export default function ChessBoard() {
         letters.push(String.fromCharCode(i)); 
     }
     
-  return <div>
-            <h1>ChessBorad component</h1>
+  return <div id="big-big-div">
             <div className="chess-board">
                 {board.map((row, index) => (
                         <div key={index} >

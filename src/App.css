@@ -1,0 +1,11 @@
+#lets-play-some-chess{
+   display: flex;
+   justify-content: center;
+}
+
+#lets-play-some-chess-text{
+    color: white;
+}
+:root {
+    --main-background: -webkit-linear-gradient(-86deg, #ffbb00 1%, #00a6ff 99%);
+}

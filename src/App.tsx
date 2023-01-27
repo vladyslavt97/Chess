@@ -13,7 +13,9 @@ export default function App() {
 
   return (
     <div className="main-div">
-       <h1>App component</h1>
+      <div id='lets-play-some-chess'>
+        <h1 id='lets-play-some-chess-text'>Lets Play Some Chess</h1>
+      </div>
         <ChessBoard />
         {checkMate && 
           <div id='checkmate'>

@@ -28,6 +28,10 @@ body{
 }
 #rows-numbers{
     rotate: 90deg;
+    background: var(--main-background);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 #columns-letters-divs{
     position: relative;
@@ -40,6 +44,17 @@ body{
 }
 #columns-letters{
     rotate: 90deg;
+    background: var(--main-background);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
 }
 
 
+#big-big-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 80vh;
+}
