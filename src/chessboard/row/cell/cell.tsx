@@ -20,8 +20,7 @@ interface CellProps{
 }
 
 export default function Cell(props: CellProps) {
-    // const movefromStateRedux = useSelector((state: RootState) =>state.movefrom.value);
-    // console.log('movefromStateRedux: ', movefromStateRedux);
+
     
     const [moveFrom, setMoveFrom] = useState('');
     const [legalmoves, setLegalMoves] = useState([]);

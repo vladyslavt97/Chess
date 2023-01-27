@@ -41,10 +41,19 @@ app.post('/api/legalmoves', (req, res) => {
   const movesLegal = chess.moves({ square: req.body.possibleMoves});
   console.log('legal moves: ', movesLegal);
   res.json({legalmoves: movesLegal});
-  // const state = chess.move({ from: 'e5', to: 'f4' })
-  // console.log('stateee: ', state);
-  // res.json({st: state});
 
+});
+app.post('/api/movepiece', (req, res) => {
+  console.log('req.body movepiece: ', req.body);
+  let from = req.body.from;
+  let to = req.body.to;
+  console.log('f,t: ', from, to);
+  chess.move({ from: from , to: to })
+  // console.log('ascii', chess.ascii());
+  // console.log('stateee: ', state);
+  const state = chess.board().reverse();
+
+  res.json({moved: state});
 });
 
 app.listen(PORT, function () {

@@ -1,4 +1,6 @@
 import React, { DragEvent, useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
 import './row.css'
 
@@ -13,6 +15,9 @@ export default function Row(props: RowProps) {
     const [moveTo, setMoveTo] = useState('');
     //gets arrays and maps through them to pass to cell
     
+    const state = useSelector((state: RootState) =>state.moveFrom.value);
+    console.log('state: ', state);
+
     // let to = event.currentTarget.getAttribute("data-col")+'';
     const getLetterFromIndex = (index: number): string => {
         return String.fromCharCode(65 + index).toLowerCase();
@@ -32,21 +37,21 @@ export default function Row(props: RowProps) {
         // console.log('moveFrom: : : ', moveFrom);
         setMoveTo(data)
         console.log('mf: ', moveFrom);
+         console.log('state of moveFrom: ', state);
         
+         console.log('eventually: ', state, 'd: ', data);
+         
         fetch('/api/movepiece', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({from: moveFrom, to: data}),
+            body: JSON.stringify({from: state, to: data}),
         })
-        .then(response => {
-            // console.log('only TO gets logged: ', data, 'From', moveFrom);//if moveTo ===  undefined
-            
-            return response.json()
-        })
+        .then(response => response.json())
         .then(data => {
-            console.log('data handledrop movepiece row.tsx: ', data);
+            console.log('data getTheCellTOMove: ', data);
+            dispatch(updateTheBoardState(data.moved))
         })
         .catch(err => {
                 console.log('er24-52-45928-: ', err);
