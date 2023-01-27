@@ -10,9 +10,8 @@
 }
 
 #checkmate-text{
-    font-size: 100px;
+    font-size: 50px;
     z-index: 1;
-    color: white;
 }
 
 #backdrop-of-checkmate{
@@ -26,8 +25,4 @@
 #checkmate-button{
     width: 100px;
     height: 40px;
-    background-color: greenyellow;
-    border-radius: 40px;
-    border: 1px solid rgb(0, 255, 0);
-    z-index: 1;
 }
