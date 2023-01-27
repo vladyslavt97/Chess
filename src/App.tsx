@@ -15,9 +15,10 @@ export default function App() {
     <div className="main-div">
        <h1>App component</h1>
         <ChessBoard />
-        {checkMate && <div id='checkmate'>
-                        <CheckMate />
-                    </div>}
+        {checkMate && 
+          <div id='checkmate'>
+              <CheckMate />
+          </div>}
     </div>
   );
 }

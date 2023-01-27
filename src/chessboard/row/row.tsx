@@ -6,7 +6,7 @@ import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../../redux/mo
 import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
 import './row.css'
-
+import { socket } from '../../socket/socket';
 
 interface RowProps{
     row: Array<object>,
@@ -83,6 +83,7 @@ export default function Row(props: RowProps) {
             console.log('data: ', data.checkMate);//true
             dispatch(checkMateState(data.checkMate))
             dispatch(updateTheBoardState(data.moved))
+            socket.emit("private_message", {moveToEmit: data.moved});
         })
         .then(()=>{
             dispatch(clearTheMoveFrom(''))
