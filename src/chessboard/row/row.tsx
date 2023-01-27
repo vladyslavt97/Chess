@@ -1,6 +1,7 @@
 import React, { DragEvent, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTheBoardState } from '../../redux/boardSlice';
+import { isPieceSelected, moveFromState } from '../../redux/moveFromSlice';
 import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
 import './row.css'
@@ -14,12 +15,12 @@ interface RowProps{
 export default function Row(props: RowProps) {
     const [moveFrom, setMoveFrom] = useState('');
     const [moveTo, setMoveTo] = useState('');
-    //gets arrays and maps through them to pass to cell
-    
+    // const [legalmoves, setLegalMoves] = useState([]);
+
+    // const movefromState = useSelector((state: RootState) =>state.moveFrom.value);
+    const isPieceSelectedState = useSelector((state: RootState) =>state.moveFrom.valueSelected);
+
     const state = useSelector((state: RootState) =>state.moveFrom.value);
-    console.log('state: ', state);
-    const state2 = useSelector((state: RootState) =>state.board.boardValue);
-    console.log('state2: ', state2);
     const dispatch = useDispatch();
 
     // let to = event.currentTarget.getAttribute("data-col")+'';
@@ -31,10 +32,46 @@ export default function Row(props: RowProps) {
         console.log('theMoveIsFrom: ', data);
         setMoveFrom(data);
     }
-    useEffect(()=>{
-        console.log('moveFrom: : : ', moveFrom);//if not empty string
-    }, [moveFrom])
-    
+
+
+    const getImagePositionFROM = (cell: any)=>{
+        if(cell){
+            // if the black is selelcted
+            const value = cell.square;
+            console.log('image clicked log', value);
+            // props.theMoveIsFrom(value)
+            dispatch(moveFromState(value!))
+            // setMoveFrom(value);
+            // console.log('moveTo props: ', props.moveTo);
+            dispatch(isPieceSelected(true))
+
+            fetch('/api/legalmoves', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({possibleMoves: value}),
+            })
+            .then(response => {
+                console.log('log the response: ', value);
+                return response.json()
+            })
+            .then(data => {
+                console.log('data: ', data);
+                // setLegalMoves(data.legalmoves);//redux store
+            })
+            .catch(err => {
+                    console.log('er: ', err);
+                });
+
+        } else {
+            return;
+        }
+        // let data = event.currentTarget.getAttribute("data-col");
+        // console.log('the image is at', data);
+    } 
+
+
     const getTheCellTOMove = (event: any)=>{
         let data = event.currentTarget.getAttribute("data-col");
         console.log('the cell TO was clicked and its value is', data);
@@ -62,7 +99,13 @@ export default function Row(props: RowProps) {
             });
         
     }
-    
+    const handleClick = (cell: any, event: any) => { 
+        if(isPieceSelectedState){
+            getTheCellTOMove(event);
+        } else {
+            getImagePositionFROM(cell)
+        }
+    }
 
     // const ref = useRef<any>(null);
     // // console.log('legalmoves::: ', legalmoves);
@@ -104,14 +147,13 @@ export default function Row(props: RowProps) {
             {props.row.map((cell, columnIndex) => (
                         <div key={columnIndex} 
                             className={columnIndex % 2 === props.rowIndex % 2 ? 'cell-white' : 'cell-black'}
-                            // ref={ref}
                             data-col={`${getLetterFromIndex(columnIndex)}${props.rowIndex + 1}`}
-                            onClick={cell ? handleNothing : getTheCellTOMove}
+                            onClick={(event) => handleClick(cell, event)}
+
                             >
                             <Cell cell={cell} 
                                 columnLetter={getLetterFromIndex(columnIndex)} 
                                 rowIndex={props.rowIndex} 
-                                // legalmoves={legalmoves} 
                                 moveTo={moveTo} 
                                 theMoveIsFrom={theMoveIsFrom}
                             />
@@ -119,4 +161,6 @@ export default function Row(props: RowProps) {
                     )
                 )}
     </div>
+
 }
+

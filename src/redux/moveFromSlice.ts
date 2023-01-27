@@ -3,10 +3,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface MoveFromState {
     value: string;
+    valueSelected: boolean
 }
 
 const initialState: MoveFromState = {
     value: '',
+    valueSelected: false
 };
 
 export const moveFromSlice = createSlice({
@@ -16,11 +18,13 @@ export const moveFromSlice = createSlice({
     moveFromState: (state, moveFromAction: PayloadAction<string>) => {
       state.value = moveFromAction.payload;
     },
-
+    isPieceSelected: (state, selectedAction: PayloadAction<boolean>) => {
+      state.valueSelected = selectedAction.payload;
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { moveFromState } = moveFromSlice.actions
+export const { moveFromState, isPieceSelected } = moveFromSlice.actions
 // reducer
 export default moveFromSlice.reducer
