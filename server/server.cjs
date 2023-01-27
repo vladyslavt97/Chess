@@ -39,7 +39,7 @@ app.post('/api/legalmoves', (req, res) => {
   console.log('3131');
   console.log('req.body: ', req.body.possibleMoves);
   const movesLegal = chess.moves({ square: req.body.possibleMoves});
-  console.log('moves: ', movesLegal);
+  console.log('legal moves: ', movesLegal);
   res.json({legalmoves: movesLegal});
   // const state = chess.move({ from: 'e5', to: 'f4' })
   // console.log('stateee: ', state);
