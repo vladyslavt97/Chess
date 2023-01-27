@@ -54,14 +54,17 @@ app.post('/api/movepiece', (req, res) => {
     let to = req.body.to;
     chess.move({ from: from , to: to })
     const state = chess.board().reverse();
-    res.json({moved: state});
+    if(chess.isCheckmate()){
+      console.log('checkmate:)');
+      res.json({checkMate: true})
+    } else {
+      res.json({moved: state});
+    }
   } 
   catch (error){
     console.log('something went wrong in the movepiece', error);
   }
-  if(chess.isCheckmate()){
-    res.json({checkMate: true})
-  }
+  
 });
 
 app.listen(PORT, function () {

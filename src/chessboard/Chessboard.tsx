@@ -9,7 +9,6 @@ import { RootState } from "../redux/store";
 
 export default function ChessBoard() {
     const board = useSelector((state: RootState) =>state.board.boardValue);
-    console.log('board: ', board);
     const dispatch = useDispatch();
 
     useEffect(()=>{

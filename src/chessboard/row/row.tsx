@@ -24,7 +24,6 @@ export default function Row(props: RowProps) {
     const getImagePositionFROM = (cell: any)=>{
         if(cell){
             const value = cell.square;
-            console.log('image clicked log', value);
             dispatch(moveFromState(value!))
             dispatch(isPieceSelected(true))
 
@@ -36,11 +35,10 @@ export default function Row(props: RowProps) {
                 body: JSON.stringify({possibleMoves: value}),
             })
             .then(response => {
-                console.log('log the response: ', value);
+                // console.log('log the response: ', value);
                 return response.json()
             })
             .then(data => {
-                console.log('data of lm: ', data);
                 if (data.legalmoves.length === 0){
                     dispatch(clearTheMoveFrom(''))
                     dispatch(isPieceSelected(false))
@@ -61,7 +59,7 @@ export default function Row(props: RowProps) {
 
     const getTheCellTOMove = (event: any)=>{
         let data = event.currentTarget.getAttribute("data-col");
-        console.log('eventually, moveFrom: ', stateMoveFrom, 'moveTo: ', data);
+        // console.log('eventually, moveFrom: ', stateMoveFrom, 'moveTo: ', data);
         dispatch(isPieceSelected(false))
         fetch('/api/movepiece', {
             method: 'POST',
@@ -80,8 +78,7 @@ export default function Row(props: RowProps) {
             }
         })
         .then(data => {
-            console.log('data: ', data);
-            
+            console.log('data: ', data.checkMate);//true
             dispatch(updateTheBoardState(data.moved))
         })
         .then(()=>{
@@ -96,10 +93,10 @@ export default function Row(props: RowProps) {
     const handleClick = (cell: any, event: any) => { 
         if(isPieceSelectedState){
             getTheCellTOMove(event);
-            console.log('getTheCellTOMove');
+            // console.log('getTheCellTOMove');
         } else {
             getImagePositionFROM(cell);
-            console.log('getImagePositionFROM');
+            // console.log('getImagePositionFROM');
         }
         
     }
