@@ -1,7 +1,8 @@
 import React, { DragEvent, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTheBoardState } from '../../redux/boardSlice';
-import { isPieceSelected, moveFromState } from '../../redux/moveFromSlice';
+import { legalMovesState } from '../../redux/legalmovesSlice';
+import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../../redux/moveFromSlice';
 import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
 import './row.css'
@@ -13,14 +14,17 @@ interface RowProps{
 }
 
 export default function Row(props: RowProps) {
-    const [moveFrom, setMoveFrom] = useState('');
-    const [moveTo, setMoveTo] = useState('');
-    // const [legalmoves, setLegalMoves] = useState([]);
-
     // const movefromState = useSelector((state: RootState) =>state.moveFrom.value);
     const isPieceSelectedState = useSelector((state: RootState) =>state.moveFrom.valueSelected);
+    console.log('isPieceSelectedState: ', isPieceSelectedState);
+    
 
+    const [moveTo, setMoveTo] = useState('');
+    console.log('moveTo: ', moveTo);
+    
     const state = useSelector((state: RootState) =>state.moveFrom.value);
+    console.log('state moveFrom: ', state);
+    
     const dispatch = useDispatch();
 
     const getLetterFromIndex = (index: number): string => {
@@ -29,7 +33,7 @@ export default function Row(props: RowProps) {
 
     const getImagePositionFROM = (cell: any)=>{
         if(cell){
-            // if the black is selelcted
+            // if the black is selected
             const value = cell.square;
             console.log('image clicked log', value);
             dispatch(moveFromState(value!))
@@ -47,8 +51,13 @@ export default function Row(props: RowProps) {
                 return response.json()
             })
             .then(data => {
-                console.log('data: ', data);
-                // setLegalMoves(data.legalmoves);//redux store
+                console.log('data of lm: ', data);
+                if (data.legalmoves.length === 0){
+                    dispatch(clearTheMoveFrom(''))
+
+                } else {
+                    dispatch(legalMovesState(data.legalmoves))
+                }
             })
             .catch(err => {
                     console.log('er: ', err);
@@ -62,9 +71,10 @@ export default function Row(props: RowProps) {
 
     const getTheCellTOMove = (event: any)=>{
         let data = event.currentTarget.getAttribute("data-col");
-        setMoveTo(data)
         console.log('eventually, moveFrom: ', state, 'moveTo: ', data);
-         
+        // setMoveTo(data)
+        dispatch(isPieceSelected(false))
+
         fetch('/api/movepiece', {
             method: 'POST',
             headers: {
@@ -76,6 +86,10 @@ export default function Row(props: RowProps) {
         .then(data => {
             dispatch(updateTheBoardState(data.moved))
         })
+        .then(()=>{
+            dispatch(clearTheMoveFrom(''))
+            setMoveTo('')
+        })
         .catch(err => {
                 console.log('error unfortunately: ', err);
             });
@@ -84,8 +98,12 @@ export default function Row(props: RowProps) {
     const handleClick = (cell: any, event: any) => { 
         if(isPieceSelectedState){
             getTheCellTOMove(event);
+            console.log('getTheCellTOMove');
+            
         } else {
             getImagePositionFROM(cell)
+            console.log('getImagePositionFROM');
+
         }
     }
 

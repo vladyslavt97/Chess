@@ -18,6 +18,9 @@ export const moveFromSlice = createSlice({
     moveFromState: (state, moveFromAction: PayloadAction<string>) => {
       state.value = moveFromAction.payload;
     },
+    clearTheMoveFrom: (state, moveFromAction: PayloadAction<string>) => {
+      state.value = moveFromAction.payload;
+    },
     isPieceSelected: (state, selectedAction: PayloadAction<boolean>) => {
       state.valueSelected = selectedAction.payload;
     }
@@ -25,6 +28,6 @@ export const moveFromSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { moveFromState, isPieceSelected } = moveFromSlice.actions
+export const { moveFromState, isPieceSelected, clearTheMoveFrom } = moveFromSlice.actions
 // reducer
 export default moveFromSlice.reducer

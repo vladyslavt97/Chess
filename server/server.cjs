@@ -36,24 +36,29 @@ app.get('/api/gamestate', (req, res) => {
 
 });
 app.post('/api/legalmoves', (req, res) => {
-  console.log('3131');
-  console.log('req.body: ', req.body.possibleMoves);
-  const movesLegal = chess.moves({ square: req.body.possibleMoves});
-  console.log('legal moves: ', movesLegal);
-  res.json({legalmoves: movesLegal});
+  try{
+    console.log('3131');
+    console.log('req.body: ', req.body.possibleMoves);
+    const movesLegal = chess.moves({ square: req.body.possibleMoves});
+    console.log('legal moves: ', movesLegal);
+    res.json({legalmoves: movesLegal});
+  } 
+  catch {
+    console.log('something went wrong on the legal move validation');
+  }
 
 });
 app.post('/api/movepiece', (req, res) => {
-  console.log('req.body movepiece: ', req.body);
-  let from = req.body.from;
-  let to = req.body.to;
-  console.log('f,t: ', from, to);
-  chess.move({ from: from , to: to })
-  // console.log('ascii', chess.ascii());
-  // console.log('stateee: ', state);
-  const state = chess.board().reverse();
-
-  res.json({moved: state});
+  try{
+    let from = req.body.from;
+    let to = req.body.to;
+    chess.move({ from: from , to: to })
+    const state = chess.board().reverse();
+    res.json({moved: state});
+  } 
+  catch {
+    console.log('something went wrong in the movepiece');
+  }
 });
 
 app.listen(PORT, function () {

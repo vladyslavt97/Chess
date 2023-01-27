@@ -1,9 +1,4 @@
-import React, { DragEventHandler, DragEvent, useEffect, useRef, useState } from 'react'
-import { moveFromState } from '../../../redux/moveFromSlice';
-import { isPieceSelected } from '../../../redux/moveFromSlice';
 import './cell.css'
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from '../../../redux/store';
 
 interface CellType{
     square?: string,
