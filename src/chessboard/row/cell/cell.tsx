@@ -4,14 +4,14 @@ import './cell.css'
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from '../../../redux/store';
 
-interface C{
+interface CellType{
     square: string,
-    type: string,
-    color: string
+    type?: string,
+    color?: string
 }
 
 interface CellProps{
-    cell: C,
+    cell: CellType,
     rowIndex: number,
     columnLetter: string,
     // legalmoves: string[],
@@ -22,9 +22,9 @@ interface CellProps{
 export default function Cell(props: CellProps) {
 
     
-    const [moveFrom, setMoveFrom] = useState('');
+    // const [moveFrom, setMoveFrom] = useState('');
     const [legalmoves, setLegalMoves] = useState([]);
-        const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     // whenever there is a change in state, makes a post request and dispatches
     //post request will do the chess.move({from: to:}) with the parameter which is the square where it was moved to
@@ -53,31 +53,34 @@ export default function Cell(props: CellProps) {
 
     //make on click of the image, not the cell    
     const getImagePositionFROM = ()=>{
-        const value = props.cell?.square;
-        console.log('image clicked log', value);
-        // props.theMoveIsFrom(value)
-        dispatch(moveFromState(value))
-        setMoveFrom(value);
-        // console.log('moveTo props: ', props.moveTo);
+        // if(props.cell !== undefined){
+            const value = props.cell?.square;
+            console.log('image clicked log', value);
+            // props.theMoveIsFrom(value)
+            dispatch(moveFromState(value))
+            // setMoveFrom(value);
+            // console.log('moveTo props: ', props.moveTo);
 
-        fetch('/api/legalmoves', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({possibleMoves: value}),
-        })
-        .then(response => {
-            console.log('log the response: ', value);
-            return response.json()
-        })
-        .then(data => {
-            console.log('data: ', data);
-            setLegalMoves(data.legalmoves);
-        })
-        .catch(err => {
-                console.log('er: ', err);
-            });
+            fetch('/api/legalmoves', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({possibleMoves: value}),
+            })
+            .then(response => {
+                console.log('log the response: ', value);
+                return response.json()
+            })
+            .then(data => {
+                console.log('data: ', data);
+                setLegalMoves(data.legalmoves);
+            })
+            .catch(err => {
+                    console.log('er: ', err);
+                });
+
+        // }
         // let data = event.currentTarget.getAttribute("data-col");
         // console.log('the image is at', data);
     }        

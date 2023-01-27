@@ -10,16 +10,13 @@ const initialState: MoveFromState = {
 };
 
 export const moveFromSlice = createSlice({
-  name: 'movefrom',
+  name: 'moveFrom',
   initialState,
   reducers: {
     moveFromState: (state, moveFromAction: PayloadAction<string>) => {
       state.value = moveFromAction.payload;
     },
-    // acceptFriend: (state, friendsAction: PayloadAction<string>) => {
-    //   const foundFriend = state.value.findIndex(friend => friend.fid === friendsAction.payload);
-    //       state.value[foundFriend].accepted = true;
-    // },
+
   },
 });
 

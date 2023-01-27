@@ -2,12 +2,17 @@ import "./Chessboard.css"
 import { Chess } from "chess.js";
 import { useEffect, useRef, useState } from "react";
 import Row from "./row/row";
+import { originalBoardState } from '../redux/boardSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 
 export default function ChessBoard() {
     //gets the data from server and passes to the components
-    const [board, setBoard] = useState([]);
-    
+    // const [board, setBoard] = useState([]);
+    const board = useSelector((state: RootState) =>state.board.boardValue);
+    console.log('board: ', board);
+    const dispatch = useDispatch();
 
     useEffect(()=>{
         fetch('/api/gamestate')
@@ -15,7 +20,7 @@ export default function ChessBoard() {
         )
         .then((data) => {
             console.log('GET Gamestate: ', data.st);
-            setBoard(data.st);
+            dispatch(originalBoardState(data.st));
         })
         .catch((error) => {
             console.error('Error caught:', error);

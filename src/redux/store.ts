@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import moveFromSlice from './moveFromSlice';
+import boardSlice from './boardSlice';
 
 export const store = configureStore({
     reducer: { 
         moveFrom: moveFromSlice,
+        board: boardSlice,
     }
 });
 

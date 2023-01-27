@@ -1,12 +1,13 @@
 import React, { DragEvent, useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateTheBoardState } from '../../redux/boardSlice';
 import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
 import './row.css'
 
 
 interface RowProps{
-    row: [],
+    row: Array<object>,
     rowIndex: number,
 }
 
@@ -17,6 +18,9 @@ export default function Row(props: RowProps) {
     
     const state = useSelector((state: RootState) =>state.moveFrom.value);
     console.log('state: ', state);
+    const state2 = useSelector((state: RootState) =>state.board.boardValue);
+    console.log('state2: ', state2);
+    const dispatch = useDispatch();
 
     // let to = event.currentTarget.getAttribute("data-col")+'';
     const getLetterFromIndex = (index: number): string => {
@@ -97,14 +101,15 @@ export default function Row(props: RowProps) {
         console.log('there is a figure there! Do not execute this log');
     }
     return <div id='rows' >
-            {props.row.map((cell, columnIndex) => (
+            {props.row.map((cell, columnIndex) => (console.log('cell: ', cell),
+            
                         <div key={columnIndex} 
                             className={columnIndex % 2 === props.rowIndex % 2 ? 'cell-white' : 'cell-black'}
                             // ref={ref}
                             data-col={`${getLetterFromIndex(columnIndex)}${props.rowIndex + 1}`}
                             onClick={cell ? handleNothing : getTheCellTOMove}
                             >
-                            
+                            {cell &&
                             <Cell cell={cell} 
                                 columnLetter={getLetterFromIndex(columnIndex)} 
                                 rowIndex={props.rowIndex} 
@@ -112,6 +117,7 @@ export default function Row(props: RowProps) {
                                 moveTo={moveTo} 
                                 theMoveIsFrom={theMoveIsFrom}
                             />
+                            }
                         </div>
                     )
                 )}
