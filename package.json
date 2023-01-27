@@ -11,6 +11,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "chess.js": "^1.0.0-beta.2",
+    "cookie-session": "^2.0.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "react": "^18.2.0",
