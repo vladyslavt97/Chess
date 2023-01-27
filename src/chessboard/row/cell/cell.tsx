@@ -15,9 +15,6 @@ interface CellProps{
     cell?: CellType,
     rowIndex: number,
     columnLetter: string,
-    // legalmoves: string[],
-    moveTo: string,
-    theMoveIsFrom: Function
 }
 
 export default function Cell(props: CellProps) {

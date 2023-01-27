@@ -23,26 +23,16 @@ export default function Row(props: RowProps) {
     const state = useSelector((state: RootState) =>state.moveFrom.value);
     const dispatch = useDispatch();
 
-    // let to = event.currentTarget.getAttribute("data-col")+'';
     const getLetterFromIndex = (index: number): string => {
         return String.fromCharCode(65 + index).toLowerCase();
     }
-    
-    const theMoveIsFrom = (data: string) => {
-        console.log('theMoveIsFrom: ', data);
-        setMoveFrom(data);
-    }
-
 
     const getImagePositionFROM = (cell: any)=>{
         if(cell){
             // if the black is selelcted
             const value = cell.square;
             console.log('image clicked log', value);
-            // props.theMoveIsFrom(value)
             dispatch(moveFromState(value!))
-            // setMoveFrom(value);
-            // console.log('moveTo props: ', props.moveTo);
             dispatch(isPieceSelected(true))
 
             fetch('/api/legalmoves', {
@@ -67,20 +57,13 @@ export default function Row(props: RowProps) {
         } else {
             return;
         }
-        // let data = event.currentTarget.getAttribute("data-col");
-        // console.log('the image is at', data);
     } 
 
 
     const getTheCellTOMove = (event: any)=>{
         let data = event.currentTarget.getAttribute("data-col");
-        console.log('the cell TO was clicked and its value is', data);
-        // console.log('moveFrom: : : ', moveFrom);
         setMoveTo(data)
-        console.log('mf: ', moveFrom);
-         console.log('state of moveFrom: ', state);
-        
-         console.log('eventually: ', state, 'd: ', data);
+        console.log('eventually, moveFrom: ', state, 'moveTo: ', data);
          
         fetch('/api/movepiece', {
             method: 'POST',
@@ -91,11 +74,10 @@ export default function Row(props: RowProps) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('data getTheCellTOMove: ', data);
             dispatch(updateTheBoardState(data.moved))
         })
         .catch(err => {
-                console.log('er24-52-45928-: ', err);
+                console.log('error unfortunately: ', err);
             });
         
     }
@@ -140,22 +122,17 @@ export default function Row(props: RowProps) {
     // if(moveFrom !== ''){
     
     // }
-    const handleNothing = () => {
-        console.log('there is a figure there! Do not execute this log');
-    }
+
     return <div id='rows' >
             {props.row.map((cell, columnIndex) => (
                         <div key={columnIndex} 
                             className={columnIndex % 2 === props.rowIndex % 2 ? 'cell-white' : 'cell-black'}
                             data-col={`${getLetterFromIndex(columnIndex)}${props.rowIndex + 1}`}
                             onClick={(event) => handleClick(cell, event)}
-
                             >
                             <Cell cell={cell} 
                                 columnLetter={getLetterFromIndex(columnIndex)} 
                                 rowIndex={props.rowIndex} 
-                                moveTo={moveTo} 
-                                theMoveIsFrom={theMoveIsFrom}
                             />
                         </div>
                     )
