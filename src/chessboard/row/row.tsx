@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTheBoardState } from '../../redux/boardSlice';
+import { checkMateState } from '../../redux/checkmateSlice';
 import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../../redux/moveFromSlice';
 import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
@@ -16,6 +17,7 @@ export default function Row(props: RowProps) {
     const isPieceSelectedState = useSelector((state: RootState) =>state.moveFrom.valueSelected);
     const [wrongMove, setWrongMove] = useState('');// generate the error!
     const [legalMove, setLegalMove] = useState<string[]>([]);
+    const [checkMate, setCheckMate] = useState<string[]>([]);
     const [moveTo, setMoveTo] = useState('');//not used??
     const stateMoveFrom = useSelector((state: RootState) =>state.moveFrom.value);
     const dispatch = useDispatch();
@@ -79,6 +81,7 @@ export default function Row(props: RowProps) {
         })
         .then(data => {
             console.log('data: ', data.checkMate);//true
+            dispatch(checkMateState(data.checkMate))
             dispatch(updateTheBoardState(data.moved))
         })
         .then(()=>{

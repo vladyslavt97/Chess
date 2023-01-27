@@ -1,0 +1,28 @@
+#checkmate-div{
+    position: absolute;
+    top: 0;
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+#checkmate-text{
+    font-size: 50px;
+    z-index: 1;
+}
+
+#backdrop-of-checkmate{
+    position: absolute;
+    background-color: black;
+    opacity: 0.5;
+    width: 100vw;
+    height: 100vh;
+}
+
+#checkmate-button{
+    width: 100px;
+    height: 40px;
+}

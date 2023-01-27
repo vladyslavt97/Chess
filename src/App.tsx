@@ -1,32 +1,23 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import './App.css';
+import CheckMate from './checkmate/checkmate';
 import ChessBoard from './chessboard/Chessboard';
+import { RootState } from './redux/store';
+
 
 export default function App() {
-
-  // useEffect(()=>{
-  //     fetch('/gamestate', {
-  //           method: 'GET', 
-  //           headers: {
-  //               'Content-Type': 'application/json',
-  //           },
-  //       })
-  //           .then((response) => 
-  //               response.json())
-  //           .then((data) => {
-  //               console.log('GET: ', data);
-  //           })
-  //           .catch((error) => {
-  //               console.error('Error caught:', error);
-  //           });
-  // }, [])
-
+  const checkMate = useSelector((state: RootState) =>state.checkMate.valueCM);
+  console.log('cm: ', checkMate);
 
 
   return (
     <div className="main-div">
        <h1>App component</h1>
         <ChessBoard />
+        {checkMate && <div id='checkmate'>
+                        <CheckMate />
+                    </div>}
     </div>
   );
 }

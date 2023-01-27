@@ -56,7 +56,7 @@ app.post('/api/movepiece', (req, res) => {
     const state = chess.board().reverse();
     if(chess.isCheckmate()){
       console.log('checkmate:)');
-      res.json({checkMate: true})
+      res.json({checkMate: true, moved: state})
     } else {
       res.json({moved: state});
     }
