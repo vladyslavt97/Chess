@@ -1,7 +1,7 @@
 import React, { DragEvent, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTheBoardState } from '../../redux/boardSlice';
-import { legalMovesState } from '../../redux/legalmovesSlice';
+// import { legalMovesState } from '../../redux/legalmovesSlice';
 import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../../redux/moveFromSlice';
 import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
@@ -18,6 +18,9 @@ export default function Row(props: RowProps) {
     const isPieceSelectedState = useSelector((state: RootState) =>state.moveFrom.valueSelected);
     console.log('isPieceSelectedState: ', isPieceSelectedState);
     
+    const [wrongMove, setWrongMove] = useState('');
+
+    const [legalMove, setLegalMove] = useState<string[]>([]);
 
     const [moveTo, setMoveTo] = useState('');
     console.log('moveTo: ', moveTo);
@@ -54,9 +57,12 @@ export default function Row(props: RowProps) {
                 console.log('data of lm: ', data);
                 if (data.legalmoves.length === 0){
                     dispatch(clearTheMoveFrom(''))
-
+                    dispatch(isPieceSelected(false))
+                    console.log('its not your turn :(');
+                    
                 } else {
-                    dispatch(legalMovesState(data.legalmoves))
+                    // dispatch(legalMovesState(data.legalmoves))
+                    setLegalMove(data.legalmoves);
                 }
             })
             .catch(err => {
@@ -82,8 +88,17 @@ export default function Row(props: RowProps) {
             },
             body: JSON.stringify({from: state, to: data}),
         })
-        .then(response => response.json())
+        .then(response => {
+            if(response.status === 200){
+                console.log("SUCCESSS")
+                return response.json();     
+            }else {
+                console.log("SOMETHING WENT WRONG")
+                setWrongMove("SOMETHING WENT WRONG");
+            }
+        })
         .then(data => {
+            
             dispatch(updateTheBoardState(data.moved))
         })
         .then(()=>{
@@ -141,6 +156,29 @@ export default function Row(props: RowProps) {
     
     // }
 
+
+    console.log('legalMove: ', legalMove);
+
+    // if (legalMove.length !== 0){
+    //     const mapped = legalMove.map(el => {
+    //         return el.
+    //     })
+    //     console.log('mapped: ', mapped);
+        
+
+    //match
+    for (let l of legalMove){
+        let matches = l.match(/\w[0-9]/);//match method on a string
+        if (matches){
+            // console.log('matches: ', matches[0]);
+            let div = document.querySelectorAll(`[data-col=${matches[0]}]`)
+            console.log('the div: ', div[0]); 
+            (div[0] as HTMLElement).style.backgroundColor = 'white';
+        }
+        
+    }
+    // querySelectorAll(`[data-col=${el}]`) to get all rows and compare the attributes
+    //.join = > to pass the query selector all to then change the style of those divs
     return <div id='rows' >
             {props.row.map((cell, columnIndex) => (
                         <div key={columnIndex} 

@@ -10,7 +10,7 @@ const initialState: LegalMovesState = {
 };
 
 export const legalMovesSlice = createSlice({
-  name: 'moveFrom',
+  name: 'legalMoves',
   initialState,
   reducers: {
     legalMovesState: (state, moveFromAction: PayloadAction<string>) => {

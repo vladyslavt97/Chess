@@ -56,8 +56,8 @@ app.post('/api/movepiece', (req, res) => {
     const state = chess.board().reverse();
     res.json({moved: state});
   } 
-  catch {
-    console.log('something went wrong in the movepiece');
+  catch (error){
+    console.log('something went wrong in the movepiece', error);
   }
 });
 
