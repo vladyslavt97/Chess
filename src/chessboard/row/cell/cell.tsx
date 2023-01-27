@@ -5,13 +5,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from '../../../redux/store';
 
 interface CellType{
-    square: string,
+    square?: string,
     type?: string,
     color?: string
 }
 
 interface CellProps{
-    cell: CellType,
+    cell?: CellType,
     rowIndex: number,
     columnLetter: string,
     // legalmoves: string[],
@@ -57,7 +57,7 @@ export default function Cell(props: CellProps) {
             const value = props.cell?.square;
             console.log('image clicked log', value);
             // props.theMoveIsFrom(value)
-            dispatch(moveFromState(value))
+            dispatch(moveFromState(value!))
             // setMoveFrom(value);
             // console.log('moveTo props: ', props.moveTo);
 

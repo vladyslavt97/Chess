@@ -109,7 +109,6 @@ export default function Row(props: RowProps) {
                             data-col={`${getLetterFromIndex(columnIndex)}${props.rowIndex + 1}`}
                             onClick={cell ? handleNothing : getTheCellTOMove}
                             >
-                            {cell &&
                             <Cell cell={cell} 
                                 columnLetter={getLetterFromIndex(columnIndex)} 
                                 rowIndex={props.rowIndex} 
@@ -117,7 +116,6 @@ export default function Row(props: RowProps) {
                                 moveTo={moveTo} 
                                 theMoveIsFrom={theMoveIsFrom}
                             />
-                            }
                         </div>
                     )
                 )}
