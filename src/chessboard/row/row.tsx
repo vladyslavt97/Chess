@@ -98,6 +98,7 @@ export default function Row(props: RowProps) {
             }
         })
         .then(data => {
+            console.log('data: ', data);
             
             dispatch(updateTheBoardState(data.moved))
         })
@@ -116,69 +117,22 @@ export default function Row(props: RowProps) {
             console.log('getTheCellTOMove');
             
         } else {
-            getImagePositionFROM(cell)
+            getImagePositionFROM(cell);
             console.log('getImagePositionFROM');
-
+            
         }
+        
     }
 
-    // const ref = useRef<any>(null);
-    // // console.log('legalmoves::: ', legalmoves);
-    // if(legalmoves.length !== 0){
-    //         for (const l of legalmoves) {
-    //         console.log('l: ', l);
-    //         console.log('l23: ', ref.current.getAttribute("data-col"));
-    //             if(ref.current.getAttribute("data-col") === l){
-    //                 console.log('match');
-                    
-    //             }else{
-    //                 console.log('no match');
-                    
-    //             }
-    //         }
-    // }
 
-
-    // const highlightLegalMoves = (event: any) => {
-    //     let data = event.currentTarget.getAttribute("data-col");
-    //     for (const l of legalmoves) {
-    //         console.log('l: ', l);
-    //         if(l === data){
-
-    //         }
-            
-    //     }
-    // }
-    // highlightLegalMoves();
-    // console.log('moveFrom: ', moveFrom);
-    // console.log('moveTo: ', moveTo);
-    // if(moveFrom !== ''){
-    
-    // }
-
-
-    console.log('legalMove: ', legalMove);
-
-    // if (legalMove.length !== 0){
-    //     const mapped = legalMove.map(el => {
-    //         return el.
-    //     })
-    //     console.log('mapped: ', mapped);
-        
-
-    //match
     for (let l of legalMove){
         let matches = l.match(/\w[0-9]/);//match method on a string
         if (matches){
-            // console.log('matches: ', matches[0]);
-            let div = document.querySelectorAll(`[data-col=${matches[0]}]`)
-            console.log('the div: ', div[0]); 
-            (div[0] as HTMLElement).style.backgroundColor = 'white';
+            let div = document.querySelectorAll(`[data-col=${matches[0]}]`);
+            (div[0] as HTMLElement).setAttribute('id', 'possible-move');
         }
-        
     }
-    // querySelectorAll(`[data-col=${el}]`) to get all rows and compare the attributes
-    //.join = > to pass the query selector all to then change the style of those divs
+
     return <div id='rows' >
             {props.row.map((cell, columnIndex) => (
                         <div key={columnIndex} 

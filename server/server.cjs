@@ -6,7 +6,7 @@ const { PORT } = process.env;
 app.use(express.json());
 
 const {Chess} = require('chess.js')
-const FEN = 'rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq - 0 2';
+const FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 const chess = new Chess(FEN)
 
 // while (!chess.isGameOver()) {
@@ -58,6 +58,9 @@ app.post('/api/movepiece', (req, res) => {
   } 
   catch (error){
     console.log('something went wrong in the movepiece', error);
+  }
+  if(chess.isCheckmate()){
+    res.json({checkMate: true})
   }
 });
 
