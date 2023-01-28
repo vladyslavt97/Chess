@@ -25,9 +25,9 @@ export default function Login() {
             .then((data) => {
                 if(data.validation === true){
                     console.log('generate the error');
-                    this.setState({validation: true, incorrectData: false});
+                    // this.setState({validation: true, incorrectData: false});
                 } else if(data.incorrectData === true){
-                    this.setState({validation: false, incorrectData: true});
+                    // this.setState({validation: false, incorrectData: true});
                 } else {
                     console.log("all good. Go to app page..?");
                     location.replace('/');
@@ -40,8 +40,8 @@ export default function Login() {
     }
 
   return <div>
-            {validation && <Validation />}
-            {incorrectData && <IncorrectData />}
+            {/* {validation && <Validation />}
+            {incorrectData && <IncorrectData />} */}
 
             <form onSubmit={handleSubmit} id="registration-form">
                 <div>
