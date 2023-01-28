@@ -6,7 +6,7 @@ import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../../redux/mo
 import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
 import './row.css'
-import { socket } from '../../socket/socket';
+import { socket } from '../../../socket/socket';
 
 interface RowProps{
     row: Array<object>,

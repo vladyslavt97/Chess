@@ -8,7 +8,7 @@ import { initSocket } from "./socket/socket";
 
 //redux
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { store } from "./app/redux/store";
 import Welcome from './welcome/welcome';
 
 
