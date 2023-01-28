@@ -9,6 +9,9 @@ import { RootState } from "../redux/store";
 
 export default function ChessBoard() {
     const board = useSelector((state: RootState) =>state.board.boardValue);
+    const clearTheBoard = useSelector((state: RootState) =>state.checkMate.reset);
+    console.log('clearTheBoard: : :112233:', clearTheBoard);
+    
     const dispatch = useDispatch();
 
     useEffect(()=>{
@@ -22,7 +25,7 @@ export default function ChessBoard() {
         .catch((error) => {
             console.error('Error caught:', error);
         });
-    }, [])
+    }, [clearTheBoard])
     
 
     let letters = [];

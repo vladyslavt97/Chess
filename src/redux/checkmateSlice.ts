@@ -3,10 +3,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface CMState {
     valueCM: boolean
+    reset: boolean
 }
 
 const initialState: CMState = {
-    valueCM: false
+    valueCM: false,
+    reset: false
 };
 
 export const checkMateSlice = createSlice({
@@ -16,13 +18,13 @@ export const checkMateSlice = createSlice({
     checkMateState: (state, moveFromAction: PayloadAction<boolean>) => {
       state.valueCM = moveFromAction.payload;
     },
-    // clearTheMoveFrom: (state, moveFromAction: PayloadAction<string>) => {
-    //   state.value = moveFromAction.payload;
-    // },
+    clearTheBoard: (state, moveFromAction: PayloadAction<boolean>) => {
+      state.reset = moveFromAction.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { checkMateState } = checkMateSlice.actions
+export const { checkMateState, clearTheBoard } = checkMateSlice.actions
 // reducer
 export default checkMateSlice.reducer
