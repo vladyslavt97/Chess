@@ -86,9 +86,10 @@ app.post('/api/emptyboard', (req, res)=>{
 });
 
 
-app.get('/api/gamestate', (req, res) => {
-  console.log('+');
-  const state = chess.board().reverse();
+app.get('/api/whoseturn', (req, res) => {
+  console.log('+?');
+  const state = chess.turn();
+  console.log('??', state);
   res.json({st: state});
 
 });

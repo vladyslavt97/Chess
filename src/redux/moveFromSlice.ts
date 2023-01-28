@@ -26,15 +26,8 @@ export const moveFromSlice = createSlice({
     isPieceSelected: (state, selectedAction: PayloadAction<boolean>) => {
       state.valueSelected = selectedAction.payload;
     },
-    // setTurnState: (state, turnAction: PayloadAction<boolean>) => {
-    //   console.log('in the move from: ', turnAction.payload);
-      
-    //   state.valueTurn = turnAction.payload;
-    // }
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { moveFromState, isPieceSelected, clearTheMoveFrom, setTurnState } = moveFromSlice.actions
-// reducer
+export const { moveFromState, isPieceSelected, clearTheMoveFrom } = moveFromSlice.actions
 export default moveFromSlice.reducer

@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import './WhoseTurn.css'
 
 export default function WhoseTurn() {
-    // const turn = useSelector((state: RootState) =>state.moveFrom.valueTurn);
-
-    // console.log('turn: ', turn);
+    const board = useSelector((state: RootState) =>state.board.boardValue);
+    const [turn, setTurn] = useState('');
     useEffect(() =>{
         fetch('/api/whoseturn', {
             method: 'GET',
@@ -20,14 +19,16 @@ export default function WhoseTurn() {
         })
         .then(data => {
             console.log('whoseturn ', data);
+            setTurn(data.st);
         })
         .catch(err => {
                 console.log('er: ', err);
             });
-    }, [])
-
+    }, [board])
+    console.log('turn: ', turn);
+    
   return <div id='turn-div'>
-            {/* {!turn && <div id='whiteturn'></div>}
-            {turn && <div id='blackturn'></div>} */}
+            {turn === 'w' && <div id='whiteturn'></div>}
+            {turn === 'b' && <div id='blackturn'></div>}
         </div>
 }

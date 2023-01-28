@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTheBoardState } from '../../redux/boardSlice';
 import { checkMateState } from '../../redux/checkmateSlice';
-import { isPieceSelected, moveFromState, clearTheMoveFrom, setTurnState } from '../../redux/moveFromSlice';
+import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../../redux/moveFromSlice';
 import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
 import './row.css'
@@ -59,10 +59,6 @@ export default function Row(props: RowProps) {
 
     const getTheCellTOMove = (event: any, cell: any)=>{
         let dataa = event.currentTarget.getAttribute("data-col");
-        let image = event.currentTarget.getAttribute("class");
-        console.log('image: ', image);
-        
-        // console.log('eventually, moveFrom: ', stateMoveFrom, 'moveTo: ', data);
         dispatch(isPieceSelected(false))
         fetch('/api/movepiece', {
             method: 'POST',
