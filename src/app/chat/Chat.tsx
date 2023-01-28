@@ -4,8 +4,12 @@ export default function Chat() {
   return (
     <div id='chat-div'>
         <div>Chat</div>
-        <input type="text" placeholder='Type Yout Message' id='messageyourfriend'/>
-        <button>Send</button>
+        <div id='chat-messages-div'>
+            <div>messages</div>
+        </div>
+
+        <textarea placeholder='Type Yout Message' id='textarea-chat'/>
+        <button id='button-send'>Send</button>
     </div>
   )
 }

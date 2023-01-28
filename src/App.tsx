@@ -8,6 +8,7 @@ import AllUsers from './app/allusers/AllUsers';
 import { RootState } from './app/redux/store';
 import Restart from './app/restart/Restart';
 import WhoseTurn from './app/whoseturn/Whoseturn';
+import { Signout } from './app/components/signout';
 
 
 export default function App() {
@@ -39,6 +40,8 @@ export default function App() {
       <Restart />
       
       <WhoseTurn />
+
+      <Signout />
 
       <h1 onClick={toggleInfoPopup} id="question-mark">?</h1>
       {visibleInfoPopup && <div id='question-mark-div' onClick={toggleInfoPopup}>

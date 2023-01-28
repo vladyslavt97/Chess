@@ -10,8 +10,29 @@
     z-index: 3;
 }
 
-#messageyourfriend{
-    border-radius: 50px;
+
+#chat-messages-div{
     width: 90%;
+    background-color: aliceblue;
+    height: 80%;
+    border-radius: 15px;
+    border: 3px solid orange ;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#textarea-chat{
+    border-radius: 10px;
     border: 1px solid blue;
+    height: 10%;
+    width: 90%;
+}
+
+#button-send{
+    background-color: lightblue;
+    border-radius: 10px;
+    padding: 5px;
 }

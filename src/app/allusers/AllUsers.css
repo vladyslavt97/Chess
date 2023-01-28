@@ -27,3 +27,7 @@
     flex-direction: column;
     margin: 10px;
 }
+
+#allusers-names{
+    border: 0.5px dashed rgb(68, 102, 150);
+}

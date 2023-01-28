@@ -1,3 +1,5 @@
+import './signout.css'
+
 export function Signout() {
     const signOut = () => {
         fetch('/api/signout', {
@@ -15,6 +17,6 @@ export function Signout() {
             });
     }        
     return <div>
-                <img src="/signout.png" alt="empty" id="signout" onClick={signOut}/>
+                <img src="/signout.png" alt="empty" id="signout" width="30px" onClick={signOut}/>
             </div>
 }
