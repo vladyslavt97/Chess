@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import './checkmate.css'
+import './Restart.css'
 import { clearTheBoard } from '../redux/checkmateSlice';
+import { useDispatch } from 'react-redux';
 
-
-
-export default function CheckMate() {
+export default function Restart() {
     const [visibleBackdrop, setVisibleBackdrop] = useState<boolean>(false)
     const dispatch = useDispatch();
-
-    //fetch post to clean the data and start again
+    
     const restartTheGame = ()=>{
         fetch('/api/emptyboard', {
             method: 'POST',
@@ -32,12 +29,9 @@ export default function CheckMate() {
             });
 
     } 
-
-  return <div id='checkmate-div'>
-        {visibleBackdrop && <div id='just-a-div'>
-            <div id='backdrop'></div>
-            <div id='checkmate-text'>CheckMate</div>
-            <button id='checkmate-button' onClick={restartTheGame}>Start Over</button>
-        </div>}
+  return (
+    <div id='image-restart-div'>
+        <img src="/restart.png" alt="restartTheGame" onClick={restartTheGame} id="resstart-the-game"/>
     </div>
+  )
 }

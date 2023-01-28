@@ -6,6 +6,7 @@ import CheckMate from './checkmate/checkmate';
 import ChessBoard from './chessboard/Chessboard';
 import Friends from './friends/Friends';
 import { RootState } from './redux/store';
+import Restart from './restart/Restart';
 
 
 export default function App() {
@@ -33,6 +34,8 @@ export default function App() {
         <div id='checkmate'>
             <CheckMate />
       </div>}
+
+      <Restart />
       
       <h1 onClick={toggleInfoPopup} id="question-mark">?</h1>
       {visibleInfoPopup && <div id='question-mark-div' onClick={toggleInfoPopup}>
