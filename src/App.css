@@ -10,11 +10,17 @@
     --main-background: -webkit-linear-gradient(-86deg, #ffbb00 1%, #00a6ff 99%);
 }
 
+#the-layout{
+    display: grid;
+    grid-template-columns: 10% 1fr 10%;
+}
+
 #question-mark{
     position: absolute;
     top: 5px;
     right: 10px;
     color: white;
+    cursor: pointer;
 }
 
 #question-mark-div{

@@ -1,0 +1,14 @@
+#friends-div{
+    background-color: white;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#search-for-friends{
+    border-radius: 50px;
+    width: 90%;
+    border: 1px solid blue;
+}

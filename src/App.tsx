@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './App.css';
+import Chat from './chat/Chat';
 import CheckMate from './checkmate/checkmate';
 import ChessBoard from './chessboard/Chessboard';
+import Friends from './friends/Friends';
 import { RootState } from './redux/store';
 
 
@@ -22,8 +24,11 @@ export default function App() {
         <h1 id='lets-play-some-chess-text'>Lets Play Some Chess</h1>
       </div>
 
-      <ChessBoard />
-
+      <div id='the-layout'>
+        <Friends />
+        <ChessBoard />
+        <Chat />
+      </div>
       {checkMate && 
         <div id='checkmate'>
             <CheckMate />
