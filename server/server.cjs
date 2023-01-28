@@ -65,8 +65,12 @@ app.post('/api/movepiece', (req, res) => {
     chess.move({ from: from , to: to })
     const state = chess.board().reverse();
     if(chess.isCheckmate()){
+      // chess.isGameOver()
       console.log('checkmate:)');
       res.json({checkMate: true, moved: state})
+    } else if (chess.isDraw()){
+      console.log('draw:)');
+      res.json({draw: true, moved: state})
     } else {
       res.json({moved: state});
     }
@@ -76,6 +80,15 @@ app.post('/api/movepiece', (req, res) => {
   }
   
 });
+
+
+app.post('/api/emptyboard', (req, res)=>{
+  console.log('emptyboard or restart');
+  const cleared = chess.reset();
+  console.log('cc', cleared);
+  res.json({emptyboard: cleared});
+});
+
 
 // app.listen(PORT, function () {
 //     console.log(`Express server listening on port ${PORT}`);

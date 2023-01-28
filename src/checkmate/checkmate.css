@@ -10,19 +10,34 @@
 }
 
 #checkmate-text{
+    position: relative;
     font-size: 50px;
-    z-index: 1;
+    z-index: 2;
+    color: white;
 }
 
 #backdrop-of-checkmate{
     position: absolute;
+    top: 0;
+    left: 0;
     background-color: black;
-    opacity: 0.5;
+    opacity: 0.6;
     width: 100vw;
     height: 100vh;
 }
 
 #checkmate-button{
+    position: relative;
     width: 100px;
     height: 40px;
+    z-index: 2;
+    border: 1px solid rgb(30, 255, 0);
+    border-radius: 50px;
+    background-color: greenyellow;
+}
+
+#just-a-div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
