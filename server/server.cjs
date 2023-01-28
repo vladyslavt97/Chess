@@ -39,8 +39,8 @@ io.on("connection", async (socket) => {
 // ------------------------------------ end of socket setup  ------------------------------------ //
 
 //routes
-const { loginRouter } = require('./routes/login');
-const { registerRouter } = require('./routes/registration');
+const { loginRouter } = require('./routes/login.cjs');
+const { registerRouter } = require('./routes/registration.cjs');
 
 app.use(loginRouter);
 app.use(registerRouter);

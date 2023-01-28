@@ -13,7 +13,7 @@ export default function Login() {
         console.log('clicked');
         evt.preventDefault();
 
-        fetch('/login/', {
+        fetch('/api/login/', {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json',

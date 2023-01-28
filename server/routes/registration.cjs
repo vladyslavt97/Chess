@@ -1,6 +1,6 @@
 const express = require("express");
-const { hashPass } = require("../encrypt");
-const { insertDataIntoUsersDB } = require('../db');
+const { hashPass } = require("../encrypt.cjs");
+const { insertDataIntoUsersDB } = require('../db.cjs');
 
 const app = express();
 const { SESSION_SECRET } = process.env;
@@ -14,12 +14,15 @@ app.use(
 
 const registerRouter = express.Router();
 
-registerRouter.post('/registration', (req, res) => {
+registerRouter.post('/api/registration', (req, res) => {
+    console.log('helo ins');
+
     const {firstname, lastname, email, password} = req.body;
     hashPass(password).then((hashedPassword) => {
         if(firstname !== '' && lastname !== '' && email !== '' && password !== ''){
             insertDataIntoUsersDB(firstname, lastname, email, hashedPassword)
                 .then(()=>{
+                    console.log('insertedd');
                     res.json({ success: true, validation: false });
                     
                 })

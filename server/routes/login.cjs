@@ -1,9 +1,9 @@
 const express = require("express");
-const { compare } = require("../encrypt");
-const { selectAllDataFromUsersDB } = require('../db');
+const { compare } = require("../encrypt.cjs");
+const { selectAllDataFromUsersDB } = require('../db.cjs');
 
 const loginRouter = express.Router();
-loginRouter.post('/login', (req, res) => {
+loginRouter.post('/api/login', (req, res) => {
     let matchForUserIDs;
     const {email, password} = req.body;
     if(email !== '' && password !== ''){ //if not empty
