@@ -23,6 +23,16 @@
     cursor: pointer;
 }
 
+#backdrop-question {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0.95;
+    width: 100vw;
+    height: 100vh;
+}
+
 #question-mark-div{
     position: absolute;
     top: 0;
@@ -34,6 +44,7 @@
     height: 100vh;
     gap: 40px;
     color: white;
+    z-index: 4;
 }
 #question-mark-div>* {
     z-index: 2;

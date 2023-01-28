@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const { PORT, WEB_URL } = process.env;
 const {cookieSession } = require('./cookiesession.cjs');
+app.use(cookieSession);
 
 app.use(express.json());
 const {Chess} = require('chess.js')
@@ -77,7 +78,6 @@ app.post('/api/movepiece', (req, res) => {
   
 });
 
-
 app.post('/api/emptyboard', (req, res)=>{
   console.log('emptyboard or restart');
   const cleared = chess.reset();
@@ -92,6 +92,16 @@ app.get('/api/whoseturn', (req, res) => {
   console.log('??', state);
   res.json({st: state});
 
+});
+
+app.get("/api/user/id.json", (req, res) => {
+    console.log('req.session: ', req.session);
+    res.json({ userId: req.session.userId });
+});
+
+app.post('/signout', (req, res) => {
+    req.session = null;
+    res.json({ userId: null });
 });
 
 // app.listen(PORT, function () {

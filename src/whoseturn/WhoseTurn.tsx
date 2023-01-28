@@ -14,18 +14,15 @@ export default function WhoseTurn() {
             },
         })
         .then(response => {
-            console.log('get the turn');
             return response.json()
         })
         .then(data => {
-            console.log('whoseturn ', data);
             setTurn(data.st);
         })
         .catch(err => {
                 console.log('er: ', err);
             });
     }, [board])
-    console.log('turn: ', turn);
     
   return <div id='turn-div'>
             {turn === 'w' && <div id='whiteturn'></div>}
