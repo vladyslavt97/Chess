@@ -6,7 +6,7 @@ import { clearTheBoard } from '../redux/checkmateSlice';
 
 
 export default function CheckMate() {
-    const [visibleBackdrop, setVisibleBackdrop] = useState<boolean>(true)
+    const [visibleBackdrop, setVisibleBackdrop] = useState<boolean>(false)
     const dispatch = useDispatch();
 
     //fetch post to clean the data and start again
@@ -35,7 +35,7 @@ export default function CheckMate() {
 
   return <div id='checkmate-div'>
         {visibleBackdrop && <div id='just-a-div'>
-            <div id='backdrop-of-checkmate'></div>
+            <div id='backdrop'></div>
             <div id='checkmate-text'>CheckMate</div>
             <button id='checkmate-button' onClick={restartTheGame}>Start Over</button>
         </div>}

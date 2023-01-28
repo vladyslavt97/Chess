@@ -41,7 +41,7 @@ io.on("connection", async (socket) => {
 app.get('/api/gamestate', (req, res) => {
   console.log('+');
   const state = chess.board().reverse();
-  // console.log('stateee: ', state);
+  console.log('stateee: ', state);
   res.json({st: state});
 
 });

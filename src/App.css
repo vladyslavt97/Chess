@@ -9,3 +9,52 @@
 :root {
     --main-background: -webkit-linear-gradient(-86deg, #ffbb00 1%, #00a6ff 99%);
 }
+
+#question-mark{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: white;
+}
+
+#question-mark-div{
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    gap: 40px;
+    color: white;
+}
+#question-mark-div>* {
+    z-index: 2;
+}
+
+#notation{
+    color: rgb(255, 186, 103);
+}
+
+#green{
+    color: rgb(64, 237, 182);
+}
+
+#pink{
+    color: rgb(249, 101, 215);
+}
+
+#blue{
+    color: rgb(0, 132, 255);
+}
+
+#onecell-h3{
+    display: flex;
+    align-items: center;
+}
+
+#yellow{
+    font-size: large;
+    color: yellow;
+}
