@@ -16,7 +16,6 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 72vw;
     rotate: -90deg;
     margin: auto
 }
@@ -24,7 +23,6 @@ body{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     max-width: 640px;
-        /* rotate: 90deg; */
 }
 #rows-numbers{
     rotate: 90deg;

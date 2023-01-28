@@ -5,6 +5,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 0px 50px 50px 0px;
+    z-index: 3;
 }
 
 #search-for-friends{

@@ -12,12 +12,12 @@
 
 #the-layout{
     display: grid;
-    grid-template-columns: 10% 1fr 10%;
+    grid-template-columns: 15% 1fr 15%;
 }
 
 #question-mark{
     position: absolute;
-    top: 5px;
+    top: 0px;
     right: 10px;
     color: white;
     cursor: pointer;
