@@ -86,10 +86,17 @@ app.post('/api/emptyboard', (req, res)=>{
 });
 
 
+app.get('/api/gamestate', (req, res) => {
+  console.log('+');
+  const state = chess.board().reverse();
+  res.json({st: state});
+
+});
+
 // app.listen(PORT, function () {
 //     console.log(`Express server listening on port ${PORT}`);
 // });
 
 server.listen(PORT, function () {
-    console.log(`Express server listening on port ${PORT}`);
+    console.log(`Express SERVER listening on port ${PORT}`);
 });

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTheBoardState } from '../../redux/boardSlice';
 import { checkMateState } from '../../redux/checkmateSlice';
-import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../../redux/moveFromSlice';
+import { isPieceSelected, moveFromState, clearTheMoveFrom, setTurnState } from '../../redux/moveFromSlice';
 import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
 import './row.css'
@@ -44,7 +44,6 @@ export default function Row(props: RowProps) {
                     dispatch(clearTheMoveFrom(''))
                     dispatch(isPieceSelected(false))
                     console.log('its not your turn :(');
-                    
                 } else {
                     setLegalMove(data.legalmoves);
                 }
@@ -58,8 +57,11 @@ export default function Row(props: RowProps) {
         }
     } 
 
-    const getTheCellTOMove = (event: any)=>{
-        let data = event.currentTarget.getAttribute("data-col");
+    const getTheCellTOMove = (event: any, cell: any)=>{
+        let dataa = event.currentTarget.getAttribute("data-col");
+        let image = event.currentTarget.getAttribute("class");
+        console.log('image: ', image);
+        
         // console.log('eventually, moveFrom: ', stateMoveFrom, 'moveTo: ', data);
         dispatch(isPieceSelected(false))
         fetch('/api/movepiece', {
@@ -67,11 +69,11 @@ export default function Row(props: RowProps) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({from: stateMoveFrom, to: data}),
+            body: JSON.stringify({from: stateMoveFrom, to: dataa}),
         })
         .then(response => {
             if(response.status === 200){
-                console.log("SUCCESSS")
+                // console.log("SUCCESSS")
                 return response.json();     
             }else {
                 console.log("SOMETHING WENT WRONG")
@@ -79,14 +81,17 @@ export default function Row(props: RowProps) {
             }
         })
         .then(data => {
-            console.log('data: ', data.checkMate);//true
+            // console.log('data: ', data.checkMate);//true
             dispatch(checkMateState(data.checkMate))
+            console.log('data.moved: ', data.moved);
+            
             dispatch(updateTheBoardState(data.moved))
             socket.emit("private_message", {moveToEmit: data.moved});
         })
         .then(()=>{
             dispatch(clearTheMoveFrom(''))
             setMoveTo('')
+
         })
         .catch(err => {
                 console.log('error unfortunately: ', err);
@@ -95,7 +100,7 @@ export default function Row(props: RowProps) {
     }
     const handleClick = (cell: any, event: any) => { 
         if(isPieceSelectedState){
-            getTheCellTOMove(event);
+            getTheCellTOMove(event, cell);
             // console.log('getTheCellTOMove');
         } else {
             getImagePositionFROM(cell);
@@ -127,7 +132,7 @@ export default function Row(props: RowProps) {
     const getLetterFromIndex = (index: number): string => {
         return String.fromCharCode(65 + index).toLowerCase();
     }
-
+    
     return <div id='rows' >
             {props.row.map((cell, columnIndex) => (
                         <div key={columnIndex} 

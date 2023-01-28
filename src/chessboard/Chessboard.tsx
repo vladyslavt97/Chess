@@ -10,7 +10,6 @@ import { resetTheStateofReset } from '../redux/checkmateSlice';
 export default function ChessBoard() {
     const board = useSelector((state: RootState) =>state.board.boardValue);
     const clearTheBoard = useSelector((state: RootState) =>state.checkMate.reset);
-    console.log('clearTheBoard: ', clearTheBoard);
     
     const dispatch = useDispatch();
 

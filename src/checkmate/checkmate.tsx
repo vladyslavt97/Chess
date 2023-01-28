@@ -32,12 +32,15 @@ export default function CheckMate() {
             });
 
     } 
-
-  return <div id='checkmate-div'>
-        {visibleBackdrop && <div id='just-a-div'>
-            <div id='backdrop'></div>
-            <div id='checkmate-text'>CheckMate</div>
-            <button id='checkmate-button' onClick={restartTheGame}>Start Over</button>
+    console.log('visibleBackdrop::', visibleBackdrop);
+    
+  return <div>
+        {!visibleBackdrop && 
+            <div id='checkmate-div'><div id='just-a-div'>
+                <div id='backdrop'></div>
+                <div id='checkmate-text'>CheckMate</div>
+                <button id='checkmate-button' onClick={restartTheGame}>Start Over</button>
+            </div>
         </div>}
     </div>
 }

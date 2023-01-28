@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './Restart.css'
 import { clearTheBoard } from '../redux/checkmateSlice';
 import { useDispatch } from 'react-redux';
+import WhoseTurn from '../whoseturn/Whoseturn';
 
 export default function Restart() {
     const [visibleBackdrop, setVisibleBackdrop] = useState<boolean>(false)
