@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './App.css';
-import Chat from './chat/Chat';
-import CheckMate from './checkmate/checkmate';
-import ChessBoard from './chessboard/Chessboard';
-import AllUsers from './allusers/AllUsers';
-import { RootState } from './redux/store';
-import Restart from './restart/Restart';
-import WhoseTurn from './whoseturn/Whoseturn';
+import Chat from './app/chat/Chat';
+import CheckMate from './app/checkmate/Checkmate';
+import ChessBoard from './app/chessboard/Chessboard';
+import AllUsers from './app/allusers/AllUsers';
+import { RootState } from './app/redux/store';
+import Restart from './app/restart/Restart';
+import WhoseTurn from './app/whoseturn/Whoseturn';
 
 
 export default function App() {
