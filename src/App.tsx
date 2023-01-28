@@ -4,7 +4,7 @@ import './App.css';
 import Chat from './chat/Chat';
 import CheckMate from './checkmate/checkmate';
 import ChessBoard from './chessboard/Chessboard';
-import Friends from './friends/Friends';
+import AllUsers from './allusers/AllUsers';
 import { RootState } from './redux/store';
 import Restart from './restart/Restart';
 import WhoseTurn from './whoseturn/Whoseturn';
@@ -27,7 +27,7 @@ export default function App() {
       </div>
 
       <div id='the-layout'>
-        <Friends />
+        <AllUsers />
         <ChessBoard />
         <Chat />
       </div>
@@ -52,6 +52,10 @@ export default function App() {
         <br />
         <h4>1.&nbsp; server converts the FEN to the &nbsp; <small id='green'>Array<small id='pink'>&lt;</small>Array<small id='blue'>&lt;</small>object<small id='blue'>&gt;</small><small id='pink'>&gt;</small></small>&nbsp; ---&gt; &nbsp; sends the JSON to the client.</h4>
         <h4 id='onecell-h3'>2.&nbsp;<img src="/onecell.jpg" alt="one-cell" width='40px'/> &nbsp; = &nbsp; &#123; square: <small id='green'>'f7'</small>, type: <small id='green'>'p'</small>, color: <small id='green'>'b'</small> &#125;</h4>
+        <br />
+        <br />
+        <br />
+        <h4 id='technologies-h4'>3. Technologies Used: &nbsp;&nbsp;<img src="/typescript.png" alt="" width="60px"/>&nbsp;<img src="/react.png" alt="" width="60px"/>&nbsp;<img src="/nodejs.png" alt="" width="60px"/>&nbsp;<img src="/npm.png" alt="" width="60px"/>&nbsp; -&gt; &nbsp;<b>npm chess.js</b></h4>
       </div>}
     </div>
   );

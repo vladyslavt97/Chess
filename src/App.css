@@ -70,6 +70,10 @@
     display: flex;
     align-items: center;
 }
+#technologies-h4{
+    display: flex;
+        align-items: center;
+}
 
 #yellow{
     font-size: large;

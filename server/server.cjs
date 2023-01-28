@@ -41,9 +41,11 @@ io.on("connection", async (socket) => {
 //routes
 const { loginRouter } = require('./routes/login.cjs');
 const { registerRouter } = require('./routes/registration.cjs');
+const { allUsersRouter } = require('./routes/allusers.cjs');
 
 app.use(loginRouter);
 app.use(registerRouter);
+app.use(allUsersRouter);
 
 
 
@@ -95,15 +97,11 @@ app.post('/api/emptyboard', (req, res)=>{
 
 
 app.get('/api/whoseturn', (req, res) => {
-  console.log('+?');
   const state = chess.turn();
-  console.log('??', state);
   res.json({st: state});
-
 });
 
 app.get("/api/user/id.json", (req, res) => {
-    console.log('req.session: ', req.session);
     res.json({ userId: req.session.userId });
 });
 

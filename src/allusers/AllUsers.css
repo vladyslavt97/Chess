@@ -15,3 +15,15 @@
     width: 90%;
     border: 1px solid blue;
 }
+
+#all-users-list{
+    background-color: aliceblue;
+    border: 2px solid rgb(255, 140, 0);
+    width: 90%;
+    height: 80%;
+    border-radius: 10px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    margin: 10px;
+}
