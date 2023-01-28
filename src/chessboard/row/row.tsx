@@ -17,7 +17,6 @@ export default function Row(props: RowProps) {
     const isPieceSelectedState = useSelector((state: RootState) =>state.moveFrom.valueSelected);
     const [wrongMove, setWrongMove] = useState('');// generate the error!
     const [legalMove, setLegalMove] = useState<string[]>([]);
-    const [checkMate, setCheckMate] = useState<string[]>([]);
     const [moveTo, setMoveTo] = useState('');//not used??
     const stateMoveFrom = useSelector((state: RootState) =>state.moveFrom.value);
     const dispatch = useDispatch();

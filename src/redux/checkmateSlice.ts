@@ -21,10 +21,13 @@ export const checkMateSlice = createSlice({
     clearTheBoard: (state, moveFromAction: PayloadAction<boolean>) => {
       state.reset = moveFromAction.payload;
     },
+    resetTheStateofReset: (state, moveFromAction: PayloadAction<boolean>) => {
+      state.reset = moveFromAction.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { checkMateState, clearTheBoard } = checkMateSlice.actions
+export const { checkMateState, clearTheBoard, resetTheStateofReset } = checkMateSlice.actions
 // reducer
 export default checkMateSlice.reducer

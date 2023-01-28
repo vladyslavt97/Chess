@@ -41,16 +41,12 @@ io.on("connection", async (socket) => {
 app.get('/api/gamestate', (req, res) => {
   console.log('+');
   const state = chess.board().reverse();
-  console.log('stateee: ', state);
   res.json({st: state});
 
 });
 app.post('/api/legalmoves', (req, res) => {
   try{
-    console.log('3131');
-    console.log('req.body: ', req.body.possibleMoves);
     const movesLegal = chess.moves({ square: req.body.possibleMoves});
-    console.log('legal moves: ', movesLegal);
     res.json({legalmoves: movesLegal});
   } 
   catch {

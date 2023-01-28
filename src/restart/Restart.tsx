@@ -21,7 +21,6 @@ export default function Restart() {
         })
         .then(data => {
             console.log('data upon successful board emtiyng. Probably should be true: ', data);
-            setVisibleBackdrop(!visibleBackdrop);
             dispatch(clearTheBoard(true));
         })
         .catch(err => {

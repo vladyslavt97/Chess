@@ -4,11 +4,14 @@ import Row from "./row/row";
 import { originalBoardState } from '../redux/boardSlice';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { resetTheStateofReset } from '../redux/checkmateSlice';
 
 
 export default function ChessBoard() {
     const board = useSelector((state: RootState) =>state.board.boardValue);
     const clearTheBoard = useSelector((state: RootState) =>state.checkMate.reset);
+    console.log('clearTheBoard: ', clearTheBoard);
+    
     const dispatch = useDispatch();
 
     useEffect(()=>{
@@ -16,8 +19,8 @@ export default function ChessBoard() {
         .then((response) => response.json()
         )
         .then((data) => {
-            // console.log('GET Gamestate: ', data.st);
             dispatch(originalBoardState(data.st));
+            dispatch(resetTheStateofReset(false));
         })
         .catch((error) => {
             console.error('Error caught:', error);
