@@ -22,14 +22,8 @@ export default function Registration() {
           .then((response) => 
             response.json())
           .then((data) => {
-            // console.log("success: ", data, 'and show ErrorNOT!!');
-            // if(data.validation === true){
-            //     console.log('generate the error. Validation failed!');
-            //     // setState({validation: true});
-            // } else {
-            //     console.log("Should go to the Login page");
-            //     location.replace('/login');
-            // }
+            console.log('hm', data);
+            location.replace('/login');
           })
           .catch((error) => {
               console.error('Error:', error);
