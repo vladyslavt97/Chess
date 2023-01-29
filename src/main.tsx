@@ -7,7 +7,7 @@ import './index.css'
 import { initSocket } from "./app/socket/socket";
 
 //redux
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { store } from "./app/redux/store";
 import Welcome from './welcome/Welcome';
 

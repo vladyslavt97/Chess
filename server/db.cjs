@@ -12,7 +12,11 @@ module.exports.insertDataIntoUsersDB = (firstname, lastname, email, hashedPasswo
     VALUES ($1, $2, $3, $4) RETURNING *;`, [firstname, lastname, email, hashedPassword]);
 };
 
-
+//mine
+module.exports.getMyUSerFromDB = (id) =>{
+    return db.query(`SELECT * FROM users
+    Where id = $1;`, [id]);
+};
 
 
 /// Messages!

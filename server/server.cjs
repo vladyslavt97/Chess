@@ -3,55 +3,54 @@ const express = require("express");
 const app = express();
 const { PORT, WEB_URL } = process.env;
 const {cookieSession } = require('./cookiesession.cjs');
-
 const cors = require('cors');
-const { getLatestMessages } = require('./db.cjs');
-
+const { getLatestMessages, getMyUSerFromDB } = require('./db.cjs');
 app.use(cors());
+
+
+
+
+
+
+
+
 
 
 // ------------------------------------ SOCKET  ------------------------------------ //
 const server = require('http').Server(app);
 const io = require('socket.io')(server, {
-    // transports: ['websocket'],
     allowRequest: (req, callback) =>
         callback(null, req.headers.referer.startsWith(WEB_URL))
 });
-
 io.use((socket, next) => {
     cookieSession(socket.request, socket.request.res, next);
 });
 
-
+//advised by Gimena to put here
 app.use(cookieSession);
 app.use(express.json());
 
-
-
-app.get('/api/latestmessages', async (req, res)=>{
-  const latestMessages = await getLatestMessages();
-  res.json({lm: latestMessages});
-  
-})
+// app.get('/api/latestmessages', async (req, res)=>{
+//   const latestMessages = await getLatestMessages();
+//   res.json({lm: latestMessages});
+// })
 
 // let usersConnectedInfo = [];
-// console.log('asdasdasdas', io);
 
 io.on("connection", async (socket) => {
     console.log("[social:socket] incoming socket connection", socket.id);
-    //check if the user is signed in.
     const { userId } = socket.request.session;
-    if (!userId) { // I am not going to send data if a user is not signed in
+    if (!userId) {
         return socket.disconnect(true);
     }
-    socket.on('theBoard', async (text) => {
-    // store the message in the db
-        //1. create a new message in the db
-        console.log('text of message to all: ', text);
+
+    const latestMessages = await getLatestMessages();
+    // console.log('lat: ', latestMessages.rows);
+    socket.emit('chatMessages', latestMessages);
+
+    socket.on('theBoard', async (data) => {
+        console.log('the board: ', data);
         const newMessage = await insertMessageToAll(userId, text);
-        //2. tell all connected sockets
-        // console.log('nm in server.js', newMessage.rows[0]);
-        // console.log('messageData server.js', messageData.rows[0]);
         io.emit('theBoard', newMessage.rows[0]);
     });
     
@@ -146,6 +145,13 @@ app.get('/api/whoseturn', (req, res) => {
 });
 
 
+app.get('/api/myuser', async (req, res) =>{
+  const id = req.session.userId;
+  let myuser = await getMyUSerFromDB(id);
+  res.json({myuser: myuser.rows[0]});
+});
+
+
 
 // other routes
 app.get("/api/user/id.json", (req, res) => {
@@ -156,10 +162,6 @@ app.post('/api/signout', (req, res) => {
     req.session = null;
     res.json({ userId: null });
 });
-
-// app.listen(PORT, function () {
-//     console.log(`Express server listening on port ${PORT}`);
-// });
 
 server.listen(PORT, function () {
     console.log(`Express SERVER listening on port ${PORT}`);

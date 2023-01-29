@@ -3,12 +3,14 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface BoardState {
     boardValue: Array<Array<object>>,
-    id: number
+    id: number,
+    myId: number
 }
 
 const initialState: BoardState = {
     boardValue: [],
-    id: 0
+    id: 0,
+    myId: 0
 };
 
 export const boardSlice = createSlice({
@@ -28,10 +30,14 @@ export const boardSlice = createSlice({
       console.log('user id from the clicked user in boardSlice', userAction.payload);
       state.id = userAction.payload;
     },
+    myId: (state, myIdAction: PayloadAction<number>) => {
+      console.log('user id from the clicked user in boardSlice', myIdAction.payload);
+      state.myId = myIdAction.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { originalBoardState, updateTheBoardState, selectedUserId } = boardSlice.actions
+export const { originalBoardState, updateTheBoardState, selectedUserId, myId } = boardSlice.actions
 // reducer
 export default boardSlice.reducer

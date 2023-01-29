@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Chat from './app/chat/Chat';
 import CheckMate from './app/checkmate/Checkmate';
@@ -9,7 +9,7 @@ import { RootState } from './app/redux/store';
 import Restart from './app/restart/Restart';
 import WhoseTurn from './app/whoseturn/Whoseturn';
 import { Signout } from './app/components/signout';
-
+import { myId } from './app/redux/boardSlice';
 
 export default function App() {
   const checkMate = useSelector((state: RootState) =>state.checkMate.valueCM);
@@ -20,6 +20,26 @@ export default function App() {
     console.log('toggleInfoPopup clicked');
     setVisibleInfoPopup(!visibleInfoPopup);
   }
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    fetch('/api/myuser', {
+            method: 'GET', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => 
+                response.json())
+            .then((data) => {
+              console.log('d', data.myuser.id);
+                dispatch(myId( data.myuser.id));
+            })
+            .catch((error) => {
+                console.error('Error caught:', error);
+            });
+
+  }, [])
 
   return (
     <div className="main-div">
