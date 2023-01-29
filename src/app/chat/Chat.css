@@ -32,8 +32,8 @@
 #textarea-chat{
     border-radius: 10px;
     border: 1px solid blue;
-    height: 10%;
     width: 90%;
+    height: 100px;
     padding: 2px;
 }
 
@@ -164,4 +164,13 @@
     border-radius: 10px;
     width: 90%;
     height: 20%;
+}
+
+#chat-form{
+    width: 90%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }

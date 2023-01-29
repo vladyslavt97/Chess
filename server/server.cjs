@@ -4,7 +4,7 @@ const app = express();
 const { PORT, WEB_URL } = process.env;
 const {cookieSession } = require('./cookiesession.cjs');
 const cors = require('cors');
-const { getLatestMessages, getMyUSerFromDB } = require('./db.cjs');
+const { getLatestMessages, getMyUSerFromDB, getOnlineUsersByTheirIDs, insertMessageToAll, insertMessage } = require('./db.cjs');
 app.use(cors());
 
 
@@ -30,13 +30,8 @@ io.use((socket, next) => {
 app.use(cookieSession);
 app.use(express.json());
 
-// app.get('/api/latestmessages', async (req, res)=>{
-//   const latestMessages = await getLatestMessages();
-//   res.json({lm: latestMessages});
-// })
 
-// let usersConnectedInfo = [];
-
+let usersConnectedInfo = [];
 io.on("connection", async (socket) => {
     console.log("[social:socket] incoming socket connection", socket.id);
     const { userId } = socket.request.session;
@@ -44,19 +39,88 @@ io.on("connection", async (socket) => {
         return socket.disconnect(true);
     }
 
+    //tracking connected users
+    let alreadyExist = usersConnectedInfo.find(el => el.usersId === userId);
+    if(!alreadyExist){
+        usersConnectedInfo.push({
+            usersId: userId, 
+            socketId: [socket.id]});
+    } else {
+        alreadyExist.socketId.push(socket.id);
+    }
+    let onlineUsersAndSockets = usersConnectedInfo.map(el => {
+        return Object.values(el);
+    });
+    let onlineUsers = onlineUsersAndSockets.map(el => el[0]);
+    // console.log('onlineUsers: ', onlineUsers);
+    const getOnlineUsers = async () => {
+        let onlineUsersData = await getOnlineUsersByTheirIDs(onlineUsers);
+        socket.emit('online', onlineUsersData.rows);
+    };
+    getOnlineUsers();
+    console.log('lets see who is online: ', usersConnectedInfo);
+
+
+
+
+
+    //latest messages!
     const latestMessages = await getLatestMessages();
     // console.log('lat: ', latestMessages.rows);
     socket.emit('chatMessages', latestMessages);
 
-    socket.on('theBoard', async (data) => {
-        console.log('the board: ', data);
-        const newMessage = await insertMessageToAll(userId, text);
-        io.emit('theBoard', newMessage.rows[0]);
+
+
+
+    // listen for when the connected user sends a message later
+    socket.on('private_message', async (dataClient) => {
+    // store the message in the db
+      console.log('dataClient: ', dataClient.messageState, 'id: ', dataClient.selectedFriendId);
+      let recipient_id = dataClient.selectedFriendId;
+      let oneMessage = dataClient.messageState;
+      const newMessage = await insertMessage(userId, recipient_id, oneMessage);
+      // console.log('nm in server.js', newMessage.rows[0]);
+
+      //to friend
+      let foundSocket = usersConnectedInfo.find(el => el.usersId === dataClient.selectedFriendId);
+      console.log('fs: ', foundSocket);
+      foundSocket.socketId.forEach(each => {
+          io.to(each).emit('private_message', {
+              info: newMessage.rows[0], 
+              senderId: socket.id});
+      });
+
+      //to myself
+      let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
+      console.log('fs: ', mySocket);
+
+      // we need to go throught the socketIds and send to each one
+      mySocket.socketId.forEach(each => {
+          io.to(each).emit('private_message', {
+              info: newMessage.rows[0], 
+              senderId: socket.id});
+      });
     });
+
+
+
+    // socket.on('theBoard', async (data) => {
+    //     console.log('the board: ', data);
+    //     const newMessage = await insertMessageToAll(userId, text);
+    //     io.emit('theBoard', newMessage.rows[0]);
+    // });
     
     socket.on("disconnect", () => {
         console.log(socket.id, '= should disappear from the list on onlinne users');
-
+        const indexOf = usersConnectedInfo.findIndex(el => {
+          return el.socketId.find(el => {
+            return el === socket.id;
+          });
+        });
+        let spliced = usersConnectedInfo.splice(indexOf, 1);
+        console.log('Updated usersConnectedInfo: ', usersConnectedInfo, 
+            'Spliced: ', spliced
+        );
     });
 });
 // ------------------------------------ end of socket setup  ------------------------------------ //
@@ -93,7 +157,6 @@ const FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 const chess = new Chess(FEN)
 
 app.get('/api/gamestate', (req, res) => {
-  console.log('+');
   const state = chess.board().reverse();
   res.json({st: state});
 

@@ -26,7 +26,7 @@ module.exports.insertMessage = (userId, recipient_id, oneMessage) => {
     new_message AS (INSERT INTO messages (sender_id, recipient_id, message) 
     VALUES ($1, $2, $3) 
     RETURNING sender_id, recipient_id, message, created_at, id)
-    SELECT new_message.id, recipient_id, message, new_message.created_at, first, last, profile_pic_url, sender_id 
+    SELECT new_message.id, recipient_id, message, new_message.created_at, first, last, sender_id 
     FROM "user", new_message;`, [userId, recipient_id, oneMessage]); 
 };
 
@@ -71,4 +71,14 @@ module.exports.updatePasswordInUsersTable = (player1_id, player2_id, board) => {
                     WHERE (player1_id = $1 AND player2_id = $2)
                     OR (player2_id = $1 AND player1_id = $2)
                     RETURNING *;`,[player1_id, player2_id, board]);
+};
+
+
+
+//
+//online users!!!!!!!!!
+module.exports.getOnlineUsersByTheirIDs = (onlineUsers) =>{
+    return db.query(`
+        SELECT * FROM users WHERE id=ANY($1)
+        `, [onlineUsers]);
 };

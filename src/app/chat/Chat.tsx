@@ -3,26 +3,35 @@ import './Chat.css'
 import Calls from './calls/Calls'
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { socket } from '../socket/socket';
+
 
 
 export default function Chat() {
+  const [messageState, setMessageState] = useState('');
   const clickedUserId = useSelector((state: RootState) => state.board.id);
-  console.log('clickedUserIdclickedUserId: ', clickedUserId);
   
   const myId = useSelector((state: RootState) => state.board.myId);
-  console.log('only my id', myId);
-  
 
   // const messages = useSelector((state: RootState) => state.messages);
   const messages = useSelector((state: RootState) => state.messages.messagesValue.filter(m=>
     m.recipient_id === clickedUserId && m.sender_id === myId ||
     m.recipient_id === myId && m.sender_id === clickedUserId));
 
-    console.log('messagesmessagesmessages: ', messages);
-    
   const changeDate = (arg: string | number | Date) =>{
       let time = new Date(arg).toLocaleString();
       return time;
+  }
+
+
+  //emit to the server
+  const handleSubmitMessages = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    socket.emit("private_message", {messageState, selectedFriendId: clickedUserId});
+    setMessageState('');
+  }
+  const handleChangeOfMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setMessageState(event.target.value);
   }
 
   return (
@@ -57,8 +66,12 @@ export default function Chat() {
                 )}
         </div>
 
-        <textarea placeholder='Type Your Message' id='textarea-chat'/>
-        <button id='button-send'>Send</button>
+        <form onSubmit={handleSubmitMessages} id="chat-form">
+            <textarea placeholder='Type Your Message' 
+            onChange={handleChangeOfMessage}
+            id='textarea-chat'/>
+            <button id='button-send'>Send</button>
+        </form>
     </div>
   )
 }
