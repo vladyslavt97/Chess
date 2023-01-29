@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './AllUsers.css'
 export default function AllUsers() {
   const [allusers, setAllUsers] = useState([]);
-  console.log('all: ', allusers);
   
   useEffect(()=>{
         fetch('/api/allusers')

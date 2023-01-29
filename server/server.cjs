@@ -6,10 +6,13 @@ const {cookieSession } = require('./cookiesession.cjs');
 app.use(cookieSession);
 
 app.use(express.json());
+const cors = require('cors');
 
+app.use(cors());
 // ------------------------------------ SOCKET  ------------------------------------ //
 const server = require('http').Server(app);
 const io = require('socket.io')(server, {
+    transports: ['websocket'],
     allowRequest: (req, callback) =>
         callback(null, req.headers.referer.startsWith(WEB_URL))
 });
@@ -28,6 +31,17 @@ io.on("connection", async (socket) => {
         return socket.disconnect(true);
     }
 
+    console.log('asdasdasdas');
+    socket.on('theBoard', async (text) => {
+    // store the message in the db
+        //1. create a new message in the db
+        console.log('text of message to all: ', text);
+        const newMessage = await insertMessageToAll(userId, text);
+        //2. tell all connected sockets
+        // console.log('nm in server.js', newMessage.rows[0]);
+        // console.log('messageData server.js', messageData.rows[0]);
+        io.emit('theBoard', newMessage.rows[0]);
+    });
     
     socket.on("disconnect", () => {
         console.log(socket.id, '= should disappear from the list on onlinne users');
