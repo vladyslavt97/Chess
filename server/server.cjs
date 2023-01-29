@@ -27,7 +27,6 @@ io.use((socket, next) => {
 
 app.get('/api/latestmessages', async (req, res)=>{
   const latestMessages = await getLatestMessages();
-  console.log('lm: ', latestMessages.rows);
   res.json({lm: latestMessages});
 
 })

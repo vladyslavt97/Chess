@@ -2,10 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
 import "./Calls.css";
-import { socket } from '../socket';
-import OnlineFriends from '../messages/online-friends/online-friends';
-
-// import { useSelector } from "react-redux";
+import { socket } from '../../socket/socket';
 
 export function Calls() {
     // const id = useSelector((state) => state.messages.id);
@@ -98,12 +95,9 @@ export function Calls() {
     return (
         <div>
             <div id="calls">
-				<div id="left-side">
-					<OnlineFriends />
-				</div>
 				{/* video div */}
-				<div id="right-side-calling">
-					<div id="my-video-div">
+				<div >
+					<div >
 						<div id="my-video">
 							<video playsInline muted ref={myVideo} autoPlay id="my-video"/>
 						</div>

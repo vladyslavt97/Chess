@@ -10,7 +10,6 @@ export default function Chat() {
         .then((response) => response.json()
         )
         .then((data) => {
-          console.log('data mes', data.lm.rows);
           setMessages(data.lm.rows)
         })
         .catch((error) => {
