@@ -3,13 +3,13 @@ const express = require("express");
 const app = express();
 const { PORT, WEB_URL } = process.env;
 const {cookieSession } = require('./cookiesession.cjs');
-app.use(cookieSession);
 
-app.use(express.json());
 const cors = require('cors');
 const { getLatestMessages } = require('./db.cjs');
 
 app.use(cors());
+
+
 // ------------------------------------ SOCKET  ------------------------------------ //
 const server = require('http').Server(app);
 const io = require('socket.io')(server, {
@@ -22,25 +22,28 @@ io.use((socket, next) => {
     cookieSession(socket.request, socket.request.res, next);
 });
 
-// let usersConnectedInfo = [];
-// console.log('asdasdasdas', io);
+
+app.use(cookieSession);
+app.use(express.json());
+
+
 
 app.get('/api/latestmessages', async (req, res)=>{
   const latestMessages = await getLatestMessages();
   res.json({lm: latestMessages});
-
+  
 })
+
+// let usersConnectedInfo = [];
+// console.log('asdasdasdas', io);
 
 io.on("connection", async (socket) => {
     console.log("[social:socket] incoming socket connection", socket.id);
-
     //check if the user is signed in.
     const { userId } = socket.request.session;
     if (!userId) { // I am not going to send data if a user is not signed in
         return socket.disconnect(true);
     }
-
-    console.log('asdasdasdas');
     socket.on('theBoard', async (text) => {
     // store the message in the db
         //1. create a new message in the db
@@ -59,6 +62,15 @@ io.on("connection", async (socket) => {
 });
 // ------------------------------------ end of socket setup  ------------------------------------ //
 
+
+
+
+
+
+
+
+
+
 //routes
 const { loginRouter } = require('./routes/login.cjs');
 const { registerRouter } = require('./routes/registration.cjs');
@@ -68,7 +80,14 @@ app.use(loginRouter);
 app.use(registerRouter);
 app.use(allUsersRouter);
 
-// --- CHESs --- //
+
+
+
+
+
+
+
+// --- CHESS --- //
 
 const {Chess} = require('chess.js')
 const FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
