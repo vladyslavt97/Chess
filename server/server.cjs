@@ -13,7 +13,7 @@ app.use(cors());
 // ------------------------------------ SOCKET  ------------------------------------ //
 const server = require('http').Server(app);
 const io = require('socket.io')(server, {
-    transports: ['websocket'],
+    // transports: ['websocket'],
     allowRequest: (req, callback) =>
         callback(null, req.headers.referer.startsWith(WEB_URL))
 });
