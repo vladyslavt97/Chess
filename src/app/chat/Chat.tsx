@@ -22,12 +22,15 @@ export default function Chat() {
         return time;
     }
 
+  console.log('messages: ', messages);
+  
+
   return (
     <div id='chat-div'>
-          <h1>Calls</h1>
+          {/* <h1>Calls</h1>
         <div id='calls-div'>
-          {/* <Calls /> */}
-        </div>
+          <Calls />
+        </div> */}
           <h1>Chat</h1>
         <div id='chat-messages-div'>
             {messages.map((m) => 
@@ -54,7 +57,7 @@ export default function Chat() {
                 )}
         </div>
 
-        <textarea placeholder='Type Yout Message' id='textarea-chat'/>
+        <textarea placeholder='Type Your Message' id='textarea-chat'/>
         <button id='button-send'>Send</button>
     </div>
   )

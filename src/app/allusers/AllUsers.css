@@ -10,14 +10,8 @@
     z-index: 3;
 }
 
-#search-for-friends{
-    border-radius: 50px;
-    width: 90%;
-    border: 1px solid blue;
-}
-
 #all-users-list{
-    background-color: aliceblue;
+    background-color: rgb(229, 243, 255);
     border: 2px solid rgb(255, 140, 0);
     width: 90%;
     height: 80%;
@@ -26,8 +20,33 @@
     text-align: center;
     flex-direction: column;
     margin: 10px;
+    overflow-y: auto;
 }
 
 #allusers-names{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     border: 0.5px dashed rgb(68, 102, 150);
+    border-radius: 10px;
+}
+
+#start-the-game-btn{
+    border-radius: 10px;
+    background-color: rgb(0, 191, 255);
+    border: 2px solid blue;
+    padding: 10px;
+    font-size: 15px;
+}
+
+
+
+/* Selected? */
+.users-not-selected {
+    background-color: rgb(0, 122, 198);
+}
+
+.users-selected {
+    background-color: rgb(220, 146, 255);
 }
