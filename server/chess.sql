@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS users;
 
@@ -23,6 +22,6 @@ CREATE TABLE games (
     id SERIAL PRIMARY KEY,
     player1_id INTEGER NOT NULL REFERENCES users(id),
     player2_id INTEGER REFERENCES users(id),
-    board TEXT NOT NULL CHECK (message <> ''),
+    board TEXT,
     created_at TIMESTAMP DEFAULT current_timestamp
 );

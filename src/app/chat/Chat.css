@@ -14,14 +14,19 @@
 #chat-messages-div{
     width: 90%;
     background-color: aliceblue;
-    height: 80%;
+    height: 50%;
     border-radius: 15px;
     border: 3px solid orange ;
     margin: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: stretch;
+    overflow-y: auto;
+    flex-direction: column-reverse;
+}
+
+#actual-chat{
+    height: 100%;
 }
 
 #textarea-chat{
@@ -35,4 +40,127 @@
     background-color: lightblue;
     border-radius: 10px;
     padding: 5px;
+}
+
+
+
+/* from social network */
+#the-messages-div {
+    overflow-y: auto;
+    height: 80%;
+    width: 80%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column-reverse;
+    /* box-shadow: inset 0 0 10px #f8a100; */
+}
+
+
+#actual-message {
+    color: white;
+    text-align: left;
+    font-size: 20px;
+}
+
+#first_last_message {
+    font-size: 10px;
+    color: grey;
+}
+
+#date_message {
+    font-size: 10px;
+    color: rgb(0, 0, 0);
+}
+
+#message-img-pic {
+    object-fit: cover;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid orange;
+    margin: 10px;
+}
+
+#message-totheleft {
+    display: flex;
+    justify-content: flex-end;
+    animation: message 500ms ease-in-out;
+}
+
+#message-and-img-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    background-color: #44a1ff;
+    border-radius: 30px;
+    padding: 10px;
+    margin: 10px;
+    width: 100px;
+    justify-content: center;
+}
+
+#message-and-img-div-corner {
+    position: relative;
+    z-index: 0;
+    bottom: -5px;
+    right: 30px;
+    height: 15px;
+    transform: rotate(20deg);
+    width: 15px;
+    background: linear-gradient(to bottom, #46a1ff 0%, #46a1ff 100%);
+    background-attachment: fixed;
+    border-top-left-radius: 21px;
+}
+
+
+#message-totheright {
+    display: flex;
+    justify-content: flex-start;
+    animation: message 500ms ease-in-out;
+}
+
+#response-and-img-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #35df5a;
+    border-radius: 30px;
+    padding: 10px;
+    margin: 10px;
+    width: 100px;
+    justify-content: center;
+}
+
+#response-and-img-div-corner {
+    position: relative;
+    z-index: 0;
+    bottom: -6px;
+    right: 108px;
+    transform: rotate(-20deg);
+    height: 15px;
+    width: 15px;
+    background: linear-gradient(to bottom, #36df5a 0%, #36df5a 100%);
+    background-attachment: fixed;
+    border-top-right-radius: 21px;
+}
+
+@keyframes message {
+    0% {
+        opacity: 0;
+        scale: 0.1;
+        border-radius: 100px;
+    }
+
+    100% {
+        opacity: 1;
+        scale: 1;
+        border-radius: 30px;
+    }
+}
+
+#calls-div {
+    background-color: white;
+    border-radius: 10px;
+    width: 90%;
+    height: 20%;
 }

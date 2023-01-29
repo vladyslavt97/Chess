@@ -39,7 +39,7 @@ module.exports.getLatestMessages = (limit = 10) => {
     const sql = `
         SELECT * FROM (
             SELECT m.id, m.sender_id, m.recipient_id, m.message, m.created_at,
-                u.first, u.last, u.profile_pic_url
+                u.first, u.last
             FROM messages m
             JOIN users u ON m.sender_id = u.id
             ORDER BY m.created_at DESC
@@ -52,3 +52,19 @@ module.exports.getLatestMessages = (limit = 10) => {
 
 
 // ------------------ GAME -----------------------//
+//insert a new game to start
+module.exports.insertGame = (player1_id, player2_id, board) => {
+    return db.query(`
+    INSERT INTO games (player1_id, player2_id, board) 
+    VALUES ($1, $2, $3) 
+    RETURNING *;`, [player1_id, player2_id, board]);
+};
+
+//update the board after each move
+module.exports.updatePasswordInUsersTable = (player1_id, player2_id, board) => {
+    return db.query(`UPDATE games 
+                    SET board = $1
+                    WHERE (player1_id = $1 AND player2_id = $2)
+                    OR (player2_id = $1 AND player1_id = $2)
+                    RETURNING *;`,[player1_id, player2_id, board]);
+};

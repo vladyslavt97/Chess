@@ -1,0 +1,24 @@
+#calls{
+    display: grid;
+    grid-template-columns: 30% 1fr;
+}
+#left-side{
+    background-color: rgb(193, 255, 255);
+    height: 100vh;
+}
+
+
+/* ny video */
+#my-video{
+    width: 170px;
+    height: 130px;
+    z-index: 100;
+}
+
+#buttons{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+}

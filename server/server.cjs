@@ -7,6 +7,7 @@ app.use(cookieSession);
 
 app.use(express.json());
 const cors = require('cors');
+const { getLatestMessages } = require('./db.cjs');
 
 app.use(cors());
 // ------------------------------------ SOCKET  ------------------------------------ //
@@ -22,6 +23,15 @@ io.use((socket, next) => {
 });
 
 // let usersConnectedInfo = [];
+// console.log('asdasdasdas', io);
+
+app.get('/api/latestmessages', async (req, res)=>{
+  const latestMessages = await getLatestMessages();
+  console.log('lm: ', latestMessages.rows);
+  res.json({lm: latestMessages});
+
+})
+
 io.on("connection", async (socket) => {
     console.log("[social:socket] incoming socket connection", socket.id);
 
