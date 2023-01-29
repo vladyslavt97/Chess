@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-// import { originalBoardState } from "../redux/boardSlice";
+import { originalBoardState } from "../redux/boardSlice";
 
 export let socket;
 export const initSocket = (store) => {//needs to update teh store

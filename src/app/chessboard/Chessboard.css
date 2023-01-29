@@ -19,6 +19,11 @@ body{
     rotate: -90deg;
     margin: auto
 }
+#rows {
+    background-color: black;
+    padding: 0px;
+}
+
 #all-cells{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;

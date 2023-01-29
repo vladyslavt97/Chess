@@ -83,7 +83,7 @@ export default function Row(props: RowProps) {
             console.log('data.moved: ', data.moved);
             
             dispatch(updateTheBoardState(data.moved))
-            socket.emit("private_message", {moveToEmit: data.moved});
+            socket.emit("theBoard", {moveToEmit: data.moved});
         })
         .then(()=>{
             dispatch(clearTheMoveFrom(''))

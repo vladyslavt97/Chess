@@ -79,3 +79,27 @@
     font-size: large;
     color: yellow;
 }
+
+
+/* animation of info */
+#div1{
+    animation: fadein 1s ease-in-out;
+}
+#div2{
+    animation: fadein 2s ease-in-out;
+}
+#div3{
+    animation: fadein 3s ease-in-out;
+}
+#div4{
+    animation: fadein 4s ease-in-out;
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
