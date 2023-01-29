@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import { Link } from 'react-router-dom';
+import './Login.css'
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -28,7 +29,7 @@ export default function Login() {
     }
 
   return <div>
-            <form onSubmit={handleSubmit} id="registration-form">
+            <form onSubmit={handleSubmit} id="login-form">
                 <div>
                     <span>Email: </span>
                     <input name="email" onChange={e => setEmail(e.target.value)}/>
@@ -39,8 +40,8 @@ export default function Login() {
                     <input type="password" name="password" onChange={e => setPassword(e.target.value)}/>
                     <b className='mandatory-field'>*</b>
                 </div>
-                <button type='submit'>Login</button><br />
-                <h3> You might want to <Link to="/" id='login'>Register</Link> first...</h3><br />
+                <button type='submit' id='login-btn'>Login</button><br />
+                <h3> You might want to <Link to="/">Register</Link> first...</h3>
             </form>
         </div>
 }

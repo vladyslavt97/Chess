@@ -1,0 +1,23 @@
+#welcome{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#chess-with-friends-text{
+    color: white;
+    position: absolute;
+    top: 100px;
+}
+
+#login-and-register-divs{
+    background-color: rgba(0, 255, 255, 0.519);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+input{
+    border-radius: 10px;
+}

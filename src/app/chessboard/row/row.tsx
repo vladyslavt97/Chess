@@ -6,7 +6,7 @@ import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../../redux/mo
 import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
 import './row.css'
-import { socket } from '../../../socket/socket';
+import { socket } from '../../socket/socket';
 
 interface RowProps{
     row: Array<object>,
@@ -15,10 +15,11 @@ interface RowProps{
 
 export default function Row(props: RowProps) {
     const isPieceSelectedState = useSelector((state: RootState) =>state.moveFrom.valueSelected);
+    const stateMoveFrom = useSelector((state: RootState) =>state.moveFrom.value);
+
     const [wrongMove, setWrongMove] = useState('');// generate the error!
     const [legalMove, setLegalMove] = useState<string[]>([]);
     const [moveTo, setMoveTo] = useState('');//not used??
-    const stateMoveFrom = useSelector((state: RootState) =>state.moveFrom.value);
     const dispatch = useDispatch();
 
     //set legal moves, moveFrom and isPieceSelected

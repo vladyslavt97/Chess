@@ -1,0 +1,23 @@
+#registration-form{
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+#registration-form>*{
+    padding: 10px;
+}
+
+.mandatory-field{
+    color: red;
+}
+
+#register-btn{
+    border-radius: 20px;
+    width: 50%;
+    border: 1px solid rgb(0, 85, 255);
+    background-color: rgb(127, 251, 255);
+}

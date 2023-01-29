@@ -6,9 +6,6 @@ const {cookieSession } = require('./cookiesession.cjs');
 app.use(cookieSession);
 
 app.use(express.json());
-const {Chess} = require('chess.js')
-const FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-const chess = new Chess(FEN)
 
 // ------------------------------------ SOCKET  ------------------------------------ //
 const server = require('http').Server(app);
@@ -20,7 +17,8 @@ const io = require('socket.io')(server, {
 io.use((socket, next) => {
     cookieSession(socket.request, socket.request.res, next);
 });
-let usersConnectedInfo = [];
+
+// let usersConnectedInfo = [];
 io.on("connection", async (socket) => {
     console.log("[social:socket] incoming socket connection", socket.id);
 
@@ -47,7 +45,11 @@ app.use(loginRouter);
 app.use(registerRouter);
 app.use(allUsersRouter);
 
+// --- CHESs --- //
 
+const {Chess} = require('chess.js')
+const FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+const chess = new Chess(FEN)
 
 app.get('/api/gamestate', (req, res) => {
   console.log('+');
@@ -63,8 +65,8 @@ app.post('/api/legalmoves', (req, res) => {
   catch {
     console.log('something went wrong on the legal move validation');
   }
-
 });
+
 app.post('/api/movepiece', (req, res) => {
   try{
     let from = req.body.from;
@@ -101,11 +103,14 @@ app.get('/api/whoseturn', (req, res) => {
   res.json({st: state});
 });
 
+
+
+// other routes
 app.get("/api/user/id.json", (req, res) => {
     res.json({ userId: req.session.userId });
 });
 
-app.post('/signout', (req, res) => {
+app.post('/api/signout', (req, res) => {
     req.session = null;
     res.json({ userId: null });
 });

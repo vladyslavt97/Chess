@@ -1,0 +1,18 @@
+#login-form {
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+#login-form>* {
+    padding: 10px;
+}
+
+#login-btn {
+    border-radius: 20px;
+    width: 50%;
+    border: 1px solid rgb(0, 85, 255);
+}

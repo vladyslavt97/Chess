@@ -1,5 +1,5 @@
 import { useState} from 'react';
-// import { Validation } from '../components/validation';
+import './Registration.css'
 import { Link } from 'react-router-dom';
 
 export default function Registration() {
@@ -60,7 +60,7 @@ export default function Registration() {
               />
               <b className='mandatory-field'>*</b>
           </div>
-          <button>Register</button>
+          <button id='register-btn'>Register</button>
         <h3> Already Registered? Then <Link to="/login">LOGIN</Link></h3>
       </form>
   </div>
