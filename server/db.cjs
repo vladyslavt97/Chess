@@ -83,6 +83,14 @@ module.exports.deleteFromGames = (player1_id, player2_id) => {
 };
 
 
+//
+module.exports.myLatestGame = (userId) => {
+    return db.query(`
+    SELECT *
+    FROM games
+    WHERE (player1_id = $1 OR player2_id = $1)
+    ORDER BY created_at DESC;`,[userId]);
+};
 
 
 

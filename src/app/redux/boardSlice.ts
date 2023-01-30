@@ -19,6 +19,8 @@ export const boardSlice = createSlice({
   reducers: {
     //the board original
     originalBoardState: (state, boardAction: PayloadAction<Array<Array<object>>>) => {
+      console.log('boardAction: ', boardAction);
+      
       state.boardValue = boardAction.payload;
     },
 

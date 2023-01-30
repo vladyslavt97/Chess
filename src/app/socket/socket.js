@@ -36,8 +36,8 @@ export const initSocket = (store) => {
 
     // ------------------------ the chess part! ------------------------//
     socket.on("startTheGame", (data) => {
-        console.log('data in theBoard socket.js', data);
-        const action = originalBoardState(data);//board
+        console.log('data in theBoard socket.js data.info', data.info);
+        const action = originalBoardState(data.info);//board
         store.dispatch(action);
     });
 

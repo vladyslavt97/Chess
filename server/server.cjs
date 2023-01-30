@@ -4,7 +4,7 @@ const app = express();
 const { PORT, WEB_URL } = process.env;
 const {cookieSession } = require('./cookiesession.cjs');
 const cors = require('cors');
-const { getLatestMessages, getMyUSerFromDB, getOnlineUsersByTheirIDs, insertMessageToAll, insertMessage, startingFenInsert } = require('./db.cjs');
+const { getLatestMessages, getMyUSerFromDB, getOnlineUsersByTheirIDs, insertMessageToAll, insertMessage, startingFenInsert, myLatestGame } = require('./db.cjs');
 app.use(cors());
 
 
@@ -105,21 +105,41 @@ io.on("connection", async (socket) => {
 
 
 
-
-
-
+    console.log('got here');
+    const myLatestGames = await myLatestGame(userId);
+    console.log(myLatestGames.rows[0]);
+    socket.emit('myLatestGame', myLatestGames);
 
     //the game part!!!
-    socket.on('startTheGame', async (gamestarted) =>{
-      console.log('startTheGame server', gamestarted);
+    socket.on('startTheGame', async (clickedUs) =>{
+      console.log('socket.on startTheGame clickedUs server', clickedUs);
       let player1_id = userId;
-      let player2_id = gamestarted;
+      let player2_id = clickedUs;
       console.log(player1_id, player2_id);
       let board = chess.fen();
       const startingFen = await startingFenInsert(player1_id, player2_id, board);
       console.log(startingFen.rows);
-      const state = chess.board().reverse();
-      socket.emit('startTheGame', state);
+      let foundSocket = usersConnectedInfo.find(el => el.usersId === clickedUs);
+        console.log('foundsocket: ', foundSocket);
+        
+
+        const state = chess.board().reverse();
+        foundSocket.socketId.forEach(each => {
+          io.to(each).emit('startTheGame', {
+            info: state, 
+            senderId: socket.id});
+        });
+  
+        //to myself
+        let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
+        console.log('foundsocket mine: ', mySocket);
+  
+        // we need to go throught the socketIds and send to each one
+        mySocket.socketId.forEach(each => {
+            io.to(each).emit('startTheGame', {
+                info: state, 
+                senderId: socket.id});
+        });
     });
     
     // --------------- ONLY MOVE TO GOES THROUGH THE SOCKET!!!! -----------//
@@ -128,7 +148,7 @@ io.on("connection", async (socket) => {
       const recipient_id = dataMoveTo.clickedUserId;
       try{
         //from and to should be recieved from the client
-        const moveTo = chess.move({ from: from , to: to })
+        chess.move({ from: from , to: to })
         const currentPosition = chess.fen();
         const newMessage = await updateTheBoard(userId, recipient_id, currentPosition);//only after a successful move
         let foundSocket = usersConnectedInfo.find(el => el.usersId === dataMoveTo.clickedUserId);
