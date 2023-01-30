@@ -12,8 +12,9 @@ import { Signout } from './app/components/signout';
 import { myId } from './app/redux/boardSlice';
 
 export default function App() {
-  const checkMate = useSelector((state: RootState) =>state.checkMate.valueCM);
+  const isGameover = useSelector((state: RootState) =>state.board.gameover);
   const [visibleInfoPopup, setVisibleInfoPopup] = useState<boolean>(false);
+  console.log('the board: ', isGameover);
 
 
   const toggleInfoPopup = () => {
@@ -37,7 +38,6 @@ export default function App() {
             .catch((error) => {
                 console.error('Error caught:', error);
             });
-
   }, [])
 
   return (
@@ -51,7 +51,7 @@ export default function App() {
         <ChessBoard />
         <Chat />
       </div>
-      {checkMate && 
+      {isGameover && 
         <div id='checkmate'>
             <CheckMate />
       </div>}

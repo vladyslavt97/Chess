@@ -147,13 +147,14 @@ io.on("connection", async (socket) => {
         const currentPosition = chess.fen();
         const newMessage = await updateTheBoard(userId, recipient_id, currentPosition);//only after a successful move
         let foundSocket = usersConnectedInfo.find(el => el.usersId === dataMoveTo.clickedUser);
-        
-
+         
+        const gameisover = chess.isGameOver();
         const state = chess.board().reverse();
         foundSocket.socketId.forEach(each => {
           io.to(each).emit('moveTo', {
             info: state, 
-            senderId: socket.id});
+            senderId: socket.id,
+            gameisover: gameisover});
         });
   
         //to myself
@@ -163,7 +164,8 @@ io.on("connection", async (socket) => {
         mySocket.socketId.forEach(each => {
             io.to(each).emit('moveTo', {
                 info: state, 
-                senderId: socket.id});
+                senderId: socket.id,
+                gameisover: gameisover});
         });
       } 
       catch (error){
@@ -259,21 +261,6 @@ app.post('/api/legalmoves', (req, res) => {
 //   } 
 //   catch (error){
 //     console.log('something went wrong in the movepiece', error);
-//   }
-  
-// });
-
-// app.get('/api/ischeckmate', (req, res) => {
-//   try{
-//     if(chess.isGameOver()){
-//       console.log('isgameover:)');
-//       res.json({gameover: true})
-//     } else {
-//       return;
-//     }
-//   } 
-//   catch (error){
-//     console.log('something went wrong in the ischeckmate', error);
 //   }
   
 // });

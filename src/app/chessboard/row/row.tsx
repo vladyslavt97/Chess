@@ -68,26 +68,6 @@ export default function Row(props: RowProps) {
         setMoveTo('');
     }
 
-    // useEffect(()=>{
-    //     fetch('/api/ischeckmate', {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //     })
-    //     .then(response => {
-    //         return response.json();     
-    //     })
-    //     .then(data => {
-    //         console.log('data true: ', data);//true
-    //         dispatch(checkMateState(data))
-    //     })
-    //     .catch(err => {
-    //             console.log('error in ischeckmate: ', err);
-    //         });
-    // }, [board])
-
-
     const handleClick = (cell: any, event: any) => { 
         if(isPieceSelectedState){
             getTheCellTOMove(event, cell);
