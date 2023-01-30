@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import { originalBoardState, updateTheBoardState, isGameOverState} from "../redux/boardSlice";
 import { messagesState, receivedMessage} from "../redux/messagesSlice";
-import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../redux/moveFromSlice';
+import { setWhiteColor, setBlackColor} from "../redux/colorsSlice";
 
 
 export let socket;
@@ -44,7 +44,18 @@ export const initSocket = (store) => {
         store.dispatch(action);
     });
 
-    // dispatch(checkMateState(data.checkMate))
-    // console.log('data.moved: ', data.moved);
-    
+
+
+    //colors
+    socket.on("colorPlayer1", (data) => {
+        console.log('colorPlayer1', data);
+        //you are white
+        const action = setWhiteColor(data.colour);
+        store.dispatch(action);
+    });
+    socket.on("colorPlayer2", (data) => {
+        console.log('colorPlayer2', data);
+        const action = setBlackColor(data.colour);
+        store.dispatch(action);
+    });
 };

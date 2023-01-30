@@ -120,22 +120,35 @@ io.on("connection", async (socket) => {
       let foundSocket = usersConnectedInfo.find(el => el.usersId === clickedUs);
         
 
-        const state = chess.board().reverse();
-        foundSocket.socketId.forEach(each => {
+
+      let player1 = usersConnectedInfo.find(el => el.usersId === clickedUs);
+      console.log('player1', player1.socketId);
+      io.to(player1.socketId[0]).emit('colorPlayer1', {
+        colour: 'b'
+      });
+      console.log('player2: ', socket.id);
+      io.to(socket.id).emit('colorPlayer2', {
+        colour: 'w'
+      });
+
+
+
+      const state = chess.board().reverse();
+      foundSocket.socketId.forEach(each => {
+        io.to(each).emit('startTheGame', {
+          info: state, 
+          senderId: socket.id});
+      });
+
+      //to myself
+      let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
+
+      // we need to go throught the socketIds and send to each one
+      mySocket.socketId.forEach(each => {
           io.to(each).emit('startTheGame', {
-            info: state, 
-            senderId: socket.id});
-        });
-  
-        //to myself
-        let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
-  
-        // we need to go throught the socketIds and send to each one
-        mySocket.socketId.forEach(each => {
-            io.to(each).emit('startTheGame', {
-                info: state, 
-                senderId: socket.id});
-        });
+              info: state, 
+              senderId: socket.id});
+      });
     });
     
     // --------------- ONLY MOVE TO GOES THROUGH THE SOCKET!!!! -----------//

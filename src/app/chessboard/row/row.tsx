@@ -101,6 +101,9 @@ export default function Row(props: RowProps) {
         return String.fromCharCode(65 + index).toLowerCase();
     }
     
+
+    // const myColor = useSelector((state: RootState) => state.colors.filter());
+
     return <div id='rows' >
             {props.row.map((cell, columnIndex) => (
                         <div key={columnIndex} 
