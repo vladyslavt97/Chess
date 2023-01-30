@@ -57,7 +57,7 @@ module.exports.getLatestMessages = (limit = 10) => {
 
 // ------------------ GAME -----------------------//
 //insert a new game to start
-module.exports.insertGame = (player1_id, player2_id, board) => {
+module.exports.startingFenInsert = (player1_id, player2_id, board) => {
     return db.query(`
     INSERT INTO games (player1_id, player2_id, board) 
     VALUES ($1, $2, $3) 
@@ -65,7 +65,7 @@ module.exports.insertGame = (player1_id, player2_id, board) => {
 };
 
 //update the board after each move
-module.exports.updatePasswordInUsersTable = (player1_id, player2_id, board) => {
+module.exports.updateTheBoard = (player1_id, player2_id, board) => {
     return db.query(`UPDATE games 
                     SET board = $1
                     WHERE (player1_id = $1 AND player2_id = $2)
@@ -73,9 +73,10 @@ module.exports.updatePasswordInUsersTable = (player1_id, player2_id, board) => {
                     RETURNING *;`,[player1_id, player2_id, board]);
 };
 
+//delete the game
 
 
-//
+
 //online users!!!!!!!!!
 module.exports.getOnlineUsersByTheirIDs = (onlineUsers) =>{
     return db.query(`

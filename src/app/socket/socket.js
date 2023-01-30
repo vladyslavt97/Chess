@@ -1,6 +1,8 @@
 import { io } from "socket.io-client";
-import { originalBoardState } from "../redux/boardSlice";
+import { originalBoardState, updateTheBoardState} from "../redux/boardSlice";
 import { messagesState, receivedMessage} from "../redux/messagesSlice";
+import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../redux/moveFromSlice';
+
 
 export let socket;
 export const initSocket = (store) => {
@@ -32,13 +34,20 @@ export const initSocket = (store) => {
 
 
 
-    //the chess part!
-    socket.on("theBoard", (data) => {
+    // ------------------------ the chess part! ------------------------//
+    socket.on("startTheGame", (data) => {
         console.log('data in theBoard socket.js', data);
         const action = originalBoardState(data);//board
         store.dispatch(action);
     });
 
-    
+    socket.on("moveTo", (data) => {
+        console.log('moveTo socket.js', data.info);
+        const action = updateTheBoardState(data.info);
+        store.dispatch(action);
+    });
+
+    // dispatch(checkMateState(data.checkMate))
+            // console.log('data.moved: ', data.moved);
     
 };

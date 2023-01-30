@@ -4,7 +4,7 @@ const app = express();
 const { PORT, WEB_URL } = process.env;
 const {cookieSession } = require('./cookiesession.cjs');
 const cors = require('cors');
-const { getLatestMessages, getMyUSerFromDB, getOnlineUsersByTheirIDs, insertMessageToAll, insertMessage } = require('./db.cjs');
+const { getLatestMessages, getMyUSerFromDB, getOnlineUsersByTheirIDs, insertMessageToAll, insertMessage, startingFenInsert } = require('./db.cjs');
 app.use(cors());
 
 
@@ -110,43 +110,53 @@ io.on("connection", async (socket) => {
 
 
     //the game part!!!
-    const state = chess.board().reverse();
-    socket.emit('theBoard', state);
+    socket.on('startTheGame', async (gamestarted) =>{
+      console.log('startTheGame server', gamestarted);
+      let player1_id = userId;
+      let player2_id = gamestarted;
+      console.log(player1_id, player2_id);
+      let board = chess.fen();
+      const startingFen = await startingFenInsert(player1_id, player2_id, board);
+      console.log(startingFen.rows);
+      const state = chess.board().reverse();
+      socket.emit('startTheGame', state);
+    });
     
-    //legal move
-    socket.on('legalmoves', async (dataMoveFrom) => {
-      console.log('dataMoveFrom::', dataMoveFrom);
-      // recipient_id = clicked should come from the client
+    // --------------- ONLY MOVE TO GOES THROUGH THE SOCKET!!!! -----------//
+    socket.on('moveTo', async (dataMoveTo) => {
+      console.log('dataMoveTo::', dataMoveTo);
+      const recipient_id = dataMoveTo.clickedUserId;
       try{
-        const movesLegal = chess.moves({ square: dataMoveFrom});
-        const newMessage = await insertMessage(userId, recipient_id, movesLegal);
+        //from and to should be recieved from the client
+        const moveTo = chess.move({ from: from , to: to })
+        const currentPosition = chess.fen();
+        const newMessage = await updateTheBoard(userId, recipient_id, currentPosition);//only after a successful move
+        let foundSocket = usersConnectedInfo.find(el => el.usersId === dataMoveTo.clickedUserId);
+        console.log('foundsocket: ', foundSocket);
+        
+
+        const state = chess.board().reverse();
+        foundSocket.socketId.forEach(each => {
+          io.to(each).emit('moveTo', {
+            info: state, 
+            senderId: socket.id});
+        });
+  
+        //to myself
+        let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
+        console.log('foundsocket mine: ', mySocket);
+  
+        // we need to go throught the socketIds and send to each one
+        mySocket.socketId.forEach(each => {
+            io.to(each).emit('moveTo', {
+                info: state, 
+                senderId: socket.id});
+        });
       } 
       catch {
         console.log('something went wrong on the legal move validation');
       }
 
-      const newMessage = await insertMessage(userId, recipient_id, oneMessage);
-      // console.log('nm in server.js', newMessage.rows[0]);
-
-      //to friend
-      let foundSocket = usersConnectedInfo.find(el => el.usersId === dataClient.selectedFriendId);
-      console.log('fs: ', foundSocket);
-      foundSocket.socketId.forEach(each => {
-          io.to(each).emit('private_message', {
-              info: newMessage.rows[0], 
-              senderId: socket.id});
-      });
-
-      //to myself
-      let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
-      console.log('fs: ', mySocket);
-
-      // we need to go throught the socketIds and send to each one
-      mySocket.socketId.forEach(each => {
-          io.to(each).emit('private_message', {
-              info: newMessage.rows[0], 
-              senderId: socket.id});
-      });
     });
 
 
@@ -207,38 +217,38 @@ const {Chess} = require('chess.js')
 const FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 const chess = new Chess(FEN)
 
-// app.post('/api/legalmoves', (req, res) => {
-//   try{
-//     const movesLegal = chess.moves({ square: req.body.possibleMoves});
-//     res.json({legalmoves: movesLegal});
-//   } 
-//   catch {
-//     console.log('something went wrong on the legal move validation');
-//   }
-// });
-
-app.post('/api/movepiece', (req, res) => {
+app.post('/api/legalmoves', (req, res) => {
   try{
-    let from = req.body.from;
-    let to = req.body.to;
-    chess.move({ from: from , to: to })
-    const state = chess.board().reverse();
-    if(chess.isCheckmate()){
-      // chess.isGameOver()
-      console.log('checkmate:)');
-      res.json({checkMate: true, moved: state})
-    } else if (chess.isDraw()){
-      console.log('draw:)');
-      res.json({draw: true, moved: state})
-    } else {
-      res.json({moved: state});
-    }
+    const movesLegal = chess.moves({ square: req.body.possibleMoves});
+    res.json({legalmoves: movesLegal});
   } 
-  catch (error){
-    console.log('something went wrong in the movepiece', error);
+  catch {
+    console.log('something went wrong on the legal move validation');
   }
-  
 });
+
+// app.post('/api/movepiece', (req, res) => {
+//   try{
+//     let from = req.body.from;
+//     let to = req.body.to;
+//     chess.move({ from: from , to: to })
+//     const state = chess.board().reverse();
+//     if(chess.isCheckmate()){
+//       // chess.isGameOver()
+//       console.log('checkmate:)');
+//       res.json({checkMate: true, moved: state})
+//     } else if (chess.isDraw()){
+//       console.log('draw:)');
+//       res.json({draw: true, moved: state})
+//     } else {
+//       res.json({moved: state});
+//     }
+//   } 
+//   catch (error){
+//     console.log('something went wrong in the movepiece', error);
+//   }
+  
+// });
 
 app.post('/api/emptyboard', (req, res)=>{
   console.log('emptyboard or restart');
