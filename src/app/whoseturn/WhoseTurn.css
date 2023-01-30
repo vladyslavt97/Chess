@@ -6,7 +6,7 @@
 
 #whiteturn{
     position: relative;
-    top: 40px;
+    top: 100px;
     width: 50px;
     height: 50px;
     right: 25%;
@@ -16,7 +16,7 @@
 
 #blackturn{
     position: relative;
-    top: 40px;
+    top: 100px;
     width: 50px;
     height: 50px;
     right: 25%;

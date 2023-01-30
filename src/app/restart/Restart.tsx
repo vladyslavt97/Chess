@@ -1,33 +1,20 @@
 import React, { useState } from 'react'
 import './Restart.css'
 import { clearTheBoard } from '../redux/checkmateSlice';
-import { useDispatch } from 'react-redux';
-import WhoseTurn from '../whoseturn/Whoseturn';
+import { useDispatch, useSelector } from 'react-redux';
+import { socket } from '../socket/socket';
+import { RootState } from '../redux/store';
 
 export default function Restart() {
+    const clickedUserId = useSelector((state: RootState) => state.board.id);
+
     const [visibleBackdrop, setVisibleBackdrop] = useState<boolean>(false)
     const dispatch = useDispatch();
     
     const restartTheGame = ()=>{
-        fetch('/api/emptyboard', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            // body: JSON.stringify({possibleMoves: value}),
-        })
-        .then(response => {
-            console.log('response: clear the board post');
-            return response.json()
-        })
-        .then(data => {
-            console.log('data upon successful board emtiyng. Probably should be true: ', data);
-            dispatch(clearTheBoard(true));
-        })
-        .catch(err => {
-                console.log('er: ', err);
-            });
-
+        socket.emit('emptyboard', {clickedUserId: clickedUserId})
+        setVisibleBackdrop(!visibleBackdrop);
+        dispatch(clearTheBoard(true));
     } 
   return (
     <div id='image-restart-div'>

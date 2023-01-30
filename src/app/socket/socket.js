@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { originalBoardState, updateTheBoardState, isGameOverState} from "../redux/boardSlice";
+import { originalBoardState, updateTheBoardState, isGameOverState, thePlayersToColour} from "../redux/boardSlice";
 import { messagesState, receivedMessage} from "../redux/messagesSlice";
 // import { setWhiteColor, setBlackColor} from "../redux/colorsSlice";
 
@@ -26,7 +26,8 @@ export const initSocket = (store) => {
 
     // ------------------------ the chess part! ------------------------//
     socket.on("startTheGame", (data) => {
-        console.log('data in theBoard socket.js data.info', data.info);
+        console.log('data in theBoard socket.js data.info', data);
+        store.dispatch(thePlayersToColour(data.whatIsInserted));
         const action = originalBoardState(data.info);//board
         store.dispatch(action);
     });

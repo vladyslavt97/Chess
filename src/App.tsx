@@ -7,17 +7,20 @@ import ChessBoard from './app/chessboard/Chessboard';
 import AllUsers from './app/allusers/AllUsers';
 import { RootState } from './app/redux/store';
 import Restart from './app/restart/Restart';
-import WhoseTurn from './app/whoseturn/Whoseturn';
+import WhoseTurn from './app/whoseturn/WhoseTurn';
 import { Signout } from './app/components/signout';
 import { myId } from './app/redux/boardSlice';
 import { UserInfo } from './interface';
 
 export default function App() {
   const isGameover = useSelector((state: RootState) =>state.board.gameover);
+  const thePlayersToColour = useSelector((state: RootState) =>state.board.gameInserted[0]);
+  console.log('thePlayersToColour: ', thePlayersToColour);
+  const [myInfo, setMyInfo] = useState<any>([]);
+  
   const [visibleInfoPopup, setVisibleInfoPopup] = useState<boolean>(false);
   console.log('the board: ', isGameover);
 
-  const [myInfo, setMyInfo] = useState<any>([]);
 
   const toggleInfoPopup = () => {
     console.log('toggleInfoPopup clicked');
@@ -48,6 +51,9 @@ export default function App() {
       <div id='lets-play-some-chess'>
         <h1 id='lets-play-some-chess-text'>Lets Play Some Chess</h1>
         <h3 id='first-and-last-name'>Welcome, {myInfo.first} &nbsp; {myInfo.last}</h3>
+        {thePlayersToColour && <div>
+                                {thePlayersToColour.player1_id === myInfo.id ? <h2 id='whiteside'>Your pieces are ⚪️</h2> : <h2 id='blackside'>Your pieces are ⚫️</h2>}
+                              </div>}
       </div>
 
       <div id='the-layout'>
@@ -60,9 +66,9 @@ export default function App() {
             <CheckMate />
       </div>}
 
-      <Restart />
+      {thePlayersToColour && <Restart />}
       
-      <WhoseTurn />
+      {thePlayersToColour && <WhoseTurn />}
 
       <Signout />
 

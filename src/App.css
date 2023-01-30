@@ -115,3 +115,16 @@
     border-radius: 5px;
     background-color: #00a6ff;
 }
+
+#whiteside{
+    color: white;
+    background-color: rgb(84, 157, 129);
+    border: 3px solid green;
+    margin: 10px;
+}
+#blackside{
+    color: rgb(0, 0, 0);
+    background-color: rgb(84, 157, 129);
+    border: 3px solid green;
+    margin: 10px;
+}

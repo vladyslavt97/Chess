@@ -26,7 +26,6 @@ io.use((socket, next) => {
     cookieSession(socket.request, socket.request.res, next);
 });
 
-//advised by Gimena to put here
 app.use(cookieSession);
 app.use(express.json());
 
@@ -60,27 +59,14 @@ io.on("connection", async (socket) => {
     getOnlineUsers();
     console.log('online users: ', usersConnectedInfo);
 
-
-
-
-
-    //latest messages!
     const latestMessages = await getLatestMessages();
-    // console.log('lat: ', latestMessages.rows);
     socket.emit('chatMessages', latestMessages);
 
-
-
-
-    // listen for when the connected user sends a message later
     socket.on('private_message', async (dataClient) => {
-    // store the message in the db
       console.log('dataClient: ', dataClient.messageState, 'id: ', dataClient.selectedFriendId);
       let recipient_id = dataClient.selectedFriendId;
       let oneMessage = dataClient.messageState;
       const newMessage = await insertMessage(userId, recipient_id, oneMessage);
-      // console.log('nm in server.js', newMessage.rows[0]);
-
       //to friend
       let foundSocket = usersConnectedInfo.find(el => el.usersId === dataClient.selectedFriendId);
       console.log('fs: ', foundSocket);
@@ -89,11 +75,9 @@ io.on("connection", async (socket) => {
               info: newMessage.rows[0], 
               senderId: socket.id});
       });
-
       //to myself
       let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
       console.log('fs: ', mySocket);
-
       // we need to go throught the socketIds and send to each one
       mySocket.socketId.forEach(each => {
           io.to(each).emit('private_message', {
@@ -104,7 +88,7 @@ io.on("connection", async (socket) => {
 
 
 
-//----------------------------------------------------------------
+//-----------------------------------START-----------------------------
     const myLatestGames = await myLatestGame(userId);
     socket.emit('myLatestGame', myLatestGames);
 
@@ -116,14 +100,15 @@ io.on("connection", async (socket) => {
       console.log(player1_id, player2_id);
       let board = chess.fen();
       const startingFen = await startingFenInsert(player1_id, player2_id, board);
-      console.log(startingFen.rows);
+      console.log('startingFen: ', startingFen.rows);
       let foundSocket = usersConnectedInfo.find(el => el.usersId === clickedUs);
 
       const state = chess.board().reverse();
       foundSocket.socketId.forEach(each => {
         io.to(each).emit('startTheGame', {
           info: state, 
-          senderId: socket.id});
+          senderId: socket.id,
+          whatIsInserted: startingFen.rows});
       });
 
       //to myself
@@ -132,11 +117,15 @@ io.on("connection", async (socket) => {
       // we need to go throught the socketIds and send to each one
       mySocket.socketId.forEach(each => {
           io.to(each).emit('startTheGame', {
-              info: state, 
-              senderId: socket.id});
+          info: state, 
+          senderId: socket.id,
+          whatIsInserted: startingFen.rows});
       });
     });
+    //--------------------------END OF START-----------------------------
     
+
+
     // --------------- ONLY MOVE TO GOES THROUGH THE SOCKET!!!! -----------//
     socket.on('moveTo', async (dataMoveTo) => {
       console.log('dataMoveTo::', dataMoveTo);
@@ -156,10 +145,7 @@ io.on("connection", async (socket) => {
             gameisover: gameisover});
         });
   
-        //to myself
         let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
-  
-        // we need to go throught the socketIds and send to each one
         mySocket.socketId.forEach(each => {
             io.to(each).emit('moveTo', {
                 info: state, 
@@ -174,10 +160,7 @@ io.on("connection", async (socket) => {
     });
 
 // ---------------------------- clear the DB with games ----------------------------//
-  //delete the board from DB
-  //when we are starting the game next time: //check if its new or old game //in the startTheGame 
-
-  // deleteFromGames() //db query
+  // deleteFromGames
 socket.on('emptyboard', async (emptyboard) => {
   console.log('emptyboard::', emptyboard);
   const player1_id = userId;
@@ -185,16 +168,12 @@ socket.on('emptyboard', async (emptyboard) => {
     try{
       chess.reset();
       const deletedGame = await deleteFromGames(player1_id, player2_id);
-      console.log('deletedGame:', deletedGame);
-
       let foundSocket = usersConnectedInfo.find(el => el.usersId === emptyboard.clickedUserId);
       const state = chess.board().reverse();
-      console.log('state after delition: ', state);
       foundSocket.socketId.forEach(each => {
         io.to(each).emit('moveTo', {
           info: state});
       });
-
       let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
       mySocket.socketId.forEach(each => {
           io.to(each).emit('moveTo', {

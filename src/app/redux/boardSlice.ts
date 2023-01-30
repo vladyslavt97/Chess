@@ -6,13 +6,15 @@ export interface BoardState {
     id: number,
     myId: number,
     gameover: boolean,
+    gameInserted: object
 }
 
 const initialState: BoardState = {
     boardValue: [],
     id: 0,
     myId: 0,
-    gameover: false
+    gameover: false,
+    gameInserted: {}
 };
 
 export const boardSlice = createSlice({
@@ -41,10 +43,14 @@ export const boardSlice = createSlice({
       console.log('user id from the clicked user in boardSlice', myIdAction.payload);
       state.gameover = myIdAction.payload;
     },
+    thePlayersToColour: (state, myIdAction: PayloadAction<object>) => {
+      console.log('user id from the clicked user in boardSlice', myIdAction.payload);
+      state.gameInserted = myIdAction.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { originalBoardState, updateTheBoardState, selectedUserId, myId, isGameOverState } = boardSlice.actions
+export const { originalBoardState, updateTheBoardState, selectedUserId, myId, isGameOverState, thePlayersToColour } = boardSlice.actions
 // reducer
 export default boardSlice.reducer
