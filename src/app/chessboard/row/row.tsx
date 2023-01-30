@@ -16,7 +16,7 @@ interface RowProps{
 export default function Row(props: RowProps) {
     const isPieceSelectedState = useSelector((state: RootState) =>state.moveFrom.valueSelected);
     const stateMoveFrom = useSelector((state: RootState) =>state.moveFrom.value);
-
+    const board = useSelector((state: RootState) =>state.board.boardValue);
     const clickedUserId = useSelector((state: RootState) => state.board.id);
 
     const [wrongMove, setWrongMove] = useState('');// generate the error!
@@ -66,25 +66,27 @@ export default function Row(props: RowProps) {
         socket.emit('moveTo', {from: stateMoveFrom, to: dataa, clickedUser: clickedUserId});
         dispatch(clearTheMoveFrom(''));
         setMoveTo('');
-        fetch('/api/ischeckmate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(response => {
-            console.log("SUCCESSS")
-            return response.json();     
-        })
-        .then(data => {
-            console.log('data: ', data);//true
-            dispatch(checkMateState(data))
-        })
-        .catch(err => {
-                console.log('error in ischeckmate: ', err);
-            });
     }
 
+    // useEffect(()=>{
+    //     fetch('/api/ischeckmate', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //     })
+    //     .then(response => {
+    //         console.log("SUCCESSS")
+    //         return response.json();     
+    //     })
+    //     .then(data => {
+    //         console.log('data: ', data);//true
+    //         dispatch(checkMateState(data))
+    //     })
+    //     .catch(err => {
+    //             console.log('error in ischeckmate: ', err);
+    //         });
+    // }, [board])
 
 
     const handleClick = (cell: any, event: any) => { 
