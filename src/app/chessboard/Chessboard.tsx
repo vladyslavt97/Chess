@@ -22,11 +22,20 @@ export default function ChessBoard() {
     }
     
     const startTheGame = ()=>{
+        console.log('startTheGame');
+        
         socket.emit('startTheGame', clickedUserId)
     }
 
+
+    console.log('the board: ', board);
+    console.log('clickedUserId: ', clickedUserId);
+    
+    
     return <div id="big-big-div">
-            {(board.length === 0 && clickedUserId) ? <button onClick={startTheGame} id="start-the-game-btn-center"> Start the Game </button> : null}
+            {(board.length === 0 && clickedUserId) ? <button onClick={startTheGame} 
+                                id="start-the-game-btn-center"> Start the Game </button> : null}
+
             {board && <div className="chess-board">
                     {board.map((row, index) => (
                             <div key={index} >

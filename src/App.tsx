@@ -35,8 +35,6 @@ export default function App() {
             .then((response) => 
               response.json())
             .then((data) => {
-              console.log('my: ', data.myuser);
-              
               setMyInfo(data.myuser)
               dispatch(myId( data.myuser.id));
             })
@@ -44,8 +42,6 @@ export default function App() {
                 console.error('Error caught:', error);
             });
   }, [])
-
-  console.log('sdasda: ', myInfo.first);
   
   return (
     <div className="main-div">

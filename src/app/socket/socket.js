@@ -22,12 +22,6 @@ export const initSocket = (store) => {
         store.dispatch(action);
     });
 
-    // socket.on('online', (data) => {
-    //     console.log('online users: ', data);
-    //     const action = onlineUserAppeared(data);
-    //     store.dispatch(action);
-    // });
-
 
 
     // ------------------------ the chess part! ------------------------//
@@ -43,19 +37,4 @@ export const initSocket = (store) => {
         const action = updateTheBoardState(data.info);
         store.dispatch(action);
     });
-
-
-
-    // //colors
-    // socket.on("colorPlayer1", (data) => {
-    //     console.log('colorPlayer1', data);
-    //     //you are white
-    //     const action = setWhiteColor(data.colour);
-    //     store.dispatch(action);
-    // });
-    // socket.on("colorPlayer2", (data) => {
-    //     console.log('colorPlayer2', data);
-    //     const action = setBlackColor(data.colour);
-    //     store.dispatch(action);
-    // });
 };
