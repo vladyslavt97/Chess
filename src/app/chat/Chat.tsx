@@ -74,14 +74,14 @@ export default function Chat() {
                 )}
         </div>
 
-        <form onSubmit={handleSubmitMessages} id="chat-form">
+        {clickedUserId && <form onSubmit={handleSubmitMessages} id="chat-form">
             <textarea placeholder='Type Your Message' 
               onChange={handleChangeOfMessage}
               onKeyDown={onEnterKeyDownChat}
               id='textarea-chat'
             />
             <button id='button-send'>Send</button>
-        </form>
+        </form>}
     </div>
   )
 }

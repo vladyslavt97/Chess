@@ -13,6 +13,7 @@ import { myId, myUserInformation } from './app/redux/boardSlice';
 import { UserInfo } from './interface';
 
 export default function App() {
+  const clickedUserId = useSelector((state: RootState) => state.board.id);
   const isGameover = useSelector((state: RootState) =>state.board.gameover);
   const thePlayersToColour = useSelector((state: RootState) =>state.board.gameInserted[0]);
   console.log('thePlayersToColour: ', thePlayersToColour);
@@ -70,7 +71,7 @@ export default function App() {
       {thePlayersToColour && <Restart />}
       
       {thePlayersToColour && <WhoseTurn />}
-      {!thePlayersToColour && <img src='/knight.png' alt="knight" id='knight-beautiful'/>}
+      {!clickedUserId && <img src='/knight.png' alt="knight" id='knight-beautiful'/>}
       <Signout />
 
       <h1 onClick={toggleInfoPopup} id="question-mark">?</h1>
