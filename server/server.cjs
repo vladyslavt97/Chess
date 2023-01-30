@@ -102,13 +102,9 @@ io.on("connection", async (socket) => {
       });
     });
 
-
-
-    // socket.on('theBoard', async (data) => {
-    //     console.log('the board: ', data);
-    //     const newMessage = await insertMessageToAll(userId, text);
-    //     io.emit('theBoard', newMessage.rows[0]);
-    // });
+    //latest messages!
+    const state = chess.board().reverse();
+    socket.emit('theBoard', state);
     
     socket.on("disconnect", () => {
         console.log(socket.id, '= should disappear from the list on onlinne users');
@@ -156,11 +152,11 @@ const {Chess} = require('chess.js')
 const FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 const chess = new Chess(FEN)
 
-app.get('/api/gamestate', (req, res) => {
-  const state = chess.board().reverse();
-  res.json({st: state});
+// app.get('/api/gamestate', (req, res) => {
+//   const state = chess.board().reverse();
+//   res.json({st: state});
 
-});
+// });
 app.post('/api/legalmoves', (req, res) => {
   try{
     const movesLegal = chess.moves({ square: req.body.possibleMoves});

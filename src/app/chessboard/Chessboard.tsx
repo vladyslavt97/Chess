@@ -9,24 +9,8 @@ import { resetTheStateofReset } from '../redux/checkmateSlice';
 
 export default function ChessBoard() {
     const board = useSelector((state: RootState) =>state.board.boardValue);
-    const clearTheBoard = useSelector((state: RootState) =>state.checkMate.reset);
+    // const clearTheBoard = useSelector((state: RootState) =>state.checkMate.reset);
     
-    const dispatch = useDispatch();
-
-    useEffect(()=>{
-        fetch('/api/gamestate')
-        .then((response) => response.json()
-        )
-        .then((data) => {
-            dispatch(originalBoardState(data.st));
-            dispatch(resetTheStateofReset(false));
-        })
-        .catch((error) => {
-            console.error('Error caught:', error);
-        });
-    }, [clearTheBoard])
-    
-
     let letters = [];
     let i = 64;
     while (i++ <= 71){

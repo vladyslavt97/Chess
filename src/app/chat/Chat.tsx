@@ -31,7 +31,7 @@ export default function Chat() {
     setMessageState('');
   }
   const handleChangeOfMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setMessageState(event.target.value);
+    setMessageState(event.target.value);
   }
 
   return (
