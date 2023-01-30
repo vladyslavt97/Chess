@@ -50,6 +50,7 @@
 }
 #question-mark-div>* {
     z-index: 2;
+    line-height: 60px;
 }
 
 #notation{
@@ -127,4 +128,14 @@
     background-color: rgb(84, 157, 129);
     border: 3px solid green;
     margin: 10px;
+}
+
+
+
+#knight-beautiful{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
 }

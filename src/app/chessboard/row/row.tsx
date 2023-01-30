@@ -20,34 +20,28 @@ export default function Row(props: RowProps) {
     const thePlayersToColour = useSelector((state: RootState) =>state.board.gameInserted[0]);
 
     const myId = useSelector((state: RootState) => state.board.myId);
-    const [white, setWhite] = useState<boolean>(false);
-    const [black, setBlack] = useState<boolean>(false);
+    const [colour, setColour] = useState<string>('');
     
     useEffect(()=>{
         if(thePlayersToColour){
             if(thePlayersToColour.player1_id === myId){
-                    setWhite(true);
+                setColour('w');
             }else if (thePlayersToColour.player2_id === myId){
-                setBlack(true);
+                setColour('b');
             }
         }
     }, [])
-
-
-
 
     // const [wrongMove, setWrongMove] = useState('');// generate the error!
     const [legalMove, setLegalMove] = useState<string[]>([]);
     // const [moveTo, setMoveTo] = useState('');//not used??
     const dispatch = useDispatch();
-    const [scell, setCell] = useState('')
-//     console.log('ccc: ', cell);
 
-// setCell(cell.color);
-    //set legal moves, moveFrom and isPieceSelected
+
     const getImagePositionFROM = (cell: any)=>{
-
-        if(cell){
+        console.log('cell.color: ', cell.color, 'colour: ', colour );
+        
+        if(cell.color === colour){
             const value = cell.square;
             dispatch(moveFromState(value!))
             dispatch(isPieceSelected(true))

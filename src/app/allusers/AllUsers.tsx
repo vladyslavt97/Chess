@@ -31,7 +31,7 @@ export default function AllUsers() {
   
   return (
     <div id='friends-div'>
-        <div>Members</div>
+        <div>Choose a player: </div>
         <div id='all-users-list'>
           {allusers.map(user=>(
               <div key={user.id} onClick={()=>dispatch(selectedUserId(user.id))}>

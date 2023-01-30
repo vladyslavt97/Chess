@@ -8,6 +8,8 @@
     align-items: center;
     border-radius: 50px 0px 0px 50px;
     z-index: 3;
+    -webkit-box-shadow: -5px 2px 11px 8px rgba(0, 20, 80, 0.74);
+        box-shadow: -5px 2px 11px 8px rgba(0, 20, 80, 0.74);
 }
 
 

@@ -70,7 +70,7 @@ export default function App() {
       {thePlayersToColour && <Restart />}
       
       {thePlayersToColour && <WhoseTurn />}
-
+      {!thePlayersToColour && <img src='/knight.png' alt="knight" id='knight-beautiful'/>}
       <Signout />
 
       <h1 onClick={toggleInfoPopup} id="question-mark">?</h1>

@@ -8,6 +8,8 @@
     align-items: center;
     border-radius: 0px 50px 50px 0px;
     z-index: 3;
+    -webkit-box-shadow: 12px 0px 11px 4px rgba(0, 20, 80, 0.65);
+        box-shadow: 12px 0px 11px 4px rgba(0, 20, 80, 0.65);
 }
 
 #all-users-list{
@@ -49,5 +51,6 @@
 }
 
 .users-selected {
-    background-color: rgb(220, 146, 255);
+    background: rgb(240, 0, 215);
+        background: linear-gradient(-36deg, rgba(240, 0, 215, 1) 0%, rgba(143, 0, 255, 1) 100%); 
 }
