@@ -58,7 +58,7 @@ io.on("connection", async (socket) => {
         socket.emit('online', onlineUsersData.rows);
     };
     getOnlineUsers();
-    console.log('lets see who is online: ', usersConnectedInfo);
+    console.log('online users: ', usersConnectedInfo);
 
 
 
@@ -105,9 +105,7 @@ io.on("connection", async (socket) => {
 
 
 
-    console.log('got here');
     const myLatestGames = await myLatestGame(userId);
-    console.log('myLatestGames', myLatestGames.rows[0]);
     socket.emit('myLatestGame', myLatestGames);
 
     //the game part!!!
@@ -120,7 +118,6 @@ io.on("connection", async (socket) => {
       const startingFen = await startingFenInsert(player1_id, player2_id, board);
       console.log(startingFen.rows);
       let foundSocket = usersConnectedInfo.find(el => el.usersId === clickedUs);
-        console.log('foundsocket: ', foundSocket);
         
 
         const state = chess.board().reverse();
@@ -132,7 +129,6 @@ io.on("connection", async (socket) => {
   
         //to myself
         let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
-        console.log('foundsocket mine: ', mySocket);
   
         // we need to go throught the socketIds and send to each one
         mySocket.socketId.forEach(each => {
@@ -149,11 +145,8 @@ io.on("connection", async (socket) => {
       try{
         chess.move({ from: dataMoveTo.from , to: dataMoveTo.to })
         const currentPosition = chess.fen();
-        console.log('currentPosition: ', currentPosition, userId, recipient_id);
         const newMessage = await updateTheBoard(userId, recipient_id, currentPosition);//only after a successful move
-        console.log('whats inserted into db: ', newMessage.rows);
         let foundSocket = usersConnectedInfo.find(el => el.usersId === dataMoveTo.clickedUser);
-        console.log('foundsocket: ', foundSocket);
         
 
         const state = chess.board().reverse();
@@ -165,7 +158,6 @@ io.on("connection", async (socket) => {
   
         //to myself
         let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
-        console.log('foundsocket mine: ', mySocket);
   
         // we need to go throught the socketIds and send to each one
         mySocket.socketId.forEach(each => {
@@ -270,6 +262,21 @@ app.post('/api/legalmoves', (req, res) => {
 //   }
   
 // });
+
+app.post('/api/ischeckmate', (req, res) => {
+  try{
+    if(chess.isGameOver()){
+      console.log('isgameover:)');
+      res.json({gameover: true})
+    } else {
+      return;
+    }
+  } 
+  catch (error){
+    console.log('something went wrong in the ischeckmate', error);
+  }
+  
+});
 
 app.post('/api/emptyboard', (req, res)=>{
   console.log('emptyboard or restart');

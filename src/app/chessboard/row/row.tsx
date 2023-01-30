@@ -62,10 +62,27 @@ export default function Row(props: RowProps) {
 
     const getTheCellTOMove = (event: any, cell: any)=>{
         let dataa = event.currentTarget.getAttribute("data-col");
-        dispatch(isPieceSelected(false))
+        dispatch(isPieceSelected(false));
         socket.emit('moveTo', {from: stateMoveFrom, to: dataa, clickedUser: clickedUserId});
-        dispatch(clearTheMoveFrom(''))
-        setMoveTo('')
+        dispatch(clearTheMoveFrom(''));
+        setMoveTo('');
+        fetch('/api/ischeckmate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => {
+            console.log("SUCCESSS")
+            return response.json();     
+        })
+        .then(data => {
+            console.log('data: ', data);//true
+            dispatch(checkMateState(data))
+        })
+        .catch(err => {
+                console.log('error in ischeckmate: ', err);
+            });
     }
 
 
