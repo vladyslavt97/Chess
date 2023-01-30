@@ -70,17 +70,16 @@ export default function Row(props: RowProps) {
 
     // useEffect(()=>{
     //     fetch('/api/ischeckmate', {
-    //         method: 'POST',
+    //         method: 'GET',
     //         headers: {
     //             'Content-Type': 'application/json'
     //         },
     //     })
     //     .then(response => {
-    //         console.log("SUCCESSS")
     //         return response.json();     
     //     })
     //     .then(data => {
-    //         console.log('data: ', data);//true
+    //         console.log('data true: ', data);//true
     //         dispatch(checkMateState(data))
     //     })
     //     .catch(err => {

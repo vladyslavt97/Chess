@@ -263,20 +263,20 @@ app.post('/api/legalmoves', (req, res) => {
   
 // });
 
-app.post('/api/ischeckmate', (req, res) => {
-  try{
-    if(chess.isGameOver()){
-      console.log('isgameover:)');
-      res.json({gameover: true})
-    } else {
-      return;
-    }
-  } 
-  catch (error){
-    console.log('something went wrong in the ischeckmate', error);
-  }
+// app.get('/api/ischeckmate', (req, res) => {
+//   try{
+//     if(chess.isGameOver()){
+//       console.log('isgameover:)');
+//       res.json({gameover: true})
+//     } else {
+//       return;
+//     }
+//   } 
+//   catch (error){
+//     console.log('something went wrong in the ischeckmate', error);
+//   }
   
-});
+// });
 
 app.post('/api/emptyboard', (req, res)=>{
   console.log('emptyboard or restart');
