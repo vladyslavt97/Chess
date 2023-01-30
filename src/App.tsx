@@ -10,12 +10,14 @@ import Restart from './app/restart/Restart';
 import WhoseTurn from './app/whoseturn/Whoseturn';
 import { Signout } from './app/components/signout';
 import { myId } from './app/redux/boardSlice';
+import { UserInfo } from './interface';
 
 export default function App() {
   const isGameover = useSelector((state: RootState) =>state.board.gameover);
   const [visibleInfoPopup, setVisibleInfoPopup] = useState<boolean>(false);
   console.log('the board: ', isGameover);
 
+  const [myInfo, setMyInfo] = useState<any>([]);
 
   const toggleInfoPopup = () => {
     console.log('toggleInfoPopup clicked');
@@ -33,6 +35,9 @@ export default function App() {
             .then((response) => 
               response.json())
             .then((data) => {
+              console.log('my: ', data.myuser);
+              
+              setMyInfo(data.myuser)
               dispatch(myId( data.myuser.id));
             })
             .catch((error) => {
@@ -40,10 +45,13 @@ export default function App() {
             });
   }, [])
 
+  console.log('sdasda: ', myInfo.first);
+  
   return (
     <div className="main-div">
       <div id='lets-play-some-chess'>
         <h1 id='lets-play-some-chess-text'>Lets Play Some Chess</h1>
+        <h3 id='first-and-last-name'>Welcome, {myInfo.first} &nbsp; {myInfo.last}</h3>
       </div>
 
       <div id='the-layout'>

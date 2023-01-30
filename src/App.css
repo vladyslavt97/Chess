@@ -1,6 +1,8 @@
 #lets-play-some-chess{
-   display: flex;
-   justify-content: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center
 }
 
 #lets-play-some-chess-text{
@@ -102,4 +104,14 @@
     100% {
         opacity: 1;
     }
+}
+
+#first-and-last-name{
+    color: white;
+    position: absolute;
+    right: 100px;
+    padding: 6px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #00a6ff;
 }
