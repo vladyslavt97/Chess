@@ -34,6 +34,14 @@ export default function Chat() {
     setMessageState(event.target.value);
   }
 
+  const onEnterKeyDownChat = (e: React.KeyboardEvent) => {
+    if (e.code === "Enter") {
+      e.preventDefault();
+      socket.emit("private_message", {messageState, selectedFriendId: clickedUserId});
+      setMessageState('');
+    }
+  }
+
   return (
     <div id='chat-div'>
           {/* <h1>Calls</h1>
@@ -68,8 +76,10 @@ export default function Chat() {
 
         <form onSubmit={handleSubmitMessages} id="chat-form">
             <textarea placeholder='Type Your Message' 
-            onChange={handleChangeOfMessage}
-            id='textarea-chat'/>
+              onChange={handleChangeOfMessage}
+              onKeyDown={onEnterKeyDownChat}
+              id='textarea-chat'
+            />
             <button id='button-send'>Send</button>
         </form>
     </div>

@@ -7,22 +7,14 @@ import { RootState } from '../redux/store';
 
 
 export default function CheckMate() {
+    const clickedUserId = useSelector((state: RootState) => state.board.id);
     const [visibleBackdrop, setVisibleBackdrop] = useState<boolean>(false)
     const dispatch = useDispatch();
 
-    const clickedUserId = useSelector((state: RootState) => state.board.id);
-
-
-    //fetch post to clean the data and start again
     const restartTheGame = ()=>{
         socket.emit('emptyboard', {clickedUserId: clickedUserId})
         setVisibleBackdrop(!visibleBackdrop);
         dispatch(clearTheBoard(true));
-
-        //in the server ->
-        //delete the board from DB
-
-        //when we are starting the game next time: //check if its new or old game //in the startTheGame 
     } 
     console.log('visibleBackdrop::', visibleBackdrop);
     

@@ -183,13 +183,39 @@ io.on("connection", async (socket) => {
 
     });
 
+// ---------------------------- clear the DB with games ----------------------------//
+  //delete the board from DB
+  //when we are starting the game next time: //check if its new or old game //in the startTheGame 
 
+  // deleteFromGames() //db query
+socket.on('emptyboard', async (emptyboard) => {
+  console.log('emptyboard::', emptyboard);
+  const player1_id = userId;
+  const player2_id = emptyboard.clickedUserId;
+    try{
+      chess.reset();
+      const deletedGame = await deleteFromGames(player1_id, player2_id);
+      console.log('deletedGame:', deletedGame);
 
+      let foundSocket = usersConnectedInfo.find(el => el.usersId === emptyboard.clickedUserId);
+      const state = chess.board().reverse();
+      console.log('state after delition: ', state);
+      foundSocket.socketId.forEach(each => {
+        io.to(each).emit('moveTo', {
+          info: state});
+      });
 
-
-
-
-
+      let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
+      mySocket.socketId.forEach(each => {
+          io.to(each).emit('moveTo', {
+              info: state});
+      });
+    } 
+    catch (error){
+      console.log('something went wrong on the legal move validation', error);
+    }
+  });
+// ------------------------------ END OF RESET / CLEAR ---------------------------------//
 
 
 
@@ -251,36 +277,13 @@ app.post('/api/legalmoves', (req, res) => {
   }
 });
 
-// app.post('/api/movepiece', (req, res) => {
-//   try{
-//     let from = req.body.from;
-//     let to = req.body.to;
-//     chess.move({ from: from , to: to })
-//     const state = chess.board().reverse();
-//     if(chess.isCheckmate()){
-//       // chess.isGameOver()
-//       console.log('checkmate:)');
-//       res.json({checkMate: true, moved: state})
-//     } else if (chess.isDraw()){
-//       console.log('draw:)');
-//       res.json({draw: true, moved: state})
-//     } else {
-//       res.json({moved: state});
-//     }
-//   } 
-//   catch (error){
-//     console.log('something went wrong in the movepiece', error);
-//   }
-  
+// app.post('/api/emptyboard', (req, res)=>{
+//   console.log('emptyboard or restart');
+//   // deleteFromGames() //db query
+//   const cleared = chess.reset();
+//   console.log('cc', cleared);
+//   res.json({emptyboard: cleared});
 // });
-
-app.post('/api/emptyboard', (req, res)=>{
-  console.log('emptyboard or restart');
-  // deleteFromGames() //db query
-  const cleared = chess.reset();
-  console.log('cc', cleared);
-  res.json({emptyboard: cleared});
-});
 
 
 app.get('/api/whoseturn', (req, res) => {
