@@ -19,9 +19,24 @@ export default function Row(props: RowProps) {
     const board = useSelector((state: RootState) =>state.board.boardValue);
     const clickedUserId = useSelector((state: RootState) => state.board.id);
 
-    const [wrongMove, setWrongMove] = useState('');// generate the error!
+
+    const thePlayersToColour = useSelector((state: RootState) =>state.board.gameInserted[0]);
+    console.log('thePlayersToColour: ', thePlayersToColour);
+
+    // if(thePlayersToColour){
+    //     if(thePlayersToColour.player1_id === myInfo.id){
+    //             setWhite(true);
+    //         }else{
+    //             setBlack(true);
+    //         }
+    // }
+
+
+
+
+    // const [wrongMove, setWrongMove] = useState('');// generate the error!
     const [legalMove, setLegalMove] = useState<string[]>([]);
-    const [moveTo, setMoveTo] = useState('');//not used??
+    // const [moveTo, setMoveTo] = useState('');//not used??
     const dispatch = useDispatch();
 
     //set legal moves, moveFrom and isPieceSelected
@@ -39,7 +54,6 @@ export default function Row(props: RowProps) {
                 body: JSON.stringify({possibleMoves: value}),
             })
             .then(response => {
-                // console.log('log the response: ', value);
                 return response.json()
             })
             .then(data => {
@@ -65,7 +79,7 @@ export default function Row(props: RowProps) {
         dispatch(isPieceSelected(false));
         socket.emit('moveTo', {from: stateMoveFrom, to: dataa, clickedUser: clickedUserId});
         dispatch(clearTheMoveFrom(''));
-        setMoveTo('');
+        // setMoveTo('');
     }
 
     const handleClick = (cell: any, event: any) => { 

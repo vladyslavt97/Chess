@@ -52,8 +52,8 @@ export default function App() {
         <h1 id='lets-play-some-chess-text'>Lets Play Some Chess</h1>
         <h3 id='first-and-last-name'>Welcome, {myInfo.first} &nbsp; {myInfo.last}</h3>
         {thePlayersToColour && <div>
-                                {thePlayersToColour.player1_id === myInfo.id ? <h2 id='whiteside'>Your pieces are ⚪️</h2> : <h2 id='blackside'>Your pieces are ⚫️</h2>}
-                              </div>}
+              {thePlayersToColour.player1_id === myInfo.id ? <h2 id='whiteside'>Your pieces are ⚪️</h2> : <h2 id='blackside'>Your pieces are ⚫️</h2>}
+            </div>}
       </div>
 
       <div id='the-layout'>
