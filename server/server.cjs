@@ -104,7 +104,7 @@ io.on("connection", async (socket) => {
 
 
 
-
+//----------------------------------------------------------------
     const myLatestGames = await myLatestGame(userId);
     socket.emit('myLatestGame', myLatestGames);
 
@@ -118,20 +118,16 @@ io.on("connection", async (socket) => {
       const startingFen = await startingFenInsert(player1_id, player2_id, board);
       console.log(startingFen.rows);
       let foundSocket = usersConnectedInfo.find(el => el.usersId === clickedUs);
-        
 
-
-      let player1 = usersConnectedInfo.find(el => el.usersId === clickedUs);
-      console.log('player1', player1.socketId);
-      io.to(player1.socketId[0]).emit('colorPlayer1', {
-        colour: 'b'
-      });
-      console.log('player2: ', socket.id);
-      io.to(socket.id).emit('colorPlayer2', {
-        colour: 'w'
-      });
-
-
+      // let player1 = usersConnectedInfo.find(el => el.usersId === clickedUs);
+      // console.log('player1', player1.socketId);
+      // io.to(player1.socketId[0]).emit('colorPlayer1', {
+      //   colour: 'b'
+      // });
+      // console.log('player2: ', socket.id);
+      // io.to(socket.id).emit('colorPlayer2', {
+      //   colour: 'w'
+      // });
 
       const state = chess.board().reverse();
       foundSocket.socketId.forEach(each => {

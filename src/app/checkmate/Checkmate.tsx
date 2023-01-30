@@ -1,36 +1,28 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './checkmate.css'
 import { clearTheBoard } from '../redux/checkmateSlice';
-
+import { socket } from '../socket/socket';
+import { RootState } from '../redux/store';
 
 
 export default function CheckMate() {
     const [visibleBackdrop, setVisibleBackdrop] = useState<boolean>(false)
     const dispatch = useDispatch();
 
+    const clickedUserId = useSelector((state: RootState) => state.board.id);
+
+
     //fetch post to clean the data and start again
     const restartTheGame = ()=>{
-        fetch('/api/emptyboard', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            // body: JSON.stringify({possibleMoves: value}),
-        })
-        .then(response => {
-            console.log('response: clear the board post');
-            return response.json()
-        })
-        .then(data => {
-            console.log('data upon successful board emtiyng. Probably should be true: ', data);
-            setVisibleBackdrop(!visibleBackdrop);
-            dispatch(clearTheBoard(true));
-        })
-        .catch(err => {
-                console.log('er: ', err);
-            });
+        socket.emit('emptyboard', {clickedUserId: clickedUserId})
+        setVisibleBackdrop(!visibleBackdrop);
+        dispatch(clearTheBoard(true));
 
+        //in the server ->
+        //delete the board from DB
+
+        //when we are starting the game next time: //check if its new or old game //in the startTheGame 
     } 
     console.log('visibleBackdrop::', visibleBackdrop);
     
