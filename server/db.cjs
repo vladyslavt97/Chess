@@ -74,6 +74,15 @@ module.exports.updateTheBoard = (player1_id, player2_id, board) => {
 };
 
 //delete the game
+module.exports.deleteFromGames = (player1_id, player2_id) => {
+    return db.query(`
+    DELETE FROM friend_requests 
+    WHERE (player1_id = $1 AND player2_id = $2)
+    OR (player1_id = $2 AND player2_id = $1)
+    RETURNING *;`,[player1_id, player2_id]);
+};
+
+
 
 
 

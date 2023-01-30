@@ -252,6 +252,7 @@ app.post('/api/legalmoves', (req, res) => {
 
 app.post('/api/emptyboard', (req, res)=>{
   console.log('emptyboard or restart');
+  // deleteFromGames() //db query
   const cleared = chess.reset();
   console.log('cc', cleared);
   res.json({emptyboard: cleared});

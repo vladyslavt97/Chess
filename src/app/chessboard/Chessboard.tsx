@@ -12,6 +12,7 @@ import { socket } from '../socket/socket';
 export default function ChessBoard() {
     const board = useSelector((state: RootState) =>state.board.boardValue);
     const clickedUserId = useSelector((state: RootState) => state.board.id);
+    console.log('the board: ', board);
     
 
     let letters = [];
@@ -25,7 +26,7 @@ export default function ChessBoard() {
     }
 
     return <div id="big-big-div">
-            <button onClick={startTheGame}> Start the Game </button>
+            {board.length === 0 && <button onClick={startTheGame}> Start the Game </button>}
             {board && <div className="chess-board">
                     {board.map((row, index) => (
                             <div key={index} >
