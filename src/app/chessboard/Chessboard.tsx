@@ -9,7 +9,6 @@ import { resetTheStateofReset } from '../redux/checkmateSlice';
 
 export default function ChessBoard() {
     const board = useSelector((state: RootState) =>state.board.boardValue);
-    // const clearTheBoard = useSelector((state: RootState) =>state.checkMate.reset);
     
     let letters = [];
     let i = 64;
@@ -17,7 +16,7 @@ export default function ChessBoard() {
         letters.push(String.fromCharCode(i)); 
     }
     
-  return <div id="big-big-div">
+    return <div id="big-big-div">
             <div className="chess-board">
                 {board.map((row, index) => (
                         <div key={index} >

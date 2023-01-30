@@ -37,7 +37,6 @@ export default function Row(props: RowProps) {
                 body: JSON.stringify({possibleMoves: value}),
             })
             .then(response => {
-                // console.log('log the response: ', value);
                 return response.json()
             })
             .then(data => {

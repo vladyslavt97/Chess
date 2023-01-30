@@ -8,19 +8,27 @@ export const initSocket = (store) => {
         return;
     }
 
-    socket = io.connect();// using their library - connet to the server
-    
+    socket = io.connect();
     socket.on("chatMessages", (data) => {
-        const action = messagesState(data.rows);//messages
+        const action = messagesState(data.rows);
         store.dispatch(action);
     });
 
-    // I receive a single message when someone has sent it to the server
     socket.on("private_message", (data) => {
         console.log('data in the sokcet.js is from textarea.tsx with .to', data);
         const action = receivedMessage(data.info);
         store.dispatch(action);
     });
+
+    // socket.on('online', (data) => {
+    //     console.log('online users: ', data);
+    //     const action = onlineUserAppeared(data);
+    //     store.dispatch(action);
+    // });
+
+
+
+
 
 
 
@@ -30,5 +38,7 @@ export const initSocket = (store) => {
         const action = originalBoardState(data);//board
         store.dispatch(action);
     });
+
+    
     
 };

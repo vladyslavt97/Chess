@@ -102,10 +102,34 @@ io.on("connection", async (socket) => {
       });
     });
 
-    //latest messages!
+
+
+
+
+
+
+
+    //the game part!!!
     const state = chess.board().reverse();
     socket.emit('theBoard', state);
     
+    //move
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on("disconnect", () => {
         console.log(socket.id, '= should disappear from the list on onlinne users');
         const indexOf = usersConnectedInfo.findIndex(el => {
