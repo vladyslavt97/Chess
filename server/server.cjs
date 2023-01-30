@@ -113,10 +113,41 @@ io.on("connection", async (socket) => {
     const state = chess.board().reverse();
     socket.emit('theBoard', state);
     
-    //move
-    
+    //legal move
+    socket.on('legalmoves', async (dataMoveFrom) => {
+      console.log('dataMoveFrom::', dataMoveFrom);
+      // recipient_id = clicked should come from the client
+      try{
+        const movesLegal = chess.moves({ square: dataMoveFrom});
+        const newMessage = await insertMessage(userId, recipient_id, movesLegal);
+      } 
+      catch {
+        console.log('something went wrong on the legal move validation');
+      }
 
+      const newMessage = await insertMessage(userId, recipient_id, oneMessage);
+      // console.log('nm in server.js', newMessage.rows[0]);
 
+      //to friend
+      let foundSocket = usersConnectedInfo.find(el => el.usersId === dataClient.selectedFriendId);
+      console.log('fs: ', foundSocket);
+      foundSocket.socketId.forEach(each => {
+          io.to(each).emit('private_message', {
+              info: newMessage.rows[0], 
+              senderId: socket.id});
+      });
+
+      //to myself
+      let mySocket = usersConnectedInfo.find(el => el.usersId === userId);
+      console.log('fs: ', mySocket);
+
+      // we need to go throught the socketIds and send to each one
+      mySocket.socketId.forEach(each => {
+          io.to(each).emit('private_message', {
+              info: newMessage.rows[0], 
+              senderId: socket.id});
+      });
+    });
 
 
 
@@ -176,20 +207,15 @@ const {Chess} = require('chess.js')
 const FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 const chess = new Chess(FEN)
 
-// app.get('/api/gamestate', (req, res) => {
-//   const state = chess.board().reverse();
-//   res.json({st: state});
-
+// app.post('/api/legalmoves', (req, res) => {
+//   try{
+//     const movesLegal = chess.moves({ square: req.body.possibleMoves});
+//     res.json({legalmoves: movesLegal});
+//   } 
+//   catch {
+//     console.log('something went wrong on the legal move validation');
+//   }
 // });
-app.post('/api/legalmoves', (req, res) => {
-  try{
-    const movesLegal = chess.moves({ square: req.body.possibleMoves});
-    res.json({legalmoves: movesLegal});
-  } 
-  catch {
-    console.log('something went wrong on the legal move validation');
-  }
-});
 
 app.post('/api/movepiece', (req, res) => {
   try{
