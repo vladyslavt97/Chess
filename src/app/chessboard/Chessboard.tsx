@@ -8,7 +8,6 @@ import { resetTheStateofReset } from '../redux/checkmateSlice';
 import { socket } from '../socket/socket';
 
 
-
 export default function ChessBoard() {
     const board = useSelector((state: RootState) =>state.board.boardValue);
     const clickedUserId = useSelector((state: RootState) => state.board.id);
@@ -40,7 +39,7 @@ export default function ChessBoard() {
                     {board.map((row, index) => (
                             <div key={index} >
                                 <h5 id="rows-numbers" >{index + 1}</h5>
-                                <Row row={row} rowIndex={index}/>
+                                <Row row={row} rowIndex={index} />
                             </div>
                         )
                         )}

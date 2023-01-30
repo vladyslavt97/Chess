@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { updateTheBoardState } from '../../redux/boardSlice';
-import { checkMateState } from '../../redux/checkmateSlice';
 import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../../redux/moveFromSlice';
 import { RootState } from '../../redux/store';
 import Cell from './cell/cell'
 import './row.css'
 import { socket } from '../../socket/socket';
+
 
 interface RowProps{
     row: Array<object>,
@@ -18,18 +17,21 @@ export default function Row(props: RowProps) {
     const stateMoveFrom = useSelector((state: RootState) =>state.moveFrom.value);
     const board = useSelector((state: RootState) =>state.board.boardValue);
     const clickedUserId = useSelector((state: RootState) => state.board.id);
-
-
     const thePlayersToColour = useSelector((state: RootState) =>state.board.gameInserted[0]);
-    console.log('thePlayersToColour: ', thePlayersToColour);
 
-    // if(thePlayersToColour){
-    //     if(thePlayersToColour.player1_id === myInfo.id){
-    //             setWhite(true);
-    //         }else{
-    //             setBlack(true);
-    //         }
-    // }
+    const myId = useSelector((state: RootState) => state.board.myId);
+    const [white, setWhite] = useState<boolean>(false);
+    const [black, setBlack] = useState<boolean>(false);
+    
+    useEffect(()=>{
+        if(thePlayersToColour){
+            if(thePlayersToColour.player1_id === myId){
+                    setWhite(true);
+            }else if (thePlayersToColour.player2_id === myId){
+                setBlack(true);
+            }
+        }
+    }, [])
 
 
 
@@ -38,9 +40,13 @@ export default function Row(props: RowProps) {
     const [legalMove, setLegalMove] = useState<string[]>([]);
     // const [moveTo, setMoveTo] = useState('');//not used??
     const dispatch = useDispatch();
+    const [scell, setCell] = useState('')
+//     console.log('ccc: ', cell);
 
+// setCell(cell.color);
     //set legal moves, moveFrom and isPieceSelected
     const getImagePositionFROM = (cell: any)=>{
+
         if(cell){
             const value = cell.square;
             dispatch(moveFromState(value!))
@@ -115,15 +121,13 @@ export default function Row(props: RowProps) {
         return String.fromCharCode(65 + index).toLowerCase();
     }
     
-
-    // const myColor = useSelector((state: RootState) => state.colors.filter());
-
     return <div id='rows' >
-            {props.row.map((cell, columnIndex) => (
+            {props.row.map((cell: any, columnIndex) => (
                         <div key={columnIndex} 
                             className={columnIndex % 2 === props.rowIndex % 2 ? 'cell-white' : 'cell-black'}
                             data-col={`${getLetterFromIndex(columnIndex)}${props.rowIndex + 1}`}
                             onClick={(event) => handleClick(cell, event)}
+                            // onClick={white && cell.color === 'w' ? (event) => handleClick(cell, event) : black && cell.color === 'b' ? (event) => handleClick(cell, event)}
                             >
                             <Cell cell={cell} 
                                 columnLetter={getLetterFromIndex(columnIndex)} 

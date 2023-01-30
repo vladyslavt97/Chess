@@ -9,7 +9,7 @@ import { RootState } from './app/redux/store';
 import Restart from './app/restart/Restart';
 import WhoseTurn from './app/whoseturn/WhoseTurn';
 import { Signout } from './app/components/signout';
-import { myId } from './app/redux/boardSlice';
+import { myId, myUserInformation } from './app/redux/boardSlice';
 import { UserInfo } from './interface';
 
 export default function App() {
@@ -40,6 +40,7 @@ export default function App() {
             .then((data) => {
               setMyInfo(data.myuser)
               dispatch(myId( data.myuser.id));
+              dispatch(myUserInformation( data.myuser));
             })
             .catch((error) => {
                 console.error('Error caught:', error);
