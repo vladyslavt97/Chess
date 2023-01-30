@@ -4,7 +4,7 @@ const app = express();
 const { PORT, WEB_URL } = process.env;
 const {cookieSession } = require('./cookiesession.cjs');
 const cors = require('cors');
-const { getLatestMessages, getMyUSerFromDB, getOnlineUsersByTheirIDs, insertMessageToAll, insertMessage, startingFenInsert, myLatestGame } = require('./db.cjs');
+const { getLatestMessages, getMyUSerFromDB, getOnlineUsersByTheirIDs, insertMessageToAll, insertMessage, startingFenInsert, myLatestGame, updateTheBoard } = require('./db.cjs');
 app.use(cors());
 
 
@@ -107,7 +107,7 @@ io.on("connection", async (socket) => {
 
     console.log('got here');
     const myLatestGames = await myLatestGame(userId);
-    console.log(myLatestGames.rows[0]);
+    console.log('myLatestGames', myLatestGames.rows[0]);
     socket.emit('myLatestGame', myLatestGames);
 
     //the game part!!!
@@ -145,13 +145,14 @@ io.on("connection", async (socket) => {
     // --------------- ONLY MOVE TO GOES THROUGH THE SOCKET!!!! -----------//
     socket.on('moveTo', async (dataMoveTo) => {
       console.log('dataMoveTo::', dataMoveTo);
-      const recipient_id = dataMoveTo.clickedUserId;
+      const recipient_id = dataMoveTo.clickedUser;
       try{
-        //from and to should be recieved from the client
-        chess.move({ from: from , to: to })
+        chess.move({ from: dataMoveTo.from , to: dataMoveTo.to })
         const currentPosition = chess.fen();
+        console.log('currentPosition: ', currentPosition, userId, recipient_id);
         const newMessage = await updateTheBoard(userId, recipient_id, currentPosition);//only after a successful move
-        let foundSocket = usersConnectedInfo.find(el => el.usersId === dataMoveTo.clickedUserId);
+        console.log('whats inserted into db: ', newMessage.rows);
+        let foundSocket = usersConnectedInfo.find(el => el.usersId === dataMoveTo.clickedUser);
         console.log('foundsocket: ', foundSocket);
         
 
@@ -173,8 +174,8 @@ io.on("connection", async (socket) => {
                 senderId: socket.id});
         });
       } 
-      catch {
-        console.log('something went wrong on the legal move validation');
+      catch (error){
+        console.log('something went wrong on the legal move validation', error);
       }
 
     });

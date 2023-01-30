@@ -17,6 +17,8 @@ export default function Row(props: RowProps) {
     const isPieceSelectedState = useSelector((state: RootState) =>state.moveFrom.valueSelected);
     const stateMoveFrom = useSelector((state: RootState) =>state.moveFrom.value);
 
+    const clickedUserId = useSelector((state: RootState) => state.board.id);
+
     const [wrongMove, setWrongMove] = useState('');// generate the error!
     const [legalMove, setLegalMove] = useState<string[]>([]);
     const [moveTo, setMoveTo] = useState('');//not used??
@@ -61,17 +63,18 @@ export default function Row(props: RowProps) {
     const getTheCellTOMove = (event: any, cell: any)=>{
         let dataa = event.currentTarget.getAttribute("data-col");
         dispatch(isPieceSelected(false))
-        socket.emit('moveTo', {from: stateMoveFrom, to: dataa});
+        socket.emit('moveTo', {from: stateMoveFrom, to: dataa, clickedUser: clickedUserId});
         dispatch(clearTheMoveFrom(''))
         setMoveTo('')
     }
+
+
+
     const handleClick = (cell: any, event: any) => { 
         if(isPieceSelectedState){
             getTheCellTOMove(event, cell);
-            // console.log('getTheCellTOMove');
         } else {
             getImagePositionFROM(cell);
-            // console.log('getImagePositionFROM');
         }
         
     }

@@ -26,14 +26,13 @@ export default function App() {
     fetch('/api/myuser', {
             method: 'GET', 
             headers: {
-                'Content-Type': 'application/json',
+              'Content-Type': 'application/json',
             },
         })
             .then((response) => 
-                response.json())
+              response.json())
             .then((data) => {
-              console.log('d', data.myuser.id);
-                dispatch(myId( data.myuser.id));
+              dispatch(myId( data.myuser.id));
             })
             .catch((error) => {
                 console.error('Error caught:', error);

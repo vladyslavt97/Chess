@@ -67,7 +67,7 @@ module.exports.startingFenInsert = (player1_id, player2_id, board) => {
 //update the board after each move
 module.exports.updateTheBoard = (player1_id, player2_id, board) => {
     return db.query(`UPDATE games 
-                    SET board = $1
+                    SET board = $3
                     WHERE (player1_id = $1 AND player2_id = $2)
                     OR (player2_id = $1 AND player1_id = $2)
                     RETURNING *;`,[player1_id, player2_id, board]);
