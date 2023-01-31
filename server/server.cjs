@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require("express");
 const app = express();
 const { PORT, WEB_URL } = process.env;
+const path = require("path");
 const {cookieSession } = require('./cookiesession.cjs');
 const cors = require('cors');
 const { getLatestMessages, getMyUSerFromDB, getOnlineUsersByTheirIDs, deleteFromGames, insertMessage, startingFenInsert, myLatestGame, updateTheBoard } = require('./db.cjs');
