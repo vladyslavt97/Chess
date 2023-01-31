@@ -32,7 +32,7 @@ app.use(express.json());
 
 let usersConnectedInfo = [];
 io.on("connection", async (socket) => {
-    console.log("[social:socket] incoming socket connection", socket.id);
+    // console.log("[social:socket] incoming socket connection", socket.id);
     const { userId } = socket.request.session;
     if (!userId) {
         return socket.disconnect(true);
@@ -100,7 +100,6 @@ io.on("connection", async (socket) => {
       console.log(player1_id, player2_id);
       let board = chess.fen();
       const startingFen = await startingFenInsert(player1_id, player2_id, board);
-      console.log('startingFen: ', startingFen.rows);
       let foundSocket = usersConnectedInfo.find(el => el.usersId === clickedUs);
 
       const state = chess.board().reverse();

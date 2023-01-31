@@ -80,6 +80,7 @@ console.log('clickedUserId: ', clickedUserId);
               onChange={handleChangeOfMessage}
               onKeyDown={onEnterKeyDownChat}
               id='textarea-chat'
+              value={messageState}
             />
             <button id='button-send'>Send</button>
         </form> : null}
