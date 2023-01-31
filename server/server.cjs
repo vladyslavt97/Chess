@@ -8,12 +8,7 @@ const cors = require('cors');
 const { getLatestMessages, getMyUSerFromDB, getOnlineUsersByTheirIDs, deleteFromGames, insertMessage, startingFenInsert, myLatestGame, updateTheBoard } = require('./db.cjs');
 app.use(cors());
 
-
-
-
-
-
-
+app.use(express.static(path.join(__dirname, "..", "dist")));
 
 
 
@@ -280,7 +275,7 @@ app.post('/api/signout', (req, res) => {
 });
 
 app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'))
+  console.log("catch all")
 });
 
 server.listen(PORT, function () {
