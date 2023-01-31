@@ -280,7 +280,7 @@ app.post('/api/signout', (req, res) => {
 });
 
 app.get("*", function (req, res) {
-  console.log('catch all');
+  res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'))
 });
 
 server.listen(PORT, function () {
