@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import './signout.css'
 
 export function Signout() {
+    const navigate = useNavigate();
+
     const signOut = () => {
         fetch('/api/signout', {
             method: 'POST',
@@ -10,7 +13,7 @@ export function Signout() {
         })
         .then(response => response.json())
         .then(data => {
-            location.replace('/');
+            navigate("/");
         })
         .catch(err => {
                 console.log('er: ', err);
