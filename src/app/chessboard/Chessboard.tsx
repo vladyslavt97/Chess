@@ -25,7 +25,7 @@ export default function ChessBoard() {
             {(board.length === 0 && clickedUserId) ? <button onClick={startTheGame} 
                                 id="start-the-game-btn-center"> Start the Game </button> : null}
 
-            {board && <div className="chess-board">
+            {board.length !== 0 && <div className="chess-board">
                     {board.map((row, index) => (
                             <div key={index} >
                                 <h5 id="rows-numbers" >{index + 1}</h5>
