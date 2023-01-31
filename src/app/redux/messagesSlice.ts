@@ -37,7 +37,7 @@ export const messagesSlice = createSlice({
       state.id = messagesAction.payload;
     },
     onlineUserAppeared: (state, messagesAction: PayloadAction<UserInfo[]>) => {
-      // console.log('online user obj in slice', messagesAction.payload);
+      console.log('online user obj in slice', messagesAction.payload);
       state.onlineUser = messagesAction.payload;
     }
   },

@@ -33,6 +33,7 @@
     justify-content: space-between;
     border: 0.5px dashed rgb(68, 102, 150);
     border-radius: 10px;
+    padding: 10px;
 }
 
 #start-the-game-btn{

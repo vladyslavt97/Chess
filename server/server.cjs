@@ -50,6 +50,7 @@ io.on("connection", async (socket) => {
     // console.log('onlineUsers: ', onlineUsers);
     const getOnlineUsers = async () => {
         let onlineUsersData = await getOnlineUsersByTheirIDs(onlineUsers);
+        console.log('onlineUsersData: : : ', onlineUsersData.rows);
         socket.emit('online', onlineUsersData.rows);
     };
     getOnlineUsers();

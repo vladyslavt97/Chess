@@ -11,6 +11,10 @@ export default function AllUsers() {
   const clickedUserId = useSelector((state: RootState) => state.board.id);
   const dispatch = useDispatch();
 
+  const onlineU = useSelector((state: RootState) => state.messages.onlineUser);
+  console.log('onlineU: ', onlineU);
+
+
   //should be all online users
   useEffect(()=>{
         fetch('/api/allusers')
@@ -37,7 +41,7 @@ export default function AllUsers() {
               <div key={user.id} onClick={()=>dispatch(selectedUserId(user.id))}>
                 <div key={user.id} id="allusers-names" className={`${user.id === clickedUserId && counterpartChosen ? 'users-selected' : 'users-not-selected'}`}>
                   <h4>{user.first} {user.last}</h4>
-                  <button id='start-the-game-btn' onClick={toggleRelevantGame} >Start</button>
+                  {onlineU.find(o => o.id === user.id) && <button id='start-the-game-btn' onClick={toggleRelevantGame} >Start</button>}
                 </div>
               </div>
               )

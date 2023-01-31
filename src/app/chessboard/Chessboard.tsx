@@ -27,7 +27,7 @@ export default function ChessBoard() {
 
             {board.length !== 0 && <div className="chess-board">
                     {board.map((row, index) => (
-                            <div key={index} >
+                        <div key={index} >
                                 <h5 id="rows-numbers" >{index + 1}</h5>
                                 <Row row={row} rowIndex={index} />
                             </div>

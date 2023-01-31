@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 import { originalBoardState, updateTheBoardState, isGameOverState, thePlayersToColour} from "../redux/boardSlice";
-import { messagesState, receivedMessage} from "../redux/messagesSlice";
+import { messagesState, receivedMessage, onlineUserAppeared} from "../redux/messagesSlice";
 // import { setWhiteColor, setBlackColor} from "../redux/colorsSlice";
 
 
@@ -23,7 +23,6 @@ export const initSocket = (store) => {
     });
 
 
-
     // ------------------------ the chess part! ------------------------//
     socket.on("startTheGame", (data) => {
         console.log('data in theBoard socket.js data.info', data);
@@ -36,6 +35,14 @@ export const initSocket = (store) => {
         console.log('moveTo socket.js', data);
         store.dispatch(isGameOverState(data.gameisover));
         const action = updateTheBoardState(data.info);
+        store.dispatch(action);
+    });
+
+
+    // ---- online? //
+    socket.on('online', (data) => {
+        console.log('online users: ', data);
+        const action = onlineUserAppeared(data);
         store.dispatch(action);
     });
 };
