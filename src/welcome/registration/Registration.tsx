@@ -24,7 +24,7 @@ export default function Registration() {
             response.json())
           .then((data) => {
             console.log('hm', data);
-            navigate("/login")
+            location.replace("/login")
           })
           .catch((error) => {
               console.error('Error:', error);
