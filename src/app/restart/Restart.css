@@ -1,11 +1,12 @@
 #image-restart-div{
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 #resstart-the-game{
     width: 50px;
     position: absolute;
-    top: 100px;
+    top: 2px;
+    right: 300px;
     cursor: pointer;
 }

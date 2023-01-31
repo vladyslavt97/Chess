@@ -107,10 +107,15 @@
     }
 }
 
+#lets-play-some-chess-text{
+    font-size: 40px;
+}
+
 #first-and-last-name{
     color: white;
     position: absolute;
-    right: 100px;
+    left: 50px;
+    top: 2px;
     padding: 6px;
     border: 1px solid black;
     border-radius: 5px;
