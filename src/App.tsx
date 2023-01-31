@@ -99,7 +99,7 @@ export default function App() {
         <br />
 
         <div id='div4'>
-        <h4 id='technologies-h4'>3. Technologies Used: &nbsp;&nbsp;<img src="/typescript.png" alt="" width="60px"/>&nbsp;<img src="/react.png" alt="" width="60px"/>&nbsp;<img src="/nodejs.png" alt="" width="60px"/>&nbsp;<img src="/npm.png" alt="" width="60px"/>&nbsp; -&gt; &nbsp;<b>npm chess.js</b></h4>
+        <h4 id='technologies-h4'>3. Technologies Used: &nbsp;&nbsp;<img src="/typescript.png" alt="" width="60px"/>&nbsp;&nbsp;<img src="/socketio.png" alt="" width="110px"/>&nbsp;&nbsp;<img src="/react.png" alt="" width="60px"/>&nbsp;&nbsp;<img src="/nodejs.png" alt="" width="60px"/>&nbsp;&nbsp;<img src="/npm.png" alt="" width="60px"/>&nbsp;&nbsp; -&gt; &nbsp;<b>npm chess.js</b></h4>
         </div>
 
       </div>}
