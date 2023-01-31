@@ -278,6 +278,11 @@ app.post('/api/signout', (req, res) => {
     res.json({ userId: null });
 });
 
+app.get("*", function (req, res) {
+  console.log('catch all');
+    res.sendFile(path.join(__dirname, "..", "client", "index.html"));
+});
+
 server.listen(PORT, function () {
     console.log(`Express SERVER listening on port ${PORT}`);
 });
