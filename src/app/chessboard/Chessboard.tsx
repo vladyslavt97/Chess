@@ -1,18 +1,13 @@
 import "./Chessboard.css"
-import { useEffect} from "react";
 import Row from "./row/row";
-import { originalBoardState } from '../redux/boardSlice';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { resetTheStateofReset } from '../redux/checkmateSlice';
 import { socket } from '../socket/socket';
 
 
 export default function ChessBoard() {
     const board = useSelector((state: RootState) =>state.board.boardValue);
     const clickedUserId = useSelector((state: RootState) => state.board.id);
-    console.log('the board: ', board);
-    
 
     let letters = [];
     let i = 64;
@@ -21,15 +16,10 @@ export default function ChessBoard() {
     }
     
     const startTheGame = ()=>{
-        console.log('startTheGame');
-        
         socket.emit('startTheGame', clickedUserId)
     }
-
-
-    console.log('the board: ', board);
-    console.log('clickedUserId: ', clickedUserId);
     
+    console.log('board: ', board);
     
     return <div id="big-big-div">
             {(board.length === 0 && clickedUserId) ? <button onClick={startTheGame} 

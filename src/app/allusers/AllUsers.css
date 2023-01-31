@@ -23,6 +23,7 @@
     flex-direction: column;
     margin: 10px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #allusers-names{

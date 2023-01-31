@@ -76,3 +76,7 @@ body{
     z-index: 20px;
     cursor: pointer;
 }
+
+#start-the-game-btn-center:hover{
+    background-color: rgb(0, 255, 0);
+}
