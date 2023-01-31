@@ -41,6 +41,7 @@ export default function Chat() {
       setMessageState('');
     }
   }
+console.log('clickedUserId: ', clickedUserId);
 
   return (
     <div id='chat-div'>
@@ -74,14 +75,14 @@ export default function Chat() {
                 )}
         </div>
 
-        {clickedUserId && <form onSubmit={handleSubmitMessages} id="chat-form">
+        {clickedUserId ? <form onSubmit={handleSubmitMessages} id="chat-form">
             <textarea placeholder='Type Your Message' 
               onChange={handleChangeOfMessage}
               onKeyDown={onEnterKeyDownChat}
               id='textarea-chat'
             />
             <button id='button-send'>Send</button>
-        </form>}
+        </form> : null}
     </div>
   )
 }
