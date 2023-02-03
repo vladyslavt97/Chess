@@ -11,6 +11,7 @@ import WhoseTurn from './whoseturn/WhoseTurn';
 import { Signout } from './components/signout';
 import { myId, myUserInformation } from './redux/boardSlice';
 import InfoPage from './infopage/InfoPage';
+import { Router } from 'react-router-dom';
 
 export default function App() {
   const clickedUserId = useSelector((state: RootState) => state.board.id);

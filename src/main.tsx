@@ -10,6 +10,7 @@ import { initSocket } from "./app/socket/socket";
 import { Provider, useDispatch } from "react-redux";
 import { store } from "./app/redux/store";
 import Welcome from './welcome/Welcome';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 const main = document.getElementById('root');
 if (main){
@@ -20,7 +21,11 @@ if (main){
             if (data.userId) {
                 initSocket(store);
                 root.render(<Provider store={store}>
-                    <App />
+                    <BrowserRouter>
+                        <Routes>   
+                            <Route path="*" element= {<App />}/>
+                        </Routes>
+                    </BrowserRouter>
                 </Provider>
                 );
             } else {
