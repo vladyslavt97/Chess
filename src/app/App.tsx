@@ -11,18 +11,14 @@ import WhoseTurn from './whoseturn/WhoseTurn';
 import { Signout } from './components/signout';
 import { myId, myUserInformation } from './redux/boardSlice';
 import InfoPage from './infopage/InfoPage';
+import { UserInfo } from '../interface';
 
-interface MyUserInfo{
-  id: number,
-  first: string,
-  last: string
-}
 
 export default function App() {
   const clickedUserId = useSelector((state: RootState) => state.board.id);
   const isGameover = useSelector((state: RootState) =>state.board.gameover);
   const thePlayersToColour = useSelector((state: RootState) =>state.board.gameInserted[0]);
-  const [myInfo, setMyInfo] = useState<MyUserInfo>();
+  const [myInfo, setMyInfo] = useState<UserInfo>();
   
   const [visibleInfoPopup, setVisibleInfoPopup] = useState<boolean>(false);
 
@@ -43,8 +39,6 @@ export default function App() {
               response.json())
             .then((data) => {
               setMyInfo(data.myuser)
-              console.log('data.myuser[0]: ', data.myuser[0]);
-              
               dispatch(myId( data.myuser.id));
               dispatch(myUserInformation( data.myuser));
             })
@@ -53,12 +47,10 @@ export default function App() {
             });
   }, [])
   
-  console.log('myInfo:: ', myInfo);
-  
   return (
     <div className="main-div">
       <div id='lets-play-some-chess'>
-        {myInfo && <h3 id='first-and-last-name'>Welcome, {myInfo.first} &nbsp; {myInfo.last}</h3>}
+        <h3 id='first-and-last-name'>Welcome, {myInfo?.first} &nbsp; {myInfo?.last}</h3>
         {!thePlayersToColour && <h1 id='lets-play-some-chess-text'>Lets Play Some Chess</h1>}
         {thePlayersToColour && <div>
               {thePlayersToColour.player1_id === myInfo.id ? <h2 id='whiteside'>Your pieces are ⚪️</h2> : <h2 id='blackside'>Your pieces are ⚫️</h2>}

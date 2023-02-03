@@ -180,28 +180,16 @@ socket.on('emptyboard', async (emptyboard) => {
   });
 // ------------------------------ END OF RESET / CLEAR ---------------------------------//
 
-
-
-
-
-    socket.on("disconnect", () => {
-        console.log(socket.id, '= should disappear from the list on onlinne users');
-        const indexOf = usersConnectedInfo.findIndex(el => {
-          return el.socketId.find(el => {
-            return el === socket.id;
-          });
+  socket.on("disconnect", () => {
+      const indexOf = usersConnectedInfo.findIndex(el => {
+        return el.socketId.find(el => {
+          return el === socket.id;
         });
-        let spliced = usersConnectedInfo.splice(indexOf, 1);
-    });
+      });
+      let spliced = usersConnectedInfo.splice(indexOf, 1);
+  });
 });
 // ------------------------------------ end of socket setup  ------------------------------------ //
-
-
-
-
-
-
-
 
 
 
@@ -215,14 +203,7 @@ app.use(registerRouter);
 app.use(allUsersRouter);
 
 
-
-
-
-
-
-
 // --- CHESS --- //
-
 const {Chess} = require('chess.js')
 const FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 const chess = new Chess(FEN)
@@ -237,13 +218,10 @@ app.post('/api/legalmoves', (req, res) => {
   }
 });
 
-
-
 app.get('/api/whoseturn', (req, res) => {
   const state = chess.turn();
   res.json({st: state});
 });
-
 
 app.get('/api/myuser', async (req, res) =>{
   const id = req.session.userId;
@@ -252,8 +230,7 @@ app.get('/api/myuser', async (req, res) =>{
 });
 
 
-
-// other routes
+// other important routes
 app.get("/api/user/id.json", (req, res) => {
     res.json({ userId: req.session.userId });
 });

@@ -13,8 +13,7 @@ export function Signout() {
         })
         .then(response => response.json())
         .then(data => {
-            // location.replace('/');
-            // navigate('/');
+            navigate('/');
         })
         .catch(err => {
                 console.log('er: ', err);

@@ -3,7 +3,6 @@ import moveFromSlice from './moveFromSlice';
 import boardSlice from './boardSlice';
 import checkMateSlice from './checkmateSlice';
 import messagesSlice from './messagesSlice';
-// import colorsSlice from './colorsSlice';
 
 export const store = configureStore({
     reducer: { 

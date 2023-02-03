@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export interface CMState {
-    valueCM: boolean
+export interface CheckMateState {
+    valueChechMate: boolean,
     reset: boolean
 }
 
-const initialState: CMState = {
-    valueCM: false,
+const initialState: CheckMateState = {
+    valueChechMate: false,
     reset: false
 };
 
@@ -16,7 +16,7 @@ export const checkMateSlice = createSlice({
   initialState,
   reducers: {
     checkMateState: (state, moveFromAction: PayloadAction<boolean>) => {
-      state.valueCM = moveFromAction.payload;
+      state.valueChechMate = moveFromAction.payload;
     },
     clearTheBoard: (state, moveFromAction: PayloadAction<boolean>) => {
       state.reset = moveFromAction.payload;

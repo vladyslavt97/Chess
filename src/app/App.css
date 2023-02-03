@@ -7,6 +7,7 @@
 
 #lets-play-some-chess-text{
     color: white;
+    font-size: 40px;
 }
 :root {
     --main-background: -webkit-linear-gradient(-86deg, #ffbb00 1%, #00a6ff 99%);
@@ -23,92 +24,6 @@
     right: 10px;
     color: white;
     cursor: pointer;
-}
-
-#backdrop-question {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: black;
-    opacity: 0.95;
-    width: 100vw;
-    height: 100vh;
-}
-
-#question-mark-div{
-    position: absolute;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-    gap: 40px;
-    color: white;
-    z-index: 4;
-}
-#question-mark-div>* {
-    z-index: 2;
-    line-height: 60px;
-}
-
-#notation{
-    color: rgb(255, 186, 103);
-}
-
-#green{
-    color: rgb(64, 237, 182);
-}
-
-#pink{
-    color: rgb(249, 101, 215);
-}
-
-#blue{
-    color: rgb(0, 132, 255);
-}
-
-#onecell-h3{
-    display: flex;
-    align-items: center;
-}
-#technologies-h4{
-    display: flex;
-        align-items: center;
-}
-
-#yellow{
-    font-size: large;
-    color: yellow;
-}
-
-
-/* animation of info */
-#div1{
-    animation: fadein 1s ease-in-out;
-}
-#div2{
-    animation: fadein 2s ease-in-out;
-}
-#div3{
-    animation: fadein 3s ease-in-out;
-}
-#div4{
-    animation: fadein 4s ease-in-out;
-}
-
-@keyframes fadein {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-#lets-play-some-chess-text{
-    font-size: 40px;
 }
 
 #first-and-last-name{
@@ -134,8 +49,6 @@
     border: 3px solid green;
     margin: 10px;
 }
-
-
 
 #knight-beautiful{
     position: absolute;

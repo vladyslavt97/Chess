@@ -23,40 +23,30 @@ export const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    //the board original
     originalBoardState: (state, boardAction: PayloadAction<Array<Array<object>>>) => {
       console.log('boardAction: ', boardAction);
       state.boardValue = boardAction.payload;
     },
-
-    //the board updated(after a move)
     updateTheBoardState: (state, boardAction: PayloadAction<Array<Array<object>>>) => {
         state.boardValue = boardAction.payload;
     },
     selectedUserId: (state, userAction: PayloadAction<number>) => {
-      console.log('user id from the clicked user in boardSlice', userAction.payload);
       state.id = userAction.payload;
     },
     myId: (state, myIdAction: PayloadAction<number>) => {
-      console.log('user id from the clicked user in boardSlice', myIdAction.payload);
       state.myId = myIdAction.payload;
     },
     myUserInformation: (state, myUserInformationAction: PayloadAction<object>) => {
-      console.log('user id from the clicked user in boardSlice', myUserInformationAction.payload);
       state.myUserInfor = myUserInformationAction.payload;
     },
     isGameOverState: (state, myIdAction: PayloadAction<boolean>) => {
-      console.log('user id from the clicked user in boardSlice', myIdAction.payload);
       state.gameover = myIdAction.payload;
     },
     thePlayersToColour: (state, myIdAction: PayloadAction<object>) => {
-      console.log('user id from the clicked user in boardSlice', myIdAction.payload);
       state.gameInserted = myIdAction.payload;
     },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { originalBoardState, updateTheBoardState, selectedUserId, myId, isGameOverState, thePlayersToColour, myUserInformation } = boardSlice.actions
-// reducer
+export const { originalBoardState, updateTheBoardState, selectedUserId, myId, isGameOverState, thePlayersToColour, myUserInformation } = boardSlice.actions;
 export default boardSlice.reducer

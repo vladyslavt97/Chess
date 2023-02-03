@@ -5,7 +5,7 @@ import './WhoseTurn.css'
 
 export default function WhoseTurn() {
     const board = useSelector((state: RootState) =>state.board.boardValue);
-    const [turn, setTurn] = useState('');
+    const [turn, setTurn] = useState<string>('');
     useEffect(() =>{
         fetch('/api/whoseturn', {
             method: 'GET',
