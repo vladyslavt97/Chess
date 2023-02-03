@@ -25,19 +25,21 @@ export default function ChessBoard() {
     }
     
     console.log('board: ', board);
+    console.log('thePlayersToColour: ', thePlayersToColour);
 
 
 
-    return <div id="big-big-div">
+    return <div> 
             {(board.length === 0 && clickedUserId) ? <button onClick={startTheGame} 
                 id="start-the-game-btn-center"> Start the Game </button> : null}
+            {thePlayersToColour && <div id={thePlayersToColour.player1_id === myId ? "big-big-div" : "big-big-div-blackside"}>
             {board.length !== 0 &&
                     <div    
                         className={thePlayersToColour.player1_id === myId ? "chess-board" : "chess-board-b"}
                         >
                         {board.map((row, index) => (
                             <div key={index} >
-                                    <h5 id="rows-numbers" >{index + 1}</h5>
+                                    <h5 id={thePlayersToColour.player1_id === myId ? "rows-numbers" : "rows-numbers-rotated"} >{index + 1}</h5>
                                     <Row row={row} rowIndex={index} />
                                 </div>
                             )
@@ -57,6 +59,7 @@ export default function ChessBoard() {
                         )
                         )}
                     </div>}
+                </div>}
             </div>}
-  </div>
+        </div>
 }
