@@ -21,7 +21,7 @@ export default function Login() {
             .then((response) => 
                 response.json())
             .then((data) => {
-                console.log("all good. Go to app page..?", data);
+                console.log("all good. Go to app page->", data);
                 // location.replace("/")
                 navigate('/');
             })
