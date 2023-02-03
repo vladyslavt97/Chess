@@ -39,3 +39,11 @@
 #piece {
     z-index: 3;
 }
+
+
+#piece-blackside {
+    transform: rotate(180deg);
+    z-index: 3;
+}
+
+

@@ -19,6 +19,15 @@ body{
     rotate: -90deg;
     margin: auto
 }
+
+.chess-board-b {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    rotate: 90deg;
+    margin: auto
+}
+
 #rows {
     background-color: black;
     padding: 0px;
@@ -41,6 +50,13 @@ body{
     bottom: -77px;
     right: 707px;
 }
+#columns-letters-divs-reversed{
+    position: relative;
+    bottom: 60px;
+    right: 0px;
+    transform: rotate(180deg);
+}
+
 #columns-letters-div{
     width: var(--main-cell-size);
     height: var(--main-cell-size);

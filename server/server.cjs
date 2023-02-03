@@ -50,11 +50,9 @@ io.on("connection", async (socket) => {
     // console.log('onlineUsers: ', onlineUsers);
     const getOnlineUsers = async () => {
         let onlineUsersData = await getOnlineUsersByTheirIDs(onlineUsers);
-        console.log('onlineUsersData: : : ', onlineUsersData.rows);
         socket.emit('online', onlineUsersData.rows);
     };
     getOnlineUsers();
-    console.log('online users: ', usersConnectedInfo);
 
     const latestMessages = await getLatestMessages();
     socket.emit('chatMessages', latestMessages);
@@ -194,9 +192,6 @@ socket.on('emptyboard', async (emptyboard) => {
           });
         });
         let spliced = usersConnectedInfo.splice(indexOf, 1);
-        console.log('Updated usersConnectedInfo: ', usersConnectedInfo, 
-            'Spliced: ', spliced
-        );
     });
 });
 // ------------------------------------ end of socket setup  ------------------------------------ //

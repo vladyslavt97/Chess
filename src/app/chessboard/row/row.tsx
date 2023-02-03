@@ -17,6 +17,8 @@ export default function Row(props: RowProps) {
     const stateMoveFrom = useSelector((state: RootState) =>state.moveFrom.value);
     const board = useSelector((state: RootState) =>state.board.boardValue);
     const clickedUserId = useSelector((state: RootState) => state.board.id);
+
+
     const thePlayersToColour = useSelector((state: RootState) =>state.board.gameInserted[0]);
 
     const myId = useSelector((state: RootState) => state.board.myId);
@@ -121,7 +123,6 @@ export default function Row(props: RowProps) {
                             className={columnIndex % 2 === props.rowIndex % 2 ? 'cell-white' : 'cell-black'}
                             data-col={`${getLetterFromIndex(columnIndex)}${props.rowIndex + 1}`}
                             onClick={(event) => handleClick(cell, event)}
-                            // onClick={white && cell.color === 'w' ? (event) => handleClick(cell, event) : black && cell.color === 'b' ? (event) => handleClick(cell, event)}
                             >
                             <Cell cell={cell} 
                                 columnLetter={getLetterFromIndex(columnIndex)} 
