@@ -22,7 +22,8 @@ export default function Login() {
                 response.json())
             .then((data) => {
                 console.log("all good. Go to app page..?", data);
-                location.replace("/")
+                // location.replace("/")
+                navigate('/');
             })
             .catch((error) => {
                 console.error('Error:', error);

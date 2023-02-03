@@ -1,4 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import './signout.css'
+const navigate = useNavigate();
+
 
 export function Signout() {
     const signOut = () => {
@@ -10,7 +13,8 @@ export function Signout() {
         })
         .then(response => response.json())
         .then(data => {
-            location.replace('/');
+            // location.replace('/');
+            navigate('/');
         })
         .catch(err => {
                 console.log('er: ', err);

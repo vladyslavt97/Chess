@@ -10,7 +10,6 @@ import Restart from './app/restart/Restart';
 import WhoseTurn from './app/whoseturn/WhoseTurn';
 import { Signout } from './app/components/signout';
 import { myId, myUserInformation } from './app/redux/boardSlice';
-import { UserInfo } from './interface';
 
 export default function App() {
   const clickedUserId = useSelector((state: RootState) => state.board.id);
