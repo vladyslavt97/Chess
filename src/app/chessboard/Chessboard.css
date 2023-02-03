@@ -17,7 +17,8 @@ body{
     justify-content: center;
     align-items: center;
     rotate: -90deg;
-    margin: auto
+    margin: auto;
+    z-index: 10;
 }
 
 .chess-board-b {
@@ -25,7 +26,8 @@ body{
     justify-content: center;
     align-items: center;
     rotate: 90deg;
-    margin: auto
+    margin: auto;
+    z-index: 10;
 }
 
 #rows {

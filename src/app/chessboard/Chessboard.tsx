@@ -9,9 +9,7 @@ import { useState } from "react";
 export default function ChessBoard() {
     const board = useSelector((state: RootState) =>state.board.boardValue);
     const clickedUserId = useSelector((state: RootState) => state.board.id);
-    
     const thePlayersToColour = useSelector((state: RootState) =>state.board.gameInserted[0]);
-    console.log('thePlayersToColour: ', thePlayersToColour);
     const myId = useSelector((state: RootState) => state.board.myId);
 
     let letters = [];
@@ -23,11 +21,6 @@ export default function ChessBoard() {
     const startTheGame = ()=>{
         socket.emit('startTheGame', clickedUserId)
     }
-    
-    console.log('board: ', board);
-    console.log('thePlayersToColour: ', thePlayersToColour);
-
-
 
     return <div> 
             {(board.length === 0 && clickedUserId) ? <button onClick={startTheGame} 

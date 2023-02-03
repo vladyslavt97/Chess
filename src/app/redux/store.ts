@@ -11,7 +11,6 @@ export const store = configureStore({
         board: boardSlice,
         checkMate: checkMateSlice,
         messages: messagesSlice,
-        // colors: colorsSlice
     }
 });
 

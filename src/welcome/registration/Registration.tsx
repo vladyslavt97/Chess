@@ -3,13 +3,13 @@ import './Registration.css'
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Registration() {
-    const [firstname, setFirstname] = useState('');
-    const [lastname, setLastname] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [firstname, setFirstname] = useState<string>('');
+    const [lastname, setLastname] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
 
-    const handleSubmit = (evt: any) => {
+    const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
       evt.preventDefault();
       console.log('whats the issue');
       
@@ -24,7 +24,6 @@ export default function Registration() {
             response.json())
           .then((data) => {
             console.log('hm', data);
-            // location.replace("/login")
             navigate('/login');
           })
           .catch((error) => {

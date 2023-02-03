@@ -15,12 +15,8 @@ interface CellProps{
 }
 
 export default function Cell(props: CellProps) {
-
     const thePlayersToColour = useSelector((state: RootState) =>state.board.gameInserted[0]);
-    console.log('thePlayersToColour: ', thePlayersToColour);
     const myId = useSelector((state: RootState) => state.board.myId);
-
-    
     return <div >
                     <div 
                     data-col={`${props.columnLetter}${props.rowIndex + 1}`}
