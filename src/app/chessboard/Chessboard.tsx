@@ -1,15 +1,13 @@
 import "./Chessboard.css"
 import Row from "./row/row";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { socket } from '../socket/socket';
-import { useState } from "react";
-
 
 export default function ChessBoard() {
     const board = useSelector((state: RootState) =>state.board.boardValue);
     const clickedUserId = useSelector((state: RootState) => state.board.id);
-    const thePlayersToColour = useSelector((state: RootState) =>state.board.gameInserted[0]);
+    const thePlayersToColour = useSelector((state: RootState) => state.board.gameInserted[0]);
     const myId = useSelector((state: RootState) => state.board.myId);
 
     let letters = [];

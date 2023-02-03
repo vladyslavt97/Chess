@@ -8,12 +8,9 @@ import { socket } from '../socket/socket';
 
 
 export default function Chat() {
-  const [messageState, setMessageState] = useState('');
+  const [messageState, setMessageState] = useState<string>('');
   const clickedUserId = useSelector((state: RootState) => state.board.id);
-  
   const myId = useSelector((state: RootState) => state.board.myId);
-
-  // const messages = useSelector((state: RootState) => state.messages);
   const messages = useSelector((state: RootState) => state.messages.messagesValue.filter(m=>
     m.recipient_id === clickedUserId && m.sender_id === myId ||
     m.recipient_id === myId && m.sender_id === clickedUserId));
@@ -22,7 +19,6 @@ export default function Chat() {
       let time = new Date(arg).toLocaleString();
       return time;
   }
-
 
   //emit to the server
   const handleSubmitMessages = (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,7 +37,6 @@ export default function Chat() {
       setMessageState('');
     }
   }
-console.log('clickedUserId: ', clickedUserId);
 
   return (
     <div id='chat-div'>

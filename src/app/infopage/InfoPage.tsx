@@ -1,8 +1,7 @@
-import React from 'react'
 import './InfoPage.css'
 
 export default function InfoPage() {
-    return <div>
+    return <div id='info-page'>
             <div id='backdrop-question'></div><h1>How does it work?</h1><div id='div1'>
             <h4><a href="https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation">Forsyth–Edwards Notation</a> (FEN) - <b id='notation'>'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'</b></h4>
             <h4>After a move to e4 - <b id='notation'>'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1'</b></h4>

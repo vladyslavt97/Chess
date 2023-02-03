@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { MouseEventHandler, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { isPieceSelected, moveFromState, clearTheMoveFrom } from '../../redux/moveFromSlice';
 import { RootState } from '../../redux/store';
@@ -10,6 +10,12 @@ import { socket } from '../../socket/socket';
 interface RowProps{
     row: Array<object>,
     rowIndex: number,
+}
+
+interface CellObject{
+    square: string
+    type: string
+    color: string
 }
 
 export default function Row(props: RowProps) {
@@ -34,15 +40,11 @@ export default function Row(props: RowProps) {
         }
     }, [])
 
-    // const [wrongMove, setWrongMove] = useState('');// generate the error!
     const [legalMove, setLegalMove] = useState<string[]>([]);
-    // const [moveTo, setMoveTo] = useState('');//not used??
     const dispatch = useDispatch();
 
 
-    const getImagePositionFROM = (cell: any)=>{
-        console.log('cell.color: ', cell.color, 'colour: ', colour );
-        
+    const getImagePositionFROM = (cell: CellObject)=>{
         if(cell.color === colour){
             const value = cell.square;
             dispatch(moveFromState(value!))
@@ -76,15 +78,14 @@ export default function Row(props: RowProps) {
         }
     } 
 
-    const getTheCellTOMove = (event: any, cell: any)=>{
+    const getTheCellTOMove = (event: React.MouseEvent, cell: object)=>{
         let dataa = event.currentTarget.getAttribute("data-col");
         dispatch(isPieceSelected(false));
         socket.emit('moveTo', {from: stateMoveFrom, to: dataa, clickedUser: clickedUserId});
         dispatch(clearTheMoveFrom(''));
-        // setMoveTo('');
     }
 
-    const handleClick = (cell: any, event: any) => { 
+    const handleClick = (cell: CellObject, event: React.MouseEvent) => { 
         if(isPieceSelectedState){
             getTheCellTOMove(event, cell);
         } else {

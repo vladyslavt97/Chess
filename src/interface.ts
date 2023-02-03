@@ -7,10 +7,12 @@ export interface UserInfo {
 
 export interface Message {
     id: number,
+    first: string,
+    last: string,
     sender_id: number;
     recipient_id: number;
-    message: string;
     timestamp: number;
+    message: string;
     created_at: string;
 }
 

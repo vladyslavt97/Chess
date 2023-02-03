@@ -18,14 +18,14 @@ export default function Cell(props: CellProps) {
     const thePlayersToColour = useSelector((state: RootState) =>state.board.gameInserted[0]);
     const myId = useSelector((state: RootState) => state.board.myId);
     return <div >
-                    <div 
-                    data-col={`${props.columnLetter}${props.rowIndex + 1}`}
-                    >{props.cell &&
-                            <img 
-                                src={`${props.cell?.type}${props.cell?.color}.png`} 
-                                alt={props.cell.square}
-                                id={thePlayersToColour.player1_id === myId ? "piece" : "piece-blackside"}
-                            />}
-                    </div>
+            <div 
+            data-col={`${props.columnLetter}${props.rowIndex + 1}`}
+            >{props.cell &&
+                <img 
+                    src={`${props.cell?.type}${props.cell?.color}.png`} 
+                    alt={props.cell.square}
+                    id={thePlayersToColour.player1_id === myId ? "piece" : "piece-blackside"}
+                />}
+            </div>
         </div>
 }
