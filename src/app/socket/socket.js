@@ -17,7 +17,6 @@ export const initSocket = (store) => {
     });
 
     socket.on("private_message", (data) => {
-        console.log('data in the sokcet.js is from textarea.tsx with .to', data);
         const action = receivedMessage(data.info);
         store.dispatch(action);
     });
@@ -25,14 +24,12 @@ export const initSocket = (store) => {
 
     // ------------------------ the chess part! ------------------------//
     socket.on("startTheGame", (data) => {
-        console.log('data in theBoard socket.js data.info', data);
         store.dispatch(thePlayersToColour(data.whatIsInserted));
         const action = originalBoardState(data.info);//board
         store.dispatch(action);
     });
 
     socket.on("moveTo", (data) => {
-        console.log('moveTo socket.js', data);
         store.dispatch(isGameOverState(data.gameisover));
         const action = updateTheBoardState(data.info);
         store.dispatch(action);
@@ -41,7 +38,6 @@ export const initSocket = (store) => {
 
     // ---- online? //
     socket.on('online', (data) => {
-        console.log('online users: ', data);
         const action = onlineUserAppeared(data);
         store.dispatch(action);
     });

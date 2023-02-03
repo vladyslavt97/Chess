@@ -10,7 +10,6 @@ export default function AllUsers() {
   const clickedUserId = useSelector((state: RootState) => state.board.id);
   const dispatch = useDispatch();
   const onlineU = useSelector((state: RootState) => state.messages.onlineUser);
-  console.log('onlineU: ', onlineU);
 
   useEffect(()=>{
         fetch('/api/allusers')
