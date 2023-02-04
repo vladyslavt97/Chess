@@ -49,19 +49,25 @@ export default function App() {
   
   return (
     <div className="main-div">
-      <div id='lets-play-some-chess'>
-        <h3 id='first-and-last-name'>Welcome, {myInfo?.first} &nbsp; {myInfo?.last}</h3>
-        {!thePlayersToColour && <h1 id='lets-play-some-chess-text'>Lets Play Some Chess</h1>}
-        {thePlayersToColour && <div>
-              {thePlayersToColour.player1_id === myInfo.id ? <h2 id='whiteside'>Your pieces are ⚪️</h2> : <h2 id='blackside'>Your pieces are ⚫️</h2>}
-            </div>}
+      <div id='the-layout'>
+        <div id='chat-allusers-welcome'>
+          <h3 id='first-and-last-name'>Welcome, {myInfo?.first} &nbsp; {myInfo?.last}</h3>
+          <AllUsers />
+          <Chat />
+        </div>
+        <div>
+          <ChessBoard />
+          <div id='title-and-your-colour'>
+            {!thePlayersToColour && <h1 id='lets-play-some-chess-text'>Lets Play Some Chess</h1>}
+            {thePlayersToColour && <div id='div-my-colour'>
+                  {thePlayersToColour.player1_id === myInfo.id ? <h2 id='whiteside'>Your pieces are ⚪️</h2> : <h2 id='blackside'>Your pieces are ⚫️</h2>}
+                </div>}
+            {!clickedUserId && <img src='/knight.png' alt="knight" id='knight-beautiful'/>}
+          </div>
+        </div>
       </div>
 
-      <div id='the-layout'>
-        <AllUsers />
-        <ChessBoard />
-        <Chat />
-      </div>
+
       {isGameover && 
         <div id='checkmate'>
             <CheckMate />
@@ -70,7 +76,6 @@ export default function App() {
       {thePlayersToColour && <Restart />}
       
       {thePlayersToColour && <WhoseTurn />}
-      {!clickedUserId && <img src='/knight.png' alt="knight" id='knight-beautiful'/>}
       <Signout />
 
       <h1 onClick={toggleInfoPopup} id="question-mark">?</h1>

@@ -21,8 +21,12 @@ export default function ChessBoard() {
     }
 
     return <div> 
-            {(board.length === 0 && clickedUserId) ? <button onClick={startTheGame} 
-                id="start-the-game-btn-center"> Start the Game </button> : null}
+            {(board.length === 0 && clickedUserId) ? 
+                <div id="start-btn-div">
+                    <button onClick={startTheGame} 
+                            id="start-the-game-btn-center"> Start the Game </button>
+                </div>
+                 : null}
             {thePlayersToColour && <div id={thePlayersToColour.player1_id === myId ? "big-big-div" : "big-big-div-blackside"}>
             {board.length !== 0 &&
                     <div    

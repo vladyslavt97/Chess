@@ -1,21 +1,14 @@
-#lets-play-some-chess{
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center
-}
-
 #lets-play-some-chess-text{
     color: white;
     font-size: 40px;
 }
 :root {
-    --main-background: -webkit-linear-gradient(-86deg, #ffbb00 1%, #00a6ff 99%);
+    --main-background: -webkit-linear-gradient(-86deg, #ffbb00 1%, #027300 99%);
 }
 
 #the-layout{
     display: grid;
-    grid-template-columns: 15% 1fr 15%;
+    grid-template-columns: 25% 1fr;
 }
 
 #question-mark{
@@ -29,12 +22,14 @@
 #first-and-last-name{
     color: white;
     position: absolute;
-    left: 50px;
+    left: 65px;
     top: 2px;
-    padding: 6px;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: #00a6ff;
+    font-size: 13px;
+}
+
+#div-my-colour{
+    display: flex;
+    justify-content: center;
 }
 
 #whiteside{
@@ -42,18 +37,33 @@
     background-color: rgb(84, 157, 129);
     border: 3px solid green;
     margin: 10px;
+    position: absolute;
+    top: 0;
 }
 #blackside{
     color: rgb(0, 0, 0);
     background-color: rgb(84, 157, 129);
     border: 3px solid green;
     margin: 10px;
+    position: absolute;
+        top: 0;
 }
 
 #knight-beautiful{
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
+    transform: translateY(-50%);
+    width: 200px;
+    opacity: 0.8;
+}
+
+
+/*  */
+#title-and-your-colour{
+    display: flex;
+    justify-content: center;
+}
+
+#chat-allusers-welcome{
+    max-width: 450px;
 }

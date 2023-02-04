@@ -1,15 +1,11 @@
 #friends-div{
-    background: rgb(0, 214, 240);
-        background: linear-gradient(0deg, rgba(0, 214, 240, 1) 0%, rgba(0, 142, 255, 1) 100%);
-    height: 90vh;
+    background: rgb(25, 117, 0);
+    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 0px 50px 50px 0px;
     z-index: 3;
-    -webkit-box-shadow: 12px 0px 11px 4px rgba(0, 20, 80, 0.65);
-        box-shadow: 12px 0px 11px 4px rgba(0, 20, 80, 0.65);
 }
 
 #all-users-list{
@@ -38,21 +34,20 @@
 
 #start-the-game-btn{
     border-radius: 10px;
-    background-color: rgb(0, 191, 255);
-    border: 2px solid blue;
+    background-color: rgb(255, 149, 0);
+    border: 2px solid rgb(1, 78, 0);
     padding: 10px;
     font-size: 15px;
-    z-index: 5;
 }
 
 
 
 /* Selected? */
 .users-not-selected {
-    background-color: rgb(0, 122, 198);
+    background-color: rgb(0, 87, 43);
+    color: white;
 }
 
 .users-selected {
-    background: rgb(240, 0, 215);
-        background: linear-gradient(-36deg, rgba(240, 0, 215, 1) 0%, rgba(143, 0, 255, 1) 100%); 
+    background: rgb(0, 255, 106);
 }
