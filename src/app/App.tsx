@@ -56,6 +56,7 @@ export default function App() {
           <Chat />
         </div>
         <div>
+          
           <ChessBoard />
           <div id='title-and-your-colour'>
             {!thePlayersToColour && <h1 id='lets-play-some-chess-text'>Lets Play Some Chess</h1>}

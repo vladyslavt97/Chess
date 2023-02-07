@@ -22,7 +22,7 @@ export default function Login() {
                 response.json())
             .then((data) => {
                 console.log("all good. Go to app page->", data);
-                navigate('/');
+                navigate('/chess');
             })
             .catch((error) => {
                 console.error('Error:', error);
