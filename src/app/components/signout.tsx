@@ -12,7 +12,8 @@ export function Signout() {
         })
         .then(response => response.json())
         .then(data => {
-            navigate('/');
+            console.log('data:', data)
+            navigate(0);
         })
         .catch(err => {
                 console.log('er: ', err);

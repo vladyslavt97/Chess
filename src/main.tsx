@@ -23,7 +23,7 @@ if (main){
                 root.render(<Provider store={store}>
                     <BrowserRouter>
                         <Routes>   
-                            <Route path="/chess" element= {<App />}/>
+                            <Route path="/" element= {<App />}/>
                         </Routes>
                     </BrowserRouter>
                 </Provider>

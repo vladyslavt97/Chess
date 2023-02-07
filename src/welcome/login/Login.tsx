@@ -22,7 +22,11 @@ export default function Login() {
                 response.json())
             .then((data) => {
                 console.log("all good. Go to app page->", data);
-                navigate('/chess');
+                // navigate(0, { replace: false });
+                navigate('/');//the redirect should be to the app!
+                navigate(0);//the redirect should be to the app!
+                // navigate('/', { replace: true });
+                // window.location.reload();
             })
             .catch((error) => {
                 console.error('Error:', error);
