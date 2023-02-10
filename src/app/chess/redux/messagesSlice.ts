@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Message, UserInfo } from "../../interface";
+import { Message, UserInfo } from "../../../interface";
 
 export interface MessageState {
     messagesValue: Message[];
