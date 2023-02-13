@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './Chess.css';
 import Chat from './chat/Chat';
@@ -51,15 +51,17 @@ export default function App() {
     <div className="main-div">
       <div id='the-layout'>
         <div id='chat-allusers-welcome'>
-          <h3 id='first-and-last-name'>Welcome, {myInfo?.first} &nbsp; {myInfo?.last}</h3>
+          <div id='fandl'>
+            <h3 id='first-and-last-name'>{myInfo?.first} <br/> {myInfo?.last}</h3>
+          </div>
           <AllUsers />
           <Chat />
         </div>
+        
+        
         <div>
-          
           <ChessBoard />
           <div id='title-and-your-colour'>
-            {!thePlayersToColour && <h1 id='lets-play-some-chess-text'>Lets Play Some Chess</h1>}
             {thePlayersToColour && <div id='div-my-colour'>
                   {thePlayersToColour.player1_id === myInfo.id ? <h2 id='whiteside'>Your pieces are ⚪️</h2> : <h2 id='blackside'>Your pieces are ⚫️</h2>}
                 </div>}

@@ -24,7 +24,7 @@ export default function Welcome() {
     })
 
     return <div id="welcome">
-            <h1 id='chess-with-friends-text'>Chess with friends</h1>
+            {!userId && <h1 id='chess-with-friends-text'>Chess with friends</h1>}
             
             <div id='login-and-register-divs'>
                     <Routes>

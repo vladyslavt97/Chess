@@ -8,7 +8,6 @@ export default function Login() {
     const navigate = useNavigate();
 
     const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
-        console.log('clicked');
         evt.preventDefault();
 
         fetch('/api/login/', {

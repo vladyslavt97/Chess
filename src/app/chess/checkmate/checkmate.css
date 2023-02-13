@@ -19,6 +19,7 @@
     font-size: 50px;
     z-index: 2;
     color: white;
+    z-index: 11;
 }
 
 #backdrop{
@@ -29,6 +30,7 @@
     opacity: 0.8;
     width: 100vw;
     height: 100vh;
+    z-index: 10;
 }
 
 #checkmate-button{
@@ -39,6 +41,7 @@
     border: 1px solid rgb(30, 255, 0);
     border-radius: 50px;
     background-color: greenyellow;
+    z-index: 11;
 }
 
 #just-a-div{
