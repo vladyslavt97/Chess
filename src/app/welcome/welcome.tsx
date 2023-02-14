@@ -11,7 +11,6 @@ import { userIdState } from '../chess/redux/boardSlice';
 
 
 export default function Welcome() {
-    // const [userId, setUserId] = useState<boolean>(false);
     const dispatch = useDispatch();
     const userIdValue = useSelector((state: RootState) =>state.board.userIdValue);
     console.log('userIdValue: ', userIdValue);
@@ -20,13 +19,10 @@ export default function Welcome() {
         fetch('/api/user/id.json')
         .then(res => res.json())
         .then(data => {
-            console.log('data: ', data.userId);
             if(data.userId){
                 dispatch(userIdState(true))
                 initSocket(store);
-                console.log('data last: ', data.userId);
             }
-
         })
     })
     console.log('userid', userIdValue);
@@ -34,15 +30,15 @@ export default function Welcome() {
     return <div id="welcome">
             {!userIdValue && <h1 id='chess-with-friends-text'>Chess with friends</h1>}
             
-            <div id='login-and-register-divs'>
-                    <Routes>
-                        {!userIdValue && <Route path="/" element={<Registration />}></Route>}
-                        {userIdValue && <Route path="/" element={<Navigate to="/chess"/>}></Route>}
-                        {!userIdValue && <Route path="/login" element={<Login />}></Route>}
-                        {!userIdValue && <Route path="*" element={<Navigate to="/"/>}/>}
-                        {userIdValue && <Route path="chess" element={<Chess/>}></Route>}
-                    </Routes>
-            </div>
+        <div id='login-and-register-divs'>
+                <Routes>
+                    {!userIdValue && <Route path="/" element={<Registration />}></Route>}
+                    {userIdValue && <Route path="/" element={<Navigate to="/chess"/>}></Route>}
+                    {!userIdValue && <Route path="/login" element={<Login />}></Route>}
+                    {!userIdValue && <Route path="*" element={<Navigate to="/"/>}/>}
+                    {userIdValue && <Route path="chess" element={<Chess/>}></Route>}
+                </Routes>
         </div>
+    </div>
 }
 

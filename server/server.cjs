@@ -260,7 +260,6 @@ app.get('/api/myuser', async (req, res) =>{
 
 // other important routes
 app.get("/api/user/id.json", (req, res) => {
-    console.log('userId', req.session.userId);
     res.json({ userId: req.session.userId });
 });
 

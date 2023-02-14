@@ -33,9 +33,16 @@ body{
     .chess-board-b{
         transform: scale(0.8);
     }
+    .chess-board{
+        transform: scale(0.8);
+    }
 }
 @media screen and (max-width: 900px) {
     .chess-board-b {
+        transform: scale(0.7);
+        position: absolute;
+    }
+    .chess-board {
         transform: scale(0.7);
         position: absolute;
     }
@@ -44,9 +51,15 @@ body{
     .chess-board-b {
         transform: scale(0.6);
     }
+    .chess-board {
+        transform: scale(0.6);
+    }
 }
 @media screen and (max-width: 650px) {
     .chess-board-b {
+        transform: scale(0.5);
+    }
+    .chess-board {
         transform: scale(0.5);
     }
 }
