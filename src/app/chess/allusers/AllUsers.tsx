@@ -31,10 +31,12 @@ export default function AllUsers() {
     <div id='friends-div'>
         <div id='all-users-list'>
         {allusers.map(user=>(
-          <div key={user.id} onClick={()=>dispatch(selectedUserId(user.id))}>
+          <div key={user.id}>
             <div key={user.id} id="allusers-names" className={`${user.id === clickedUserId && counterpartChosen ? 'users-selected' : 'users-not-selected'}`}>
               <h4>{user.first} {user.last}</h4>
-              {onlineU.find(o => o.id === user.id) && <button id='start-the-game-btn' onClick={toggleRelevantGame} >Start</button>}
+              {onlineU.find(o => o.id === user.id) && <div onClick={()=>dispatch(selectedUserId(user.id))}>
+                      <button id='start-the-game-btn' onClick={toggleRelevantGame} >Start</button>
+                    </div>}
             </div>
           </div>
           )

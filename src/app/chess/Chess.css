@@ -10,6 +10,14 @@
     display: grid;
     grid-template-columns: 25% 1fr;
 }
+@media screen and (max-width: 650px) {
+    #the-layout {
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+}
+
 
 #question-mark{
     position: absolute;
@@ -38,6 +46,8 @@
     font-size: 13px;
     position: absolute;
     top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 #div-my-colour{
@@ -80,3 +90,24 @@
 #chat-allusers-welcome{
     max-width: 450px;
 }
+@media screen and (max-width: 650px){
+    #chat-allusers-welcome {
+        height: 100vh;
+        width: 100vw;
+    }
+    .chessmain {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .chessmain {
+        transform: scale(0.6);
+        position: absolute;
+        top: 50%;
+    }
+}
+

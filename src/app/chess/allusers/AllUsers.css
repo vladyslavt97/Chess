@@ -8,6 +8,24 @@
     z-index: 3;
 }
 
+#chat-div>h1{
+    color: white;
+}
+
+@media screen and (max-width: 650px) {
+    #friends-div {
+        position: absolute;
+        top: 7vh;
+        height: 20vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        z-index: 3;
+    }
+}
+
 #all-users-list{
     background-color: rgb(229, 243, 255);
     border: 2px solid rgb(255, 140, 0);
@@ -22,6 +40,7 @@
     overflow-x: hidden;
 }
 
+
 #allusers-names{
     display: flex;
     flex-direction: row;
@@ -33,7 +52,28 @@
 }
 @media screen and (max-width: 900px){
     #allusers-names{
-    flex-direction: column;
+        display: flex;
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 650px) {
+    #all-users-list {
+        width: 60vw;
+    }
+    #allusers-names {
+        font-size: 10px;
+        padding: 2px;
+        flex-direction: row;
+    }
+    #start-the-game-btn {
+        border-radius: 10px;
+        background-color: rgb(255, 149, 0);
+        border: 2px solid rgb(1, 78, 0);
+        padding: 3px;
+        font-size: 10px;
+    }
+    #chat-div>h1 {
+        display: none
     }
 }
 

@@ -57,13 +57,10 @@ export default function App() {
         </div>
         
         
-        <div>
+        <div className='chessmain'>
           <ChessBoard />
           <div id='title-and-your-colour'>
-            {thePlayersToColour && <div id='div-my-colour'>
-                  {thePlayersToColour.player1_id === myInfo.id ? <h2 id='whiteside'>Your pieces are ⚪️</h2> : <h2 id='blackside'>Your pieces are ⚫️</h2>}
-                </div>}
-            {!clickedUserId && <img src='/knight.png' alt="knight" id='knight-beautiful'/>}
+          {!clickedUserId && <img src='/knight.png' alt="knight" id='knight-beautiful'/>}
           </div>
         </div>
       </div>
