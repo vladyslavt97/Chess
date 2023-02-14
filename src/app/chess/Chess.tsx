@@ -13,7 +13,6 @@ import { myId, myUserInformation } from './redux/boardSlice';
 import InfoPage from './infopage/InfoPage';
 import { UserInfo } from '../../interface';
 
-
 export default function App() {
   const clickedUserId = useSelector((state: RootState) => state.board.id);
   const isGameover = useSelector((state: RootState) =>state.board.gameover);
@@ -23,7 +22,6 @@ export default function App() {
   const [visibleInfoPopup, setVisibleInfoPopup] = useState<boolean>(false);
 
   const toggleInfoPopup = () => {
-    console.log('toggleInfoPopup clicked');
     setVisibleInfoPopup(!visibleInfoPopup);
   }
 
@@ -79,8 +77,7 @@ export default function App() {
       {thePlayersToColour && <Restart />}
       
       {thePlayersToColour && <WhoseTurn />}
-      <Signout />
-
+      <Signout/>
       <h1 onClick={toggleInfoPopup} id="question-mark">?</h1>
       {visibleInfoPopup && <div id='question-mark-div' onClick={toggleInfoPopup}>
         <InfoPage />

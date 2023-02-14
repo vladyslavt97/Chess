@@ -7,7 +7,8 @@ export interface BoardState {
     myId: number,
     gameover: boolean,
     gameInserted: object,
-    myUserInfor: object
+    myUserInfor: object,
+    userIdValue: boolean
 }
 
 const initialState: BoardState = {
@@ -16,7 +17,8 @@ const initialState: BoardState = {
     myId: 0,
     gameover: false,
     gameInserted: {},
-    myUserInfor: {}
+    myUserInfor: {},
+    userIdValue: false
 };
 
 export const boardSlice = createSlice({
@@ -45,8 +47,11 @@ export const boardSlice = createSlice({
     thePlayersToColour: (state, myIdAction: PayloadAction<object>) => {
       state.gameInserted = myIdAction.payload;
     },
+    userIdState: (state, cookieAction: PayloadAction<boolean>) => {
+      state.userIdValue = cookieAction.payload;
+    },
   },
 });
 
-export const { originalBoardState, updateTheBoardState, selectedUserId, myId, isGameOverState, thePlayersToColour, myUserInformation } = boardSlice.actions;
+export const { originalBoardState, updateTheBoardState, selectedUserId, myId, isGameOverState, thePlayersToColour, myUserInformation, userIdState } = boardSlice.actions;
 export default boardSlice.reducer

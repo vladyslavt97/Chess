@@ -1,11 +1,15 @@
 import {useState} from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css'
+import { userIdState } from '../../chess/redux/boardSlice';
+
 
 export default function Login() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
@@ -20,9 +24,8 @@ export default function Login() {
             .then((response) => 
                 response.json())
             .then((data) => {
-                console.log("all good. Go to app page->", data);
-                navigate('/chess', { replace: true });
-                navigate(0);
+                dispatch(userIdState(true))
+                navigate('/chess');
             })
             .catch((error) => {
                 console.error('Error:', error);
