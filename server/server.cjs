@@ -1,3 +1,5 @@
+const isDeployed = true;
+
 require('dotenv').config();
 const express = require("express");
 const app = express();
@@ -8,16 +10,41 @@ const cors = require('cors');
 const { getLatestMessages, getMyUSerFromDB, getOnlineUsersByTheirIDs, deleteFromGames, insertMessage, startingFenInsert, myLatestGame, updateTheBoard } = require('./db.cjs');
 app.use(cors());
 
+
+
+
 app.use(express.static(path.join(__dirname, "..", "dist")));
 
 
 
 // ------------------------------------ SOCKET  ------------------------------------ //
 const server = require('http').Server(app);
-const io = require('socket.io')(server, {
-    allowRequest: (req, callback) =>
-        callback(null, req.headers.referer.startsWith(WEB_URL))
+const { Server } = require("socket.io");
+
+// import { Server } from "socket.io";
+
+const originUrl = isDeployed ? "https://chess-rn1q.onrender.com" : "http://localhost:3030";
+const io = new Server(server, {
+    cors: {
+        origin: originUrl,
+        allowedHeaders: ["my-custom-header"],
+        credentials: true,
+    },
 });
+
+const corsOptions = {
+    origin: "*",
+    credentials: true, //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
+// const io = require('socket.io')(server, {
+//     allowRequest: (req, callback) =>
+//         callback(null, req.headers.referer.startsWith(WEB_URL))
+// });
+
 io.use((socket, next) => {
     cookieSession(socket.request, socket.request.res, next);
 });
@@ -25,6 +52,7 @@ io.use((socket, next) => {
 app.use(cookieSession);
 app.use(express.json());
 
+app.set("trust proxy", 1);
 
 let usersConnectedInfo = [];
 io.on("connection", async (socket) => {
