@@ -46,8 +46,6 @@
     font-size: 13px;
     position: absolute;
     top: 5px;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 #div-my-colour{
@@ -100,6 +98,10 @@
         top: 45%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+    #first-and-last-name{
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 
