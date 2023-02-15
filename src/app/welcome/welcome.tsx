@@ -33,10 +33,10 @@ export default function Welcome() {
         <div id='login-and-register-divs'>
                 <Routes>
                     {!userIdValue && <Route path="/" element={<Registration />}></Route>}
-                    {userIdValue && <Route path="/" element={<Navigate to="/chess"/>}></Route>}
                     {!userIdValue && <Route path="/login" element={<Login />}></Route>}
                     {!userIdValue && <Route path="*" element={<Navigate to="/"/>}/>}
                     {userIdValue && <Route path="/chess" element={<Chess/>}></Route>}
+                    {userIdValue && <Route path="/" element={<Navigate to="/chess"/>}></Route>}
                 </Routes>
         </div>
     </div>
