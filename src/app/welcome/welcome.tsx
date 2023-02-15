@@ -13,7 +13,6 @@ import { userIdState } from '../chess/redux/boardSlice';
 export default function Welcome() {
     const dispatch = useDispatch();
     const userIdValue = useSelector((state: RootState) =>state.board.userIdValue);
-    console.log('userIdValue: ', userIdValue);
     
     useEffect(() =>{
         fetch('/api/user/id.json')
@@ -25,7 +24,6 @@ export default function Welcome() {
             }
         })
     })
-    console.log('userid', userIdValue);
     
     return <div id="welcome">
             {!userIdValue && <h1 id='chess-with-friends-text'>Chess with friends</h1>}

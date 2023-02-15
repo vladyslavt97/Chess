@@ -25,7 +25,7 @@ export default function Login() {
                 response.json())
             .then((data) => {
                 dispatch(userIdState(true))
-                navigate('/chess');
+                navigate('/gametype');
             })
             .catch((error) => {
                 console.error('Error:', error);
