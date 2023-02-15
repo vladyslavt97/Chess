@@ -9,7 +9,6 @@ import { RootState } from './redux/store';
 import Restart from './restart/Restart';
 import WhoseTurn from './whoseturn/WhoseTurn';
 import { Signout } from './components/signout';
-import { myId, myUserInformation } from './redux/boardSlice';
 import InfoPage from './infopage/InfoPage';
 import { UserInfo } from '../../interface';
 
@@ -17,40 +16,19 @@ export default function App() {
   const clickedUserId = useSelector((state: RootState) => state.board.id);
   const isGameover = useSelector((state: RootState) =>state.board.gameover);
   const thePlayersToColour = useSelector((state: RootState) =>state.board.gameInserted[0]);
-  const [myInfo, setMyInfo] = useState<UserInfo>();
-  
+  const myInf: UserInfo  = useSelector((state: RootState) =>state.board.myUserInfor);
   const [visibleInfoPopup, setVisibleInfoPopup] = useState<boolean>(false);
 
   const toggleInfoPopup = () => {
     setVisibleInfoPopup(!visibleInfoPopup);
   }
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    fetch('/api/myuser', {
-            method: 'GET', 
-            headers: {
-              'Content-Type': 'application/json',
-            },
-        })
-            .then((response) => 
-              response.json())
-            .then((data) => {
-              setMyInfo(data.myuser)
-              dispatch(myId( data.myuser.id));
-              dispatch(myUserInformation( data.myuser));
-            })
-            .catch((error) => {
-                console.error('Error caught:', error);
-            });
-  }, [])
   
   return (
     <div className="main-div">
       <div id='the-layout'>
         <div id='chat-allusers-welcome'>
           <div id='fandl'>
-            <h3 id='first-and-last-name'>{myInfo?.first} <br/> {myInfo?.last}</h3>
+            <h3 id='first-and-last-name'>{myInf.first} <br/> {myInf.last}</h3>
           </div>
           <AllUsers />
           <Chat />

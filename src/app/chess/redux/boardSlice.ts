@@ -39,6 +39,8 @@ export const boardSlice = createSlice({
       state.myId = myIdAction.payload;
     },
     myUserInformation: (state, myUserInformationAction: PayloadAction<object>) => {
+      console.log('myUserInformation in boardslice: ', myUserInformationAction.payload);
+      
       state.myUserInfor = myUserInformationAction.payload;
     },
     isGameOverState: (state, myIdAction: PayloadAction<boolean>) => {

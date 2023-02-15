@@ -5,8 +5,9 @@
     flex-direction: column;
 }
 
-#game-type>*{
-    padding: 10px;
+#gametype-div>*{
+    padding: 20px;
+    text-decoration: none;
 }
 
 #noone-is-online{
@@ -21,5 +22,22 @@
     border-radius: 25px;
     background-color: greenyellow;
     border: 2px solid rgb(0, 97, 24);
+    font-size: 20px;
+    text-decoration: none;
+}
+
+#play-with-others{
+    padding: 5px;
+    border-radius: 25px;
+    background-color: rgb(228, 255, 96);
+    border: 2px solid rgb(0, 97, 24);
+    font-size: 20px;
+}
+button{
+    margin: 10px;
+    box-shadow: rgba(159, 255, 228, 0.296) 0px 8px 24px;
+}
+
+button>a{
     text-decoration: none;
 }

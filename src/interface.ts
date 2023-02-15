@@ -1,8 +1,8 @@
 export interface UserInfo {
-    id: number;
-    first: string,
-    last: string,
-    email: string
+    id?: number;
+    first?: string,
+    last?: string,
+    email?: string
 }
 
 export interface Message {
