@@ -36,6 +36,7 @@ export default function Welcome() {
                     {!userIdValue && <Route path="/login" element={<Login />}></Route>}
                     {!userIdValue && <Route path="*" element={<Navigate to="/"/>}/>}
                     {userIdValue && <Route path="/chess" element={<Chess/>}></Route>}
+                    {userIdValue && <Route path="/login" element={<Navigate to="/chess"/>}></Route>}
                     {userIdValue && <Route path="/" element={<Navigate to="/chess"/>}></Route>}
                 </Routes>
         </div>

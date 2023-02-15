@@ -269,7 +269,7 @@ app.post('/api/signout', (req, res) => {
 });
 
 app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "..", "index.html"));
+  //res.sendFile(path.join(__dirname, "..", "index.html"));
 });
 
 server.listen(PORT, function () {
