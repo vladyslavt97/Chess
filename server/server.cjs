@@ -268,9 +268,9 @@ app.post('/api/signout', (req, res) => {
     res.json({ userId: null });
 });
 
-app.get("*", function (req, res) {
-  console.log("catch all")
-});
+// app.get("*", function (req, res) {
+//   console.log("catch all")
+// });
 
 server.listen(PORT, function () {
     console.log(`Express SERVER listening on port ${PORT}`);
