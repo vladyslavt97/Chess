@@ -1,0 +1,25 @@
+#gametype-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#game-type>*{
+    padding: 10px;
+}
+
+#noone-is-online{
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: rgb(168, 168, 168);
+}
+
+#play-with-computer{
+    padding: 5px;
+    border-radius: 25px;
+    background-color: greenyellow;
+    border: 2px solid rgb(0, 97, 24);
+    text-decoration: none;
+}
