@@ -11,7 +11,7 @@ export default function PlayWithComputer() {
   const myInf: UserInfo = useSelector((state: RootState) =>state.board.myUserInfor);
 
   const chess = new Chess();
-  const board = chess.board();
+  const board = chess.board().reverse();
   
   let letters = [];
     let i = 64;

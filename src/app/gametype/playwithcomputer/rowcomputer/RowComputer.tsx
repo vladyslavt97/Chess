@@ -10,16 +10,12 @@ interface RowProps{
 export default function RowComputer(props: RowProps) {
     const [isPieceSelectedState, isPieceSelectedStateSet] = useState(false);
     const [moveFrom, setMoveFrom] = useState('');
-
-    const chess = new Chess();
-    const getLetterFromIndex = (index: number): string => {
-        return String.fromCharCode(65 + index).toLowerCase();
-    }
-
     const [legalMove, setLegalMove] = useState<string[]>([]);
 
+    const chess = new Chess();
+    
+
     const getImagePositionFROM = (cell: any)=>{
-        isPieceSelectedStateSet(true)
         console.log('cel!', cell);
         console.log('isPieceSelectedState: ', isPieceSelectedState);
         
@@ -31,10 +27,14 @@ export default function RowComputer(props: RowProps) {
             if (legalMoves.length === 0){
                 console.log('its not your turn :(');
             } else {
+                isPieceSelectedStateSet(true)
+
                 // setLegalMove(data.legalmoves);
+                setLegalMove(legalMoves);
+
             }
         }
-        isPieceSelectedStateSet(false)
+        // isPieceSelectedStateSet(false)
 
     }
 
@@ -42,20 +42,20 @@ export default function RowComputer(props: RowProps) {
         let dataa = event.currentTarget.getAttribute("data-col");
         console.log('dataaa: ', dataa);
         
-        isPieceSelectedStateSet(false)
         
         const moved = chess.move({from: moveFrom, to: dataa})
-        console.log(moveFrom, dataa, moved);
-            // updateTheBoardState(data.moved)
-
-            // setMoveTo('')
+        console.log('looof', moveFrom, dataa, moved);
+        isPieceSelectedStateSet(false)
     }
 
-    console.log('isPieceSelectedState end: ', isPieceSelectedState);
+    // console.log('isPieceSelectedState end: ', isPieceSelectedState);
     const handleClick = (cell: any, event: any) => { 
         if(isPieceSelectedState){
+            console.log('!1');
             getTheCellTOMove(event, cell);
+            
         } else {
+            console.log('!2');
             getImagePositionFROM(cell);
         }
     }
@@ -70,12 +70,18 @@ export default function RowComputer(props: RowProps) {
         }
     }, [legalMove]);
 
+    //legal moves
     for (let l of legalMove){
         let matches = l.match(/\w[0-9]/);
         if (matches && !isPieceSelectedState){
             let dataAt = document.querySelectorAll(`[data-col=${matches[0]}]`);
             (dataAt[0] as HTMLElement).removeAttribute('id');
         } 
+    }
+
+    //letters
+    const getLetterFromIndex = (index: number): string => {
+        return String.fromCharCode(65 + index).toLowerCase();
     }
 
   return <div id='rows' >
@@ -85,6 +91,7 @@ export default function RowComputer(props: RowProps) {
                     data-col={`${getLetterFromIndex(columnIndex)}${props.rowIndex + 1}`}
                     onClick={(event) => handleClick(cell, event)}
                     >
+                    
                     <CellComputer cell={cell} 
                         columnLetter={getLetterFromIndex(columnIndex)} 
                         rowIndex={props.rowIndex} 

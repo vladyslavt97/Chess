@@ -13,6 +13,8 @@ interface CellProps{
 }
 
 export default function CellComputer(props: CellProps) {
+    console.log('prop: ', props.cell);
+    
   return <div >
                     <div 
                     data-col={`${props.columnLetter}${props.rowIndex + 1}`}
