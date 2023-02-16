@@ -26,7 +26,6 @@ export const boardSlice = createSlice({
   initialState,
   reducers: {
     originalBoardState: (state, boardAction: PayloadAction<Array<Array<object>>>) => {
-      console.log('boardAction: ', boardAction);
       state.boardValue = boardAction.payload;
     },
     updateTheBoardState: (state, boardAction: PayloadAction<Array<Array<object>>>) => {
@@ -39,8 +38,6 @@ export const boardSlice = createSlice({
       state.myId = myIdAction.payload;
     },
     myUserInformation: (state, myUserInformationAction: PayloadAction<object>) => {
-      console.log('myUserInformation in boardslice: ', myUserInformationAction.payload);
-      
       state.myUserInfor = myUserInformationAction.payload;
     },
     isGameOverState: (state, myIdAction: PayloadAction<boolean>) => {

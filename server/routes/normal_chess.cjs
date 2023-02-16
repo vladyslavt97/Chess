@@ -29,9 +29,12 @@ normalChessRouter.post('/api/normalchess-move', (req, res) => {
       console.log('something went wrong in the movepiece', error);
     }
 });
-// normalChessRouter.post('/api/normalchess-emptyboard', (req, res) => {
-    
-// });
+normalChessRouter.post('/api/normalchess-emptyboard', (req, res) => {
+    console.log('emptyboard or restart');
+    const cleared = chess.reset();
+    console.log('cc', cleared);
+    res.json({emptyboard: cleared});
+});
 normalChessRouter.post('/api/normalchess-legalmoves', (req, res) => {
     try{
     const movesLegal = chess.moves({ square: req.body.possibleMoves});

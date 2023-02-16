@@ -73,8 +73,8 @@ export default function RowComputer(props: RowProps) {
             }
         })
         .then(data => {
-            // console.log('data: ', data.checkMate);//true
-            dispatch(checkMateState(data.checkMate))
+            console.log('data gameover: ', data.gameover);//true
+            dispatch(checkMateState(data.gameover))
             console.log('data.moved: ', data.moved);
             
             dispatch(updateTheBoardState(data.moved))

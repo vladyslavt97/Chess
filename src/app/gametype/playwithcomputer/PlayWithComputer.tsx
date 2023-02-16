@@ -3,17 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState } from '../../chess/redux/store';
 import './Playwithcomputer.css'
-import { Chess } from 'chess.js'
 import RowComputer from './rowcomputer/RowComputer';
 import { originalBoardState } from '../../chess/redux/boardSlice';
 import { resetTheStateofReset } from '../../chess/redux/checkmateSlice';
+import RestartComp from './restartcomp/RestartComp';
+import GameOverComp from './gameovercomp/GameOverComp';
 
 export default function PlayWithComputer() {
-  // const chess = new Chess();
+  const isGameover = useSelector((state: RootState) =>state.board.);
   const clearTheBoard = useSelector((state: RootState) =>state.checkMate.reset);
   const board = useSelector((state: RootState) =>state.board.boardValue);
-    console.log('board boradmain', board);
-    
   const dispatch = useDispatch();
   
   useEffect(()=>{
@@ -37,6 +36,7 @@ export default function PlayWithComputer() {
 
   return (
     <div>
+        <RestartComp />
         <button id='back-to-gametype'><Link to="/gametype">Back</Link></button>
         <div className="chess-board">
                 {board.map((row, index) => (
@@ -55,6 +55,10 @@ export default function PlayWithComputer() {
                 )}
             </div>
           </div>
+          {isGameover && 
+        <div id='checkmate'>
+            <GameOverComp />
+      </div>}
     </div>
   )
 }
