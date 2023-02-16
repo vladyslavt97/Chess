@@ -1,18 +1,34 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { UserInfo } from '../../../interface';
 import { RootState } from '../../chess/redux/store';
 import './Playwithcomputer.css'
 import { Chess } from 'chess.js'
 import RowComputer from './rowcomputer/RowComputer';
+import { originalBoardState } from '../../chess/redux/boardSlice';
+import { resetTheStateofReset } from '../../chess/redux/checkmateSlice';
 
 export default function PlayWithComputer() {
-  const myInf: UserInfo = useSelector((state: RootState) =>state.board.myUserInfor);
-
-  const chess = new Chess();
-  const board = chess.board().reverse();
+  // const chess = new Chess();
+  const clearTheBoard = useSelector((state: RootState) =>state.checkMate.reset);
+  const board = useSelector((state: RootState) =>state.board.boardValue);
+    console.log('board boradmain', board);
+    
+  const dispatch = useDispatch();
   
+  useEffect(()=>{
+        fetch('/api/normalchess-gamestate')
+        .then((response) => response.json()
+        )
+        .then((data) => {
+            dispatch(originalBoardState(data.st));
+            dispatch(resetTheStateofReset(false));
+        })
+        .catch((error) => {
+            console.error('Error caught:', error);
+        });
+    }, [clearTheBoard])
+
   let letters = [];
     let i = 64;
     while (i++ <= 71){
@@ -26,7 +42,8 @@ export default function PlayWithComputer() {
                 {board.map((row, index) => (
                         <div key={index} >
                             <h5 id="rows-numbers" >{index + 1}</h5>
-                            <RowComputer row={row} rowIndex={index}/>
+                            <RowComputer row={row} rowIndex={index} 
+                            />
                         </div>
                     )
                     )}

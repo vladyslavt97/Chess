@@ -225,10 +225,12 @@ socket.on('emptyboard', async (emptyboard) => {
 const { loginRouter } = require('./routes/login.cjs');
 const { registerRouter } = require('./routes/registration.cjs');
 const { allUsersRouter } = require('./routes/allusers.cjs');
+const { normalChessRouter } = require('./routes/normal_chess.cjs');
 
 app.use(loginRouter);
 app.use(registerRouter);
 app.use(allUsersRouter);
+app.use(normalChessRouter);
 
 
 // --- CHESS --- //
