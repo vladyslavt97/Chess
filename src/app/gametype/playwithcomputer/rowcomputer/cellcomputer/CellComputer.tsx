@@ -1,3 +1,4 @@
+import './CellComputer.css'
 
 interface CellType{
     square?: string,

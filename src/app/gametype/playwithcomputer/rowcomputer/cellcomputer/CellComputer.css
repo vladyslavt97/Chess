@@ -1,0 +1,4 @@
+#piece-comp {
+    transform: rotate(180deg);
+    z-index: 3;
+}

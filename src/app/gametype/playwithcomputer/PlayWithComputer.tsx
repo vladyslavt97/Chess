@@ -9,10 +9,8 @@ import RowComputer from './rowcomputer/RowComputer';
 
 export default function PlayWithComputer() {
   const myInf: UserInfo = useSelector((state: RootState) =>state.board.myUserInfor);
-  console.log('myInf in PlayWithComputer: ', myInf);
 
   const chess = new Chess();
-  console.log('chess.board(): ', chess.board());
   const board = chess.board();
   
   let letters = [];

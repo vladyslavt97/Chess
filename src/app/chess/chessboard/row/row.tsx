@@ -70,8 +70,8 @@ export default function Row(props: RowProps) {
                 }
             })
             .catch(err => {
-                    console.log('er: ', err);
-                });
+                console.log('er: ', err);
+            });
 
         } else {
             return;

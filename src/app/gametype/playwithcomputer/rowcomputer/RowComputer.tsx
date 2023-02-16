@@ -1,8 +1,6 @@
 import CellComputer from "./cellcomputer/CellComputer";
 import { Chess } from 'chess.js'
 import { useEffect, useState } from "react";
-import { RootState } from "../../../chess/redux/store";
-import { useSelector } from "react-redux";
 
 interface RowProps{
     row: Array<object>,
@@ -10,55 +8,55 @@ interface RowProps{
 }
 
 export default function RowComputer(props: RowProps) {
-    const [isPieceSelectedState, isPieceSelectedStateSet] = useState(false)
+    const [isPieceSelectedState, isPieceSelectedStateSet] = useState(false);
+    const [moveFrom, setMoveFrom] = useState('');
+
     const chess = new Chess();
     const getLetterFromIndex = (index: number): string => {
         return String.fromCharCode(65 + index).toLowerCase();
     }
 
-    const stateMoveFrom = useSelector((state: RootState) =>state.moveFrom.value);
-
     const [legalMove, setLegalMove] = useState<string[]>([]);
-    const [moveTo, setMoveTo] = useState('');//not used??
 
-    //set legal moves, moveFrom and isPieceSelected
     const getImagePositionFROM = (cell: any)=>{
-        let legalMoves = chess.moves({square: cell.square})
-        console.log('legalMoves: ', legalMoves);
+        isPieceSelectedStateSet(true)
+        console.log('cel!', cell);
+        console.log('isPieceSelectedState: ', isPieceSelectedState);
         
-        if(cell){
-        const value = cell.square;
-            if (data.legalmoves.length === 0){
-                isPieceSelectedStateSet(false)
+        setMoveFrom(cell.square)
+        console.log('empty log: ', moveFrom);
+        if (cell){
+            let legalMoves = chess.moves({square: cell.square})
+            console.log('legalMoves: ', legalMoves);
+            if (legalMoves.length === 0){
                 console.log('its not your turn :(');
             } else {
-                setLegalMove(data.legalmoves);
+                // setLegalMove(data.legalmoves);
             }
-        } else {
-            return;
         }
-    } 
+        isPieceSelectedStateSet(false)
+
+    }
 
     const getTheCellTOMove = (event: any, cell: any)=>{
         let dataa = event.currentTarget.getAttribute("data-col");
+        console.log('dataaa: ', dataa);
+        
         isPieceSelectedStateSet(false)
-            // console.log('data: ', data.checkMate);//true
-            dispatch(checkMateState(data.checkMate))
-            console.log('data.moved: ', data.moved);
-            
-            dispatch(updateTheBoardState(data.moved))
+        
+        const moved = chess.move({from: moveFrom, to: dataa})
+        console.log(moveFrom, dataa, moved);
+            // updateTheBoardState(data.moved)
 
-            setMoveTo('')
+            // setMoveTo('')
     }
 
-
+    console.log('isPieceSelectedState end: ', isPieceSelectedState);
     const handleClick = (cell: any, event: any) => { 
         if(isPieceSelectedState){
             getTheCellTOMove(event, cell);
-            // console.log('getTheCellTOMove');
         } else {
             getImagePositionFROM(cell);
-            // console.log('getImagePositionFROM');
         }
     }
 
@@ -71,6 +69,7 @@ export default function RowComputer(props: RowProps) {
             } 
         }
     }, [legalMove]);
+
     for (let l of legalMove){
         let matches = l.match(/\w[0-9]/);
         if (matches && !isPieceSelectedState){
