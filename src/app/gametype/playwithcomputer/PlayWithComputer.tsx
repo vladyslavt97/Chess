@@ -10,7 +10,7 @@ import RestartComp from './restartcomp/RestartComp';
 import GameOverComp from './gameovercomp/GameOverComp';
 
 export default function PlayWithComputer() {
-  const isGameover = useSelector((state: RootState) =>state.board.);
+  const isGameover = useSelector((state: RootState) =>state.checkMate.valueChechMate);
   const clearTheBoard = useSelector((state: RootState) =>state.checkMate.reset);
   const board = useSelector((state: RootState) =>state.board.boardValue);
   const dispatch = useDispatch();
