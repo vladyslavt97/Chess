@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { RootState } from '../../chess/redux/store';
+import { RootState } from '../chess/redux/store';
 import './Playwithcomputer.css'
 import RowComputer from './rowcomputer/RowComputer';
-import { originalBoardState } from '../../chess/redux/boardSlice';
-import { resetTheStateofReset } from '../../chess/redux/checkmateSlice';
+import { originalBoardState } from '../chess/redux/boardSlice';
+import { resetTheStateofReset } from '../chess/redux/checkmateSlice';
 import RestartComp from './restartcomp/RestartComp';
 import GameOverComp from './gameovercomp/GameOverComp';
 

@@ -1,10 +1,10 @@
 import CellComputer from "./cellcomputer/CellComputer";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../chess/redux/store";
-import { clearTheMoveFrom, isPieceSelected, moveFromState } from "../../../chess/redux/moveFromSlice";
-import { updateTheBoardState } from "../../../chess/redux/boardSlice";
-import { checkMateState } from "../../../chess/redux/checkmateSlice";
+import { RootState } from "../../chess/redux/store";
+import { clearTheMoveFrom, isPieceSelected, moveFromState } from "../../chess/redux/moveFromSlice";
+import { updateTheBoardState } from "../../chess/redux/boardSlice";
+import { checkMateState } from "../../chess/redux/checkmateSlice";
 interface RowProps{
     row: Array<object>,
     rowIndex: number,

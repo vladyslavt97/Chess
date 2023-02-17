@@ -2,7 +2,7 @@ import {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css'
-import { userIdState } from '../../chess/redux/boardSlice';
+import { userIdState } from '../../gametype/chess/redux/boardSlice';
 
 
 export default function Login() {

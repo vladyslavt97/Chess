@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import Chess from '../chess/Chess';
-import { RootState } from '../chess/redux/store';
+import Chess from './chess/Chess';
+import { RootState } from './chess/redux/store';
 import PlayWithComputer from './playwithcomputer/PlayWithComputer';
 import './Gametype.css'
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { myId, myUserInformation } from '../chess/redux/boardSlice';
+import { myId, myUserInformation } from './chess/redux/boardSlice';
 import { UserInfo } from "../../interface"
 
 export default function Gametype() {

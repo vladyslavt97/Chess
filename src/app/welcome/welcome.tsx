@@ -3,12 +3,12 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Registration from './registration/Registration';
 import Login from './login/Login';
 import { useEffect, useState } from 'react';
-import { RootState, store } from "../chess/redux/store";
-import { initSocket } from "../chess/socket/socket";
+import { RootState, store } from "../gametype/chess/redux/store";
+import { initSocket } from "../gametype/chess/socket/socket";
 import { useDispatch, useSelector } from 'react-redux';
-import { userIdState } from '../chess/redux/boardSlice';
+import { userIdState } from '../gametype/chess/redux/boardSlice';
 import Gametype from '../gametype/Gametype';
-import Chess from '../chess/Chess';
+import Chess from '../gametype/chess/Chess';
 import PlayWithComputer from '../gametype/playwithcomputer/PlayWithComputer';
 
 
@@ -25,6 +25,8 @@ export default function Welcome() {
         .then(res => res.json())
         .then(data => {
             if(data.userId){
+                console.log('hello');
+                
                 dispatch(userIdState(true))
                 initSocket(store);
                 setFetchRan(true);
@@ -34,7 +36,7 @@ export default function Welcome() {
     return <div id="welcome">
             {!userIdValue && <h1 id='chess-with-friends-text'>Chess with friends</h1>}
 
-        {fetchRan && 
+        {/* {fetchRan &&  */}
             <div id='login-and-register-divs'>
                     <Routes>
                         {!userIdValue && <Route path="/" element={<Registration />}></Route>}
@@ -46,7 +48,8 @@ export default function Welcome() {
                         {!userIdValue && <Route path="*" element={<Navigate to="/"/>}/>}
                         {userIdValue && <Route path="*" element={<Navigate to="/gametype"/>}></Route>}
                     </Routes>
-            </div>}   
+            </div>
+            {/* }    */}
     </div>
 }
 

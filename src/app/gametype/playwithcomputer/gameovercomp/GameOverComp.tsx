@@ -1,6 +1,6 @@
  
 import { useDispatch } from 'react-redux';
-import { clearTheBoard } from '../../../chess/redux/checkmateSlice';
+import { clearTheBoard } from '../../chess/redux/checkmateSlice';
 import { useState } from 'react';
 
 export default function GameOverComp() {

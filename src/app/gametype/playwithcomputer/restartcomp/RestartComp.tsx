@@ -1,7 +1,7 @@
-import { clearTheBoard } from '../../../chess/redux/checkmateSlice';
+import { clearTheBoard } from '../../chess/redux/checkmateSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react'
-import { RootState } from '../../../chess/redux/store';
+import { RootState } from '../../chess/redux/store';
 
 export default function RestartComp() {
     const [visibleBackdrop, setVisibleBackdrop] = useState<boolean>(false)

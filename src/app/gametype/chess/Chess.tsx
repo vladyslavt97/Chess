@@ -10,7 +10,7 @@ import Restart from './restart/Restart';
 import WhoseTurn from './whoseturn/WhoseTurn';
 import { Signout } from './components/signout';
 import InfoPage from './infopage/InfoPage';
-import { UserInfo } from '../../interface';
+import { UserInfo } from '../../../interface';
 
 export default function App() {
   const clickedUserId = useSelector((state: RootState) => state.board.id);
